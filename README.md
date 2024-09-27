@@ -3,6 +3,8 @@ Genotyping lots of samples with big pangenomes
 
 ## Installation on UTHSC cluster
 
+### cosigt
+
 Install `go`:
 
 ```shell
@@ -29,6 +31,14 @@ conda create --prefix /lizardfs/guarracino/condatools/cosigt -c conda-forge -c b
 ```
 
 It assumes that all `pggb` and its tools (`wfmash`, `seqwish`, `smoothxg`, `odgi`, `gfaffix`), `samtools`, `bedtools` are in `$PATH` are installed and included in system's `$PATH` environment variable so they can be executed from any directory.
+
+### MONI
+
+I've added `moni` on `bioconda`, so we can just:
+
+```shell
+conda create --prefix /lizardfs/guarracino/condatools/moni/0.2.2 -c conda-forge -c bioconda moni=0.2.2 -y
+```
 
 ## Small test
 
