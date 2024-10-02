@@ -107,4 +107,31 @@ snakemake cosigt --cores 16
 conda deactivate
 ```
 
+## Data
 
+```shell
+cd $DIR_BASE/sequencing_data
+```
+
+1000 Genomes Project sample collection to 30x coverage (from https://www.internationalgenome.org/data-portal/data-collection/30x-grch38). Initially, the 2504 unrelated samples from the phase three panel from the 1000 Genomes Project were sequenced. Thereafter, an additional 698 samples, related to samples in the 2504 panel, were also sequenced.
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/1000G/2504_high_coverage
+cd $DIR_BASE/sequencing_data/1000G/2504_high_coverage
+wget -c https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/1000G_2504_high_coverage.sequence.index
+awk '!/^#/ {print $1}' 1000G_2504_high_coverage.sequence.index | xargs -n 1 wget
+
+mkdir -p $DIR_BASE/sequencing_data/1000G/additional_698_related
+cd $DIR_BASE/sequencing_data/1000G/additional_698_related
+wget -c http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/1000G_698_related_high_coverage.sequence.index
+awk '!/^#/ {print $1}' 1000G_698_related_high_coverage.sequence.index | xargs -n 1 wget
+```
+
+Simons Genome Diversity Project (from https://www.ebi.ac.uk/ena/browser/view/PRJEB9586):
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/SGDP/
+cd $DIR_BASE/sequencing_data/SGDP/
+wget -c https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/HGDP/hgdp_wgs.sequence.index
+awk -F'\t' 'NR>1 {split($7, a, ";"); for (i in a) print "ftp://"a[i]}' $DIR_BASE/data/filereport_read_run_PRJEB9586_tsv.txt | xargs -n 1 wget
+```
