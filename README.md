@@ -114,17 +114,31 @@ conda deactivate
 15 genomes from Marchi et al., 2022 (https://doi.org/10.1016/j.cell.2022.04.008).
 
 ```shell
-mkdir -p $DIR_BASE/sequencing_data/ancient/Marchi2022
-cd $DIR_BASE/sequencing_data/ancient/Marchi2022
+mkdir -p $DIR_BASE/sequencing_data/ancient
 
 # Download the submitted FASTQ files, discarding the XXX_realg.noclips_splitRG.bam files
-grep -Ff <(sed '1d' $DIR_BASE/data/Marchi2022.TableS1.csv | cut -f 9 | sed 's/SL_MU_/SLMU/g') $DIR_BASE/data/filereport_read_run_PRJEB50857_tsv.txt | cut -f 8 | xargs -n 1 wget
+mkdir -p /scratch/Marchi2022
+cd /scratch/Marchi2022
+grep -Ff <(sed '1d' $DIR_BASE/data/Marchi2022.TableS1.csv | cut -f 9 | sed 's/SL_MU_/SLMU/g') $DIR_BASE/data/filereport_read_run_PRJEB50857_tsv.txt | awk -F'\t' 'NR>1 {split($8, a, ";"); for (i in a) print "ftp://"a[i]}' | xargs -n 1 wget
+
+# Marchi2022.TableS1.csv has the info to map `SAMPLE <-> FILE`:
+
+cd /scratch
+mv /scratch/Marchi2022 $DIR_BASE/sequencing_data/ancient
 ```
 
-The `Marchi2022.TableS1.csv` has the info to map `SAMPLE <-> FILE`:
+315 (317 - 2 samples with missing FASTQ files) from Allentoft et al., 2024 (https://doi.org/10.1038/s41586-023-06865-0):
 
 ```shell
+# Counts of ancient samples they collected from other studies
+sed '1d' Allentoft2024.SupplementaryData7.csv | cut -f 8 | sort | uniq -c | sort -k 1,1n
 
+mkdir -p /scratch/Allentoft2024
+cd /scratch/Allentoft2024
+
+sed '1d' filereport_read_run_PRJEB64656_tsv.txt | cut -f 7 | grep ftp | xargs -n 1 wget
+cd /scratch
+mv /scratch/Allentoft2024 $DIR_BASE/sequencing_data/ancient
 ```
 
 ### Modern
