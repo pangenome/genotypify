@@ -1,6 +1,12 @@
 # Genotypify
 Genotyping lots of samples with big pangenomes
 
+## Variables
+
+```shell
+DIR_BASE=/lizardfs/guarracino/genotypify
+```
+
 ## Installation on UTHSC cluster
 
 ### cosigt
@@ -41,12 +47,6 @@ conda create --prefix /lizardfs/guarracino/condatools/moni/0.2.2 -c conda-forge 
 ```
 
 ## Small test
-
-Variables:
-
-```shell
-DIR_BASE=/lizardfs/guarracino/genotypify
-```
 
 Preparation:
 
@@ -111,7 +111,7 @@ conda deactivate
 
 ### Ancient
 
-15 genomes from Marchi et al., 2022 (https://doi.org/10.1016/j.cell.2022.04.008).
+15 samples from Marchi et al., 2022 (https://doi.org/10.1016/j.cell.2022.04.008).
 
 ```shell
 mkdir -p $DIR_BASE/sequencing_data/ancient
@@ -121,24 +121,81 @@ mkdir -p /scratch/Marchi2022
 cd /scratch/Marchi2022
 grep -Ff <(sed '1d' $DIR_BASE/data/Marchi2022.TableS1.csv | cut -f 9 | sed 's/SL_MU_/SLMU/g') $DIR_BASE/data/filereport_read_run_PRJEB50857_tsv.txt | awk -F'\t' 'NR>1 {split($8, a, ";"); for (i in a) print "ftp://"a[i]}' | xargs -n 1 wget
 
-# Marchi2022.TableS1.csv has the info to map `SAMPLE <-> FILE`:
-
 cd /scratch
 mv /scratch/Marchi2022 $DIR_BASE/sequencing_data/ancient
+
+# Marchi2022.TableS1.csv to map `SAMPLE <-> FILE`
 ```
 
-315 (317 - 2 samples with missing FASTQ files) from Allentoft et al., 2024 (https://doi.org/10.1038/s41586-023-06865-0):
+315 (317 - 2 samples with missing FASTQ files) samples from Allentoft et al., 2024 (https://doi.org/10.1038/s41586-023-06865-0):
 
 ```shell
 # Counts of ancient samples they collected from other studies
 sed '1d' Allentoft2024.SupplementaryData7.csv | cut -f 8 | sort | uniq -c | sort -k 1,1n
 
-mkdir -p /scratch/Allentoft2024
-cd /scratch/Allentoft2024
-
-sed '1d' filereport_read_run_PRJEB64656_tsv.txt | cut -f 7 | grep ftp | xargs -n 1 wget
+mkdir -p $DIR_BASE/sequencing_data/ancient/Allentoft2024
 cd /scratch
-mv /scratch/Allentoft2024 $DIR_BASE/sequencing_data/ancient
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB64656_tsv.txt | cut -f 7 | grep ftp | awk -F'\t' 'NR>1 {split($1, a, ";"); for (i in a) print "ftp://"a[i]}' | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Allentoft2024'
+
+# To map `SAMPLE <-> FILE`
+(sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB64656_tsv.txt | cut -f 7,8 | grep 'NEO898\|NEO813\|ERR12075080' -v | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' -e 's/.sort.rmdup.realign.md.bam;//g' -e 's/.neo.merge.bam;//g' -e 's/.neo.clean.bam;//g' | sed 's/ //g'; echo "ERR12075080\tNEO962")
+
+```
+
+442 samples from Margaryan et al., 2020 (https://doi.org/10.1038/s41586-020-2688-8; https://www.ebi.ac.uk/ena/browser/view/PRJEB37976):
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/ancient/Margaryan2020
+cd /scratch/
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB37976_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Margaryan2020'
+
+# To map `SAMPLE <-> FILE`
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB37976_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' -e 's/.final.bam//g' | sed 's/ //g'
+```
+
+134 samples from Antonio et al., 2019 (https://www.ebi.ac.uk/ena/browser/view/PRJEB32566; https://www.ebi.ac.uk/ena/browser/view/PRJEB32566):
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/ancient/Antonio2019
+sed '1d' filereport_read_run_PRJEB32566_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c "wget {}; mv $(basename {}) $DIR_BASE/sequencing_data/ancient/Antonio2019"
+
+# To map `SAMPLE <-> FILE`
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB32566_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' -e 's/.bam;//g' -e 's/.bam//g' | sed 's/ //g'
+```
+
+137 samples from Damgaard et al., 2018, Nature (https://doi.org/10.1038/s41586-018-0094-2; https://www.ebi.ac.uk/ena/browser/view/PRJEB20658):
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/ancient/Damgaard2018_Nature
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB20658_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c "wget {}; mv $(basename {}) $DIR_BASE/sequencing_data/ancient/Damgaard2018_Nature"
+
+# To map `SAMPLE <-> FILE`
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB20658_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' -e 's/.sort.rmdup.realign.md.bam;//g' | sed 's/ //g'
+```
+
+70 samples from Damgaard et al., 2018, Science (https://doi.org/10.1126/science.aar7711; https://www.ebi.ac.uk/ena/browser/view/PRJEB25389 and https://www.ebi.ac.uk/ena/browser/view/PRJEB26349):
+
+```shell
+# 70 samples, but the paper mentions 74 samples
+mkdir -p $DIR_BASE/sequencing_data/ancient/Damgaard2018_Science
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB26349_tsv.txt | grep -Ff <(sed '1d' data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1) 
+
+# The 4 missed samples are in the Damgaard et al., 2018, Nature paper
+sed '1d' $DIR_BASE/data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1 | sort | grep -Ff <(sed '1d' data/filereport_read_run_PRJEB26349_tsv.txt | grep -Ff <(sed '1d' data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1) | cut -f 8 | cut -f 6 -d '/' | cut -f 1 -d '.' | cut -f 1 -d '_' ) -v
+# DA343
+# DA353
+# DA356
+# DA361
+```
+
+102 samples from Allentoft et al., 2015 (https://doi.org/10.1038/nature14507; https://www.ebi.ac.uk/ena/browser/view/PRJEB9021).
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/ancient/Allentoft2015
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB9021_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Allentoft2015'
+
+# To map `SAMPLE <-> FILE`
+ed '1d' $DIR_BASE/data/filereport_read_run_PRJEB9021_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($6,$11)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' | sed -e 's/.hg19.flt.sort.rmdup.realign.md.bam//g' | sed 's/ //g'
 ```
 
 ### Modern
