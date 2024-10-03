@@ -109,20 +109,36 @@ conda deactivate
 
 ## Data
 
+### Ancient
+
+15 genomes from Marchi et al., 2022 (https://doi.org/10.1016/j.cell.2022.04.008).
+
 ```shell
-cd $DIR_BASE/sequencing_data
+mkdir -p $DIR_BASE/sequencing_data/ancient/Marchi2022
+cd $DIR_BASE/sequencing_data/ancient/Marchi2022
+
+# Download the submitted FASTQ files, discarding the XXX_realg.noclips_splitRG.bam files
+grep -Ff <(sed '1d' $DIR_BASE/data/Marchi2022.TableS1.csv | cut -f 9 | sed 's/SL_MU_/SLMU/g') $DIR_BASE/data/filereport_read_run_PRJEB50857_tsv.txt | cut -f 8 | xargs -n 1 wget
 ```
+
+The `Marchi2022.TableS1.csv` has the info to map `SAMPLE <-> FILE`:
+
+```shell
+
+```
+
+### Modern
 
 1000 Genomes Project sample collection to 30x coverage (from https://www.internationalgenome.org/data-portal/data-collection/30x-grch38). Initially, the 2504 unrelated samples from the phase three panel from the 1000 Genomes Project were sequenced. Thereafter, an additional 698 samples, related to samples in the 2504 panel, were also sequenced.
 
 ```shell
-mkdir -p $DIR_BASE/sequencing_data/1000G/2504_high_coverage
-cd $DIR_BASE/sequencing_data/1000G/2504_high_coverage
+mkdir -p $DIR_BASE/sequencing_data/modern/1000G/2504_high_coverage
+cd $DIR_BASE/sequencing_data/modern/1000G/2504_high_coverage
 wget -c https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/1000G_2504_high_coverage.sequence.index
 awk '!/^#/ {print $1}' 1000G_2504_high_coverage.sequence.index | xargs -n 1 wget
 
-mkdir -p $DIR_BASE/sequencing_data/1000G/additional_698_related
-cd $DIR_BASE/sequencing_data/1000G/additional_698_related
+mkdir -p $DIR_BASE/sequencing_data/modern/1000G/additional_698_related
+cd $DIR_BASE/sequencing_data/modern/1000G/additional_698_related
 wget -c http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/1000G_698_related_high_coverage.sequence.index
 awk '!/^#/ {print $1}' 1000G_698_related_high_coverage.sequence.index | xargs -n 1 wget
 ```
@@ -130,8 +146,8 @@ awk '!/^#/ {print $1}' 1000G_698_related_high_coverage.sequence.index | xargs -n
 Simons Genome Diversity Project (from https://www.ebi.ac.uk/ena/browser/view/PRJEB9586):
 
 ```shell
-mkdir -p $DIR_BASE/sequencing_data/SGDP/
-cd $DIR_BASE/sequencing_data/SGDP/
+mkdir -p $DIR_BASE/sequencing_data/modern/SGDP/
+cd $DIR_BASE/sequencing_data/modern/SGDP/
 wget -c https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/HGDP/hgdp_wgs.sequence.index
 awk -F'\t' 'NR>1 {split($7, a, ";"); for (i in a) print "ftp://"a[i]}' $DIR_BASE/data/filereport_read_run_PRJEB9586_tsv.txt | xargs -n 1 wget
 ```
