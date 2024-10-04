@@ -156,7 +156,8 @@ sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB37976_tsv.txt | cut -f 7,8 | aw
 
 ```shell
 mkdir -p $DIR_BASE/sequencing_data/ancient/Antonio2019
-sed '1d' filereport_read_run_PRJEB32566_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c "wget {}; mv $(basename {}) $DIR_BASE/sequencing_data/ancient/Antonio2019"
+cd /scratch/
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB32566_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Antonio2019'
 
 # To map `SAMPLE <-> FILE`
 sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB32566_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' -e 's/.bam;//g' -e 's/.bam//g' | sed 's/ //g'
@@ -166,7 +167,8 @@ sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB32566_tsv.txt | cut -f 7,8 | aw
 
 ```shell
 mkdir -p $DIR_BASE/sequencing_data/ancient/Damgaard2018_Nature
-sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB20658_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c "wget {}; mv $(basename {}) $DIR_BASE/sequencing_data/ancient/Damgaard2018_Nature"
+cd /scratch
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB20658_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Damgaard2018_Nature'
 
 # To map `SAMPLE <-> FILE`
 sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB20658_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' -e 's/.sort.rmdup.realign.md.bam;//g' | sed 's/ //g'
@@ -177,7 +179,8 @@ sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB20658_tsv.txt | cut -f 7,8 | aw
 ```shell
 # 70 samples, but the paper mentions 74 samples
 mkdir -p $DIR_BASE/sequencing_data/ancient/Damgaard2018_Science
-sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB26349_tsv.txt | grep -Ff <(sed '1d' data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1) 
+cd /scratch
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB26349_tsv.txt | grep -Ff <(sed '1d' $DIR_BASE/data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1) | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Damgaard2018_Nature'
 
 # The 4 missed samples are in the Damgaard et al., 2018, Nature paper
 sed '1d' $DIR_BASE/data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1 | sort | grep -Ff <(sed '1d' data/filereport_read_run_PRJEB26349_tsv.txt | grep -Ff <(sed '1d' data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1) | cut -f 8 | cut -f 6 -d '/' | cut -f 1 -d '.' | cut -f 1 -d '_' ) -v
@@ -206,6 +209,56 @@ sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB38152_tsv.txt | grep bam | cut 
 
 # To map `SAMPLE <-> FILE`
 sed '1d' filereport_read_run_PRJEB38152_tsv.txt | cut -f 7,8 | grep bam | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' | sed -e 's/.mappedHs37d5.trim2.bam//g' -e 's/.mappedHs37d5.trim2.bam//g' -e 's/.mappedHs37.trim2.bam//g' | sed 's/ //g'
+```
+
+91??? samples frm Scheib et al., 2018 (https://doi.org/10.1126/science.aar6851; https://www.ebi.ac.uk/ena/browser/view/PRJEB25445)
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/ancient/Scheib2018
+cd /scratch
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB25445_tsv.txt | cut -f 7 | grep ftp | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Scheib2018'
+
+# Check Scheib2018.SupplementaryTable1.tsv and Scheib2018.SupplementaryTable3.tsv (number of reads) to process downloaded samples
+```
+
+34 samples from Sikora et al.m 2019 (https://doi.org/10.1038/s41586-019-1279-z; https://www.ebi.ac.uk/ena/browser/view/PRJEB29700 and https://www.ebi.ac.uk/ena/browser/view/PRJEB26336):
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/ancient/Sikora2019
+cd /scratch
+sed '1d' filereport_read_run_PRJEB29700_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Sikora2019'
+
+# To map `SAMPLE <-> FILE`
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB29700_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' -e 's/.sort.rmdup.realign.md.bam;//g' -e 's/.realigned.calmd.readsadded.bam;//g' -e 's/.sort.rmdup.uniq.rg.realn.md.bam;//g' | sed 's/ //g'
+```
+
+35 samples from Krzewinska et al., 2018 (https://doi.org/10.1126/sciadv.aat4457; https://www.ebi.ac.uk/ena/browser/view/PRJEB27628):
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/ancient/Krzewinska2018
+cd /scratch
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB27628_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Krzewinska2018'
+
+# To map `SAMPLE <-> FILE`
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB27628_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' | cut -f 1 -d '_' | sed 's/ //g'
+```
+
+25 samples from McColl et al., 2018 (https://doi.org/10.1126/science.aat3628; https://www.ebi.ac.uk/ena/browser/view/PRJEB26721)
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/ancient/McColl2018
+cd /scratch
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB26721_tsv.txt | cut -f 7 | awk -F'\t' 'NR>1 {split($1, a, ";"); for (i in a) print "ftp://"a[i]}' | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/McColl2018'
+```
+
+Ebenesersdottir et al.m 2018, Science (https://doi.org/10.1126/science.aar2625): I NEED ACCESS TO THE PUBLICATION
+
+15/24?? samples from Schroeder et al., 2019 (https://doi.org/10.1073/pnas.1820210116; https://www.ebi.ac.uk/ena/browser/view/PRJEB28451):
+
+```shell
+mkdir -p $DIR_BASE/sequencing_data/ancient/Schroeder2019
+cd /scratch
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB28451_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Schroeder2019'
 ```
 
 ### Modern

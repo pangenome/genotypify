@@ -1,0 +1,172 @@
+Sample ID,Source,Other ID,Extraction Material,Library Prep,Platform,Read Length,Raw Reads,Aligned to Human,Duplicates,Human (%),Duplicate (%),Coverage (x)
+523a,RM,"Palm Site, Alaska",Femur,"Double-stranded, Y adapters",HiSeq4000,100,242347756,60285414,23867484,15.03%,39.59%,0.975
+Ala1,RM,Síi Túupentak (ALA-565/H),Tooth,"Double-stranded, Y adapters",HiSeq4000,100,190355260,26745349,5405974,11.21%,20.21%,0.572
+B-03,SDMM,1972-64-1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,41517952,21741827,567571,51.00%,2.61%,0.567
+B-04,SDMM,16697,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,30254442,5450771,75639,17.77%,1.39%,0.144
+CH-01,JRJ,Burial #1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,26666327,416452,5981,1.54%,1.44%,0.011
+CK-01,UT,G849,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,72692589,272602,7081,0.37%,2.60%,0.007
+CK-02,UT,GS1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,39146634,275068,14660,0.67%,5.33%,0.007
+CK-03,UT,3,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,35809372,1397447,1961,3.90%,0.14%,0.037
+CK-03,UT,3,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,32616181,369618,132324,0.73%,35.80%,0.006
+CK-04,UT,GS4A,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,61885243,117142,1831,0.19%,1.56%,0.003
+CK-07,UT,GB25,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,53638624,40600,2362,0.07%,5.82%,0.001
+CK-07,UT,GB25,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,46760400,39985,12195,0.06%,30.50%,0.001
+CK-08,UT,GG123,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,54278155,169614,10795,0.29%,6.36%,0.004
+CK-09,UT,1001,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,63856515,6453575,133394,9.90%,2.07%,0.169
+CK-10,UT,GS7,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,58250891,1353154,25427,2.28%,1.88%,0.036
+CK-13,UT,RS14,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,57693238,13915264,370485,23.48%,2.66%,0.363
+CK-13,UT,RS14,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,663425573,114113254,14619338,15.00%,12.81%,2.665
+CR-01,SDMM,16713,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,31501623,17370146,331716,54.09%,1.91%,0.456
+CR-01,SDMM,16713,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,56793763,30558776,745729,52.49%,2.44%,0.799
+CR-01,SDMM,16713,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,568686068,353499535,41213115,54.91%,11.66%,8.365
+CT-01,SDMM,1973-36-1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,39013533,13558987,214563,34.20%,1.58%,0.357
+CT-01,SDMM,1973-36-1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,71498239,23635205,445498,32.43%,1.88%,0.621
+CT-01,SDMM,1973-36-1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,669376570,267548941,16488276,37.51%,6.16%,6.725
+CT-02,SDMM,1986-22-0007-E,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,53236362,2064511,31499,3.82%,1.53%,0.054
+LU-01,UT,GB-33,Petrous,Double-stranded,"NextSeq 500, Single-end",75,52042292,1020072,38088,1.89%,3.73%,0.026
+LU-02,UT,GG-33,Petrous,Double-stranded,"NextSeq 500, Single-end",75,60323386,1143967,14919,1.87%,1.30%,0.03
+LU-03,UT,GS12,Petrous,Double-stranded,"NextSeq 500, Single-end",75,67860917,963931,21771,1.39%,2.26%,0.025
+LU-04,UT,GX8,Petrous,Double-stranded,"NextSeq 500, Single-end",75,24894326,746830,126814,2.49%,16.98%,0.017
+LU-05,UT,GX9,Petrous,Double-stranded,"NextSeq 500, Single-end",75,37543602,790704,62174,1.94%,7.86%,0.02
+LU-06,UT,GG-121,Petrous,Double-stranded,"NextSeq 500, Single-end",75,66419246,5045680,116175,7.42%,2.30%,0.132
+MX-01,SDMM,2996,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,45306401,10667695,227816,23.04%,2.14%,0.28
+NC,RM,"New Cuyama, CA",Tooth,"Double-stranded, Y adapters",HiSeq4000,100,314071322,48307271,6491299,13.31%,13.44%,1.12
+PS-02,SDMM,17749,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,38840546,1681192,27642,4.26%,1.64%,0.044
+PS-02,SDMM,17749,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,115329601,5111880,137235,4.31%,2.68%,0.133
+PS-03,SDMM,17750,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,28000418,2398660,33327,8.45%,1.39%,0.063
+PS-03,SDMM,17750,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,83880678,7274721,139739,8.51%,1.92%,0.191
+PS-04,SDMM,17751,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,35510565,528757,8424,1.47%,1.59%,0.014
+PS-06,SDMM,17753,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,53813091,13407975,240813,24.47%,1.80%,0.353
+PS-06,SDMM,17753,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,72844481,17660104,331834,23.79%,1.88%,0.464
+PS-06,SDMM,17753,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,542079050,163027543,9051068,28.40%,5.55%,4.124
+PS-07,SDMM,17806,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,92687750,17825971,328254,18.88%,1.84%,0.469
+PS-07,SDMM,17806,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,25702346,4767807,70748,18.27%,1.48%,0.126
+PS-09,SDMM,17808,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,33492098,882646,10695,2.60%,1.21%,0.023
+PS-09P,SDMM,17808,Petrous,Double-stranded,"NextSeq 500, Single-end",75,96198887,5101539,167183,5.13%,3.28%,0.132
+PS-09P,SDMM,17808,Petrous,Double-stranded,"NextSeq 500, Single-end",75,50509835,2569152,65718,4.96%,2.56%,0.067
+PS-11,SDMM,17810,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,32415293,139301,1578,0.42%,1.13%,0.004
+PS-12,SDMM,17812,Petrous,Double-stranded,"NextSeq 500, Single-end",75,19855758,230355,4333,1.14%,1.88%,0.006
+PS-13,SDMM,17857,Petrous,Double-stranded,"NextSeq 500, Single-end",75,56681920,564576,16721,0.97%,2.96%,0.015
+PS-17,SDMM,17862,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,45151100,1093413,15117,2.39%,1.38%,0.029
+PS-17,SDMM,17862,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,136372382,3302494,65198,2.37%,1.97%,0.087
+PS-18,SDMM,17863,Petrous,Double-stranded,"NextSeq 500, Single-end",75,34848997,1648982,47054,4.60%,2.85%,0.043
+PS-18,SDMM,17863,Petrous,Double-stranded,"NextSeq 500, Single-end",75,136160626,6550476,437985,4.49%,6.69%,0.164
+PS-19,SDMM,17864,Petrous,Double-stranded,"NextSeq 500, Single-end",75,15471604,26549,1275,0.16%,4.80%,0.001
+PS-22,SDMM,17867,Petrous,Double-stranded,"NextSeq 500, Single-end",75,15957213,144196,24333,0.75%,16.87%,0.003
+PS-23,SDMM,17868,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,29675192,854684,11222,2.84%,1.31%,0.023
+PS-23,SDMM,17868,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,91531308,2533390,41555,2.72%,1.64%,0.067
+PS-24,SDMM,17869,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,42830556,101420,1424,0.23%,1.40%,0.003
+PS-26,SDMM,17872,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,58802368,1107131,16065,1.86%,1.45%,0.029
+PS-26,SDMM,17872,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,238802730,4132972,84430,1.70%,2.04%,0.108
+PS-30,SDMM,18131,Petrous,Double-stranded,"NextSeq 500, Single-end",75,16776656,159729,42025,0.70%,26.31%,0.003
+PS-34,SDMM,18276,Petrous,Double-stranded,"NextSeq 500, Single-end",75,31758138,5787241,337535,17.16%,5.83%,0.146
+RM-83,RM,05SP-46 (Teston Road Ossuary),Tooth,"Double-stranded, Y adapters",HiSeq4000,100,94190257,32916551,7718525,26.75%,23.45%,0.675
+RM-85,RM,11SP-83 (Turnbull Ossuary),Tooth,"Double-stranded, Y adapters",HiSeq4000,100,62691474,4415030,2799062,2.58%,63.40%,0.043
+SC-01,SDMM,2084,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,32243813,20818409,468901,63.11%,2.25%,0.545
+SC-02,SDMM,2085,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,59537125,364219,4683,0.60%,1.29%,0.01
+SC-03,SDMM,2086,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,46796857,7308617,109451,15.38%,1.50%,0.193
+SC-03P,SDMM,2086,Petrous,Double-stranded,"NextSeq 500, Single-end",75,58940542,28830978,981701,47.25%,3.41%,0.746
+SC-04,SDMM,2087,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,58697063,28264774,1786588,45.11%,6.32%,0.709
+SC-05,SDMM,1971-78-1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,47205937,33520956,773612,69.37%,2.31%,0.877
+SC-05,SDMM,1971-78-1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,96406878,66679500,1790086,67.31%,2.68%,1.738
+SC-05,SDMM,1971-78-1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,618139492,431237976,37091777,63.76%,8.60%,10.557
+SC-06,SDMM,1972-60-1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,45037875,16461637,331227,35.82%,2.01%,0.432
+SC-07,SDMM,1975-14-1,Petrous,Double-stranded,"NextSeq 500, Single-end",75,28649375,16975127,1381997,54.43%,8.14%,0.418
+SM-01,MDLH,PE7066,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,57146532,9073269,287448,15.37%,3.17%,0.235
+SM-02,MDLH,PE7076,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,45728487,33940820,1817040,70.25%,5.35%,0.86
+SM-02,MDLH,PE7076,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,42153671,30884407,1513182,69.68%,4.90%,0.787
+SM-02,MDLH,PE7076,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,447181909,388448607,112675051,61.67%,29.01%,7.387
+SN-01,SDMM,16715,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,29314051,10308390,149492,34.66%,1.45%,0.272
+SN-02,SDMM,16716,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,20752141,52531,2085,0.24%,3.97%,0.001
+SN-03,SDMM,16719,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,46723096,28939051,593695,60.67%,2.05%,0.759
+SN-04,SDMM,16732,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,26358945,4724788,67147,17.67%,1.42%,0.125
+SN-09,SDMM,16739,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,35607838,3580318,50954,9.91%,1.42%,0.095
+SN-10,SDMM,16741,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,36012354,26568893,492913,72.41%,1.86%,0.698
+SN-11,SDMM,16743,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,34932575,22983689,536692,64.26%,2.34%,0.601
+SN-11,SDMM,16743,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,55552919,35745488,991054,62.56%,2.77%,0.931
+SN-11,SDMM,16743,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,530091003,396947183,58779450,63.79%,14.81%,9.058
+SN-12,SDMM,17643,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,33346544,3268661,88771,9.54%,2.72%,0.085
+SN-13,SDMM,17644,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,38456788,25381153,422998,64.90%,1.67%,0.669
+SN-13,SDMM,17644,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,62770721,41002490,829321,64.00%,2.02%,1.076
+SN-15,SDMM,17658,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,32206208,21160699,617077,63.79%,2.92%,0.55
+SN-16,SDMM,17661,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,32951244,10896102,178559,32.53%,1.64%,0.287
+SN-17,SDMM,17662,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,42191136,20412648,469974,47.27%,2.30%,0.534
+SN-17,SDMM,17662,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,60375298,28216142,769073,45.46%,2.73%,0.735
+SN-17,SDMM,17662,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,590397540,324278964,46113989,47.11%,14.22%,7.451
+SN-20,SDMM,17665,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,15619057,4850683,249325,29.46%,5.14%,0.123
+SN-25,SDMM,17684,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,42213450,6391849,101894,14.90%,1.59%,0.168
+SN-31,SDMM,17702,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,32204655,959052,55654,2.81%,5.80%,0.024
+SN-32,SDMM,17703,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,42532513,3779919,106831,8.64%,2.83%,0.098
+SN-37,SDMM,17720,Petrous,Double-stranded,"NextSeq 500, Single-end",75,45454861,6933243,578639,13.98%,8.35%,0.17
+SN-38,SDMM,17723,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,32013934,7296861,142924,22.35%,1.96%,0.192
+SN-39,SDMM,17728,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,29893062,4582602,61737,15.12%,1.35%,0.121
+SN-40,SDMM,17732,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,52282121,17800057,616545,32.87%,3.46%,0.46
+SN-41,SDMM,17732,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,26283026,978425,112059,3.30%,11.45%,0.023
+SN-43,SDMM,17736,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,31899813,2991781,66675,9.17%,2.23%,0.078
+SN-44,SDMM,17737,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,40863296,24847857,555713,59.45%,2.24%,0.651
+SN-44,SDMM,17737,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,56087926,32371621,784112,56.32%,2.42%,0.846
+SN-44,SDMM,17737,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,586128260,395796899,46329876,59.62%,11.71%,9.361
+SN-45,SDMM,17739,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,40711691,512370,15887,1.22%,3.10%,0.013
+SN-48,SDMM,1963-36-1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,35063469,16136964,341811,45.05%,2.12%,0.423
+SN-50,MDLH,PE7105,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,59043953,38807734,1858896,62.58%,4.79%,0.99
+SN-51,MDLH,PE7106,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,28500437,16594686,1672167,52.36%,10.08%,0.4
+SN-52,MDLH,PE10252,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,59028953,17027795,641124,27.76%,3.77%,0.439
+SN-53,MDLH,PE10250,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,56559354,23787787,875512,40.51%,3.68%,0.614
+SN-54,SK,28F-140 ID 113,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,41517952,16778404,610530,38.94%,3.64%,0.433
+SN-55,SK,257-69 Burial \#1,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,30254442,1055394,26868,3.40%,2.55%,0.028
+SN-56,SK,257-76 Burial \#8,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,26666327,1687232,44382,6.16%,2.63%,0.044
+SN-57,SK,257-80 Burial \#12,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,30370834,1619262,31540,5.23%,1.95%,0.043
+SN-58,SK,Burial \#16,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,38990934,6538235,375217,15.81%,5.74%,0.165
+SN-59,SK,28F - 137,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,33857717,6469372,493249,17.65%,7.62%,0.16
+SN-60,SK,28F-70 Burial \#2,Rib,Double-stranded,"NextSeq 500, Single-end",75,32806084,309384,6045,0.92%,1.95%,0.008
+SN-60,SK,28F-70 Burial \#2,Rib,Double-stranded,"NextSeq 500, Single-end",75,72730197,661767,14880,0.89%,2.25%,0.017
+US-14,AMNH,99.1/2270,Tooth root,Double-stranded,"NextSeq 500, Single-end",75,42942862,17250853,536311,38.92%,3.11%,0.448
+JJ004,JL,Modern,Modern,"Double-stranded, Y adapters",HiSeq2000,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ064,JL,Modern,Modern,"Double-stranded, Y adapters",HiSeq2000,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ155,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,68800,1668,187,2.42%,11.21%,26.82
+JJ160*,JRJ,Modern,Modern,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ189,JRJ,Modern,Modern,"Double-stranded, Y adapters",HiSeq2000,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ202,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,35401,4650,389,13.14%,8.37%,77.15
+JJ220,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,42768464,11491,2753,0.03%,23.96%,39.55
+JJ221,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,45432476,13822,5202,0.03%,37.64%,39.02
+JJ224,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,9310723,1851,127,0.02%,6.86%,7.8
+JJ229,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,87465,15307,4804,17.50%,31.38%,190.17
+JJ239,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,10781356,6532,888,0.06%,13.59%,25.55
+JJ249,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,83001,35030,16852,42.20%,48.11%,329.13
+JJ253,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,80690,45476,26020,56.36%,57.22%,352.27
+JJ263,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,10206858,3089,396,0.03%,12.82%,12.19
+JJ272,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,33639406,6395,1083,0.02%,16.94%,24.04
+JJ273,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,33881261,13006,3304,0.04%,25.40%,43.92
+JJ274,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,43861017,6152,977,0.01%,15.88%,23.42
+JJ275,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,56980785,33536,17383,0.06%,51.83%,73.12
+JJ276,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,61511,33152,18143,53.90%,54.73%,271.75
+JJ277,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,79346,2608,191,3.29%,7.32%,43.76
+JJ279,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,9067093,1760,81,0.02%,4.60%,7.6
+JJ286,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,29984980,11882,3600,0.04%,30.30%,37.49
+JJ298,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,85099,15382,5138,18.08%,33.40%,185.48
+JJ299,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,69919,35135,18316,50.25%,52.13%,304.53
+JJ301,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,39707788,1103,138,0.00%,12.51%,4.37
+JJ304,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,75426,18777,7540,24.89%,40.16%,203.46
+JJ406,JL,Modern,Modern,"Double-stranded, Y adapters",Hiseq2000,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ416,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,72030,41716,22890,57.91%,54.87%,340.87
+JJ421,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,82311,6652,1107,8.08%,16.64%,100.4
+JJ424,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,54028,2705,320,5.01%,11.83%,43.18
+JJ429,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,72915,12667,3080,17.37%,24.32%,173.58
+JJ469,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,69111,16186,5355,23.42%,33.08%,196.11
+JJ476,JRJ,Modern,Modern,Double-stranded,"NextSeq 500, Single-end",75,2035442,1712,70,0.08%,4.09%,7.43
+JJ516*,JRJ,Modern,Modern,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ523,JRJ,Modern,Modern,Double-stranded,"MiSeq Nano, Single-end",300,74753,3844,397,5.14%,10.33%,62.41
+JJ536*,JRJ,Modern,Modern,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ540*,JRJ,Modern,Modern,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ547*,JRJ,Modern,Modern,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ548,JL,Modern,Modern,"Double-stranded, Y adapters",HiSeq2000,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ558,JL,Modern,Modern,"Double-stranded, Y adapters",HiSeq2000,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ564,JL,Modern,Modern,"Double-stranded, Y adapters",HiSeq2000,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ565,JL,Modern,Modern,"Double-stranded, Y adapters",HiSeq2000,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ576*,JRJ,Modern,Modern,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ577*,JRJ,Modern,Modern,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+JJ581*,JRJ,Modern,Modern,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+"Note: source abbreviations are SDMM - San Diego Museum of Man, MDLH - Musée de l'Homme, UT - University of Toronto, RM - Ripan Malhi, AMNH - American Museum of Natural History, SK -",,,,,,,,,,,,
+"Susan Kerr (UCLA/Southwest Museum/U.S. NAVY), JRJ - John R. Johnson, JL - John Lindo. Sequences from John Lindo were amplified in four long fragments. Bold indicates samples originally extracted",,,,,,,,,,,,
+"by J.G.L. and further processed and sequenced in Cambridge by C.L.S. For these samples, reads mapping to human are reads mapping to human mitochondrial DNA only.",,,,,,,,,,,,
+* Sequenced by Family Tree DNA,,,,,,,,,,,,

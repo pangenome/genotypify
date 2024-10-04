@@ -1,0 +1,101 @@
+N,ID,Source,Original ID,Site,Raw C14 Date YBP,Date ID,Depth (x),Human (%),Dupli (%).,mtDNA Coverage (x),Contamination (%),MtDNA,Y chrom.,Sex,Geo./Pop,Included in autosomal analysis
+1,523a,RM,523a,Palm Site,,,0.975,15.03%,39.6%,98.59,0.50%,A2a,Q1a-B34,M,Alaskan Athabaskan,Yes
+2,Ala1,RM,Ala1,Síi Túupentak (ALA-565/H),,,0.572,11.21%,20.2%,102.08,0.84%,C1c1b,-,F,San Francisco Bay,Yes
+3,B-03,SDMM,1972-64-1,"LC-218, Baja, MX",,,0.567,56.10%,2.6%,36.98,0.44%,C1b11,Q1a-Z769,M,Pericu,Yes
+4,B-04,SDMM,16697,"Comondu, Baja, MX",,,0.144,20.58%,1.4%,19.49,1.36%,C1b41a1,-,F,"Baja, Mexico",Yes
+5,CH-01,JRJ,Burial #1,"Carpenteria, CA",1600 ± 30,BA-443411,0.037,1.48%,1.9%,4.19,0.24%,A2,-,F,Mainland Chumash,Yes
+6,CK-01,UT,G849,"Lucier, southwestern Ontario",,,0.007,0.37%,2.6%,4.82,nd,C4c1,nd,M,ASO,No
+7,CK-02,UT,GS1,"Lucier, southwestern Ontario",556 ± 18,D-AMS 016744,0.007,0.67%,5.3%,6.29,nd,C1c,-,F,ASO,No
+8,CK-03,UT,3,"Lucier, southwestern Ontario",729 ± 38,D-AMS 022506,0.043,3.90%,0.1%,3.99,1.06%,X2a1c,nd,M**,ASO,No
+9,CK-04,UT,GS4A,"Lucier, southwestern Ontario",,,0.003,0.19%,1.6%,2.34,nd,C,nd,M**,ASO,No
+10,CK-07,UT,GB25,"Lucier, southwestern Ontario",,,0.002,0.07%,5.8%,8.06,1.78%,C4c1,-,F**,ASO,No
+11,CK-08,UT,GG123,"Lucier, southwestern Ontario",,,0.004,0.29%,6.4%,9.818,nd,C1b40,-,F**,ASO,No
+12,CK-09,UT,1001,"Lucier, southwestern Ontario",351 ± 40,D-AMS 022504,0.169,9.90%,2.1%,123.2,0.49%,A2i,-,F,ASO,Yes
+13,CK-10,UT,GS7,"Lucier, southwestern Ontario",,,0.036,2.28%,1.9%,0.94,0.75%,C1b40,-,F,ASO,Yes
+14,CK-13,UT,RS14,"Lucier, southwestern Ontario",4267 ± 22,D-AMS 022505,3.02,19.24%,7.7%,83.04,0.72%,C1b40,-,F,ASO,Yes
+15,CR-01,SDMM,16713,"Santa Cruz Island, CA",1111 ± 39,UBA-31906,8.365,47.53%,11.7%,135.44,0.43%,A2,-,F,Island Chumash,Yes
+16,CT-01,SDMM,1973-36-1,"Santa Catalina Island, CA",387 ± 38,UBA-31907,6.685,32.00%,,105.27,1.33%,C1b41a1a,Q1a*,M,LSCI,Yes
+17,CT-02,SDMM,1986-22-0007-E,"Santa Catalina Island, CA",,,0.054,3.82%,1.5%,8.53,0.92%,C1b41a1,-,F,LSCI,Yes
+18,LU-01,UT,GB-33,"Lucier, southwestern Ontario",,,0.026,1.89%,3.7%,298.62,0.96%,C,nd,M,ASO,Yes
+19,LU-02,UT,GG-33,"Lucier, southwestern Ontario",,,0.03,1.87%,1.3%,5.75,2.04%,A2i,nd,M,ASO,Yes
+20,LU-03,UT,GS12,"Lucier, southwestern Ontario",,,0.025,1.39%,2.3%,5.1,5.98%,C1d1a1,nd,M,ASO,No
+21,LU-04,UT,GX8,"Lucier, southwestern Ontario",,,0.017,2.49%,17.0%,1.64,nd,C,-,nd,ASO,No
+22,LU-05,UT,GX9,"Lucier, southwestern Ontario",,,0.02,1.94%,7.9%,4.51,5.63%,C,-,F,ASO,No
+23,LU-06,UT,GG-121,"Lucier, southwestern Ontario",,,0.132,7.42%,2.3%,4.75,0.88%,C1d1a1,-,F,ASO,Yes
+24,MX-01,SDMM,2996,"Iron Springs, MX",,,0.28,23.04%,2.1%,23.2,0.84%,B2a5,Q1b,M,"Baja, Mexico",Yes
+25,NC,RM,NC,"New Cuyama, CA",1450 ± 30,BA-443413,1.12,13.31%,13.4%,172.88,0.40%,D1,Q1a*,M,Mainland Chumash,Yes
+26,PS-02,SDMM,17749,"Point Sal, CA",,,0.178,4.30%,2.4%,22.37,0.81%,D1t,-,F,Mainland Chumash,Yes
+27,PS-03,SDMM,17750,"Point Sal, CA",1574 ± 40,UBA-31911,0.254,8.49%,1.8%,19,1.73%,A2,Q1a,M,Mainland Chumash,Yes
+28,PS-04,SDMM,17751,"Point Sal, CA",,,0.014,1.47%,1.6%,9.78,0.52%,D1t,-,F,Mainland Chumash,No
+29,PS-06,SDMM,17753,"Point Sal, CA",1570 ± 41,UBA-31912,4.124,23.02%,5.6%,30.37,0.34%,D1t,Q1a*,M,Mainland Chumash,Yes
+30,PS-07,SDMM,17806,"Point Sal, CA",1559 ± 38,UBA-31913,0.595,18.75%,1.8%,69.83,1.09%,D1t,Q1a-B623,M,Mainland Chumash,Yes
+31,PS-09,SDMM,17808,"Point Sal, CA",,,0.223,4.61%,2.8%,74.05,0.76%,A2,Q1a,M,Mainland Chumash,Yes
+32,PS-11,SDMM,17810,"Point Sal, CA",,,0.004,0.42%,1.1%,6.18,0.00%,D1t,-,F,Mainland Chumash,No
+33,PS-12,SDMM,17812,"Point Sal, CA",,,0.006,1.14%,1.9%,0,nd,na,-,F,Mainland Chumash,No
+34,PS-13,SDMM,17857,"Point Sal, CA",,,0.015,0.97%,3.0%,1.26,nd,D1t,nd,M,Mainland Chumash,No
+35,PS-17,SDMM,17862,"Point Sal, CA",,,0.116,2.38%,1.8%,21.62,1.81%,D1t,-,F,Mainland Chumash,Yes
+36,PS-18,SDMM,17863,"Point Sal, CA",,,0.207,4.51%,5.9%,25.39,0.63%,D1t,-,F,Mainland Chumash,Yes
+37,PS-19,SDMM,17864,"Point Sal, CA",,,0.001,0.16%,4.8%,0,nd,nd,-,F**,Mainland Chumash,No
+38,PS-22,SDMM,17867,"Point Sal, CA",,,0.003,0.75%,16.9%,0,nd,nd,-,F,Mainland Chumash,No
+39,PS-23,SDMM,17868,"Point Sal, CA",,,0.089,2.75%,1.6%,61.76,0.23%,D1t,-,F,Mainland Chumash,Yes
+40,PS-24,SDMM,17869,"Point Sal, CA",,,0.003,0.23%,1.4%,7.17,0.63%,D1t,-,F,Mainland Chumash,No
+41,PS-26,SDMM,17872,"Point Sal, CA",,,0.138,1.73%,1.9%,79.12,0.46%,D1t,Q1,M,Mainland Chumash,Yes
+42,PS-30,SDMM,18131,"Point Sal, CA",,,0.003,0.70%,26.3%,0,nd,nd,nd,M,Mainland Chumash,No
+43,PS-34,SDMM,18276,"Point Sal, CA",,,0.146,17.16%,5.8%,15.15,6.18%,A2cc,nd,M,Mainland Chumash,No
+44,RM-83,RM,na,05SP-46 (Teston Road Ossuary),1450 AD,Ceramics,0.675,26.75%,23.4%,51.86,1.14%,A2i,-,F,ASO (Huron-Wendat),Yes
+45,RM-85,RM,na,11SP-83 (Turnbull Ossuary),1400-1500AD,Ceramics,0.043,2.58%,63.4%,19,0.50%,C1c,Q1a-B34,M,ASO (Huron-Wendat),Yes
+46,SC-01,SDMM,2084,"San Clemente Island, CA",,,0.545,63.11%,2.3%,27.99,0.51%,Cb16a1,-,F,LSCI,Yes
+47,SC-02,SDMM,2085,"San Clemente Island, CA",,,0.01,0.60%,1.3%,0.11,nd,nd,-,F,LSCI,No
+48,SC-03,SDMM,2086,"San Clemente Island, CA",1055 ± 38,UBA-31908,0.939,33.15%,3.0%,29.57,1.36%,C1b41a,-,F,LSCI,Yes
+49,SC-04,SDMM,2087,"San Clemente Island, CA",884 ± 41,UBA-31909,0.709,45.11%,6.3%,40.23,0.98%,B2a5,-,F,LSCI,Yes
+50,SC-05,SDMM,1971-78-1,"San Clemente Island, CA",1101 ± 41,UBA-31910,13.671,67.00%,,47.4,1.12%,Cb16a1,-,F,LSCI,Yes
+51,SC-06,SDMM,1972-60-1,"San Clemente Island, CA",,,0.432,35.82%,2.0%,114.84,1.45%,C1b41a,Q1a,M,LSCI,Yes
+52,SC-07,SDMM,1975-14-1,"San Clemente Island, CA",,,0.418,54.43%,8.1%,27.13,3.07%,C1b41a1a,-,F,LSCI,No
+53,SM-01,MDLH,PE7066,"San Miguel Island, CA",641 ± 25,,0.235,15.37%,3.2%,24.32,1.17%,A2,Q1a-B623,M,Island Chumash,Yes
+54,SM-02,MDLH,PE7076,"San Miguel Island, CA",826 ± 26,,7.387,51.5%,29.0%,33.18,1.37%,A2,-,F,Island Chumash,Yes
+55,SN-01,SDMM,16715,"San Nicolas Island, CA",,,0.272,34.7%,1.5%,138.64,0.97%,B2a5b,-,F,LSN,Yes
+56,SN-02,SDMM,16716,"San Nicolas Island, CA",,,0.001,0.2%,4.0%,19.48,0.00%,C1b41a1,-,F,LSN,No
+57,SN-03,SDMM,16719,"San Nicolas Island, CA",1694 ± 56,UBA-31920,0.759,60.7%,2.1%,13.14,0.79%,Cb16a1,-,F,LSN,Yes
+58,SN-04,SDMM,16732,"San Nicolas Island, CA",4279 ± 52,UBA-31917,0.125,17.7%,1.4%,39.49,1.65%,A2ca,nd,M,ESN,Yes
+59,SN-09,SDMM,16739,"San Nicolas Island, CA",,,0.095,9.9%,1.4%,39.12,0.90%,B2a5b,Q1a,M,LSN,Yes
+60,SN-10,SDMM,16741,"San Nicolas Island, CA",,,0.698,72.4%,1.9%,13.87,0.34%,B2a5b,-,F,LSN,Yes
+61,SN-11,SDMM,16743,"San Nicolas Island, CA",1172 ± 39,UBA-31916,9.058,54.5%,14.8%,36.01,0.95%,D1,Q1a-B654,M,LSN,Yes
+62,SN-12,SDMM,17643,"San Nicolas Island, CA",1269 ± 34,UBA-31921,0.085,9.5%,2.7%,41.95,1.14%,C,-,F,LSN,Yes
+63,SN-13,SDMM,17644,"San Nicolas Island, CA",881 ± 42,UBA-31915,1.745,64.3%,1.9%,31.37,0.00%,C1b,-,F,LSN,Yes
+64,SN-15,SDMM,17658,"San Nicolas Island, CA",1852 ± 44,UBA-31918,0.55,63.8%,2.9%,23.4,1.71%,Cb16a1,-,F,LSN,Yes
+65,SN-16,SDMM,17661,"San Nicolas Island, CA",650 - 510,,0.287,32.5%,1.6%,45.88,0.98%,B2a5b,-,F,LSN,Yes
+66,SN-17,SDMM,17662,"San Nicolas Island, CA",4517 ± 51,UBA-31914,7.451,40.1%,14.2%,22.45,0.78%,A2ca,Q1a*,M,ESN,Yes
+67,SN-20,SDMM,17665,"San Nicolas Island, CA",,,0.123,29.5%,5.1%,22.98,1.55%,A2cb,Q1a,M,ESN,Yes
+68,SN-25,SDMM,17684,"San Nicolas Island, CA",3940 ± 40,UBA-31922,0.168,14.9%,1.6%,7.7,0.63%,A2cb,Q,M,ESN,Yes
+69,SN-31,SDMM,17702,"San Nicolas Island, CA",,,0.024,2.8%,5.8%,22.89,0.93%,A2,nd,M,ESN,Yes
+70,SN-32,SDMM,17703,"San Nicolas Island, CA",4455 ± 46,UBA-31919,0.259,8.8%,3.4%,9.82,0.28%,A2cb,Q,M,ESN,Yes
+71,SN-37,SDMM,17720,"San Nicolas Island, CA",,,0.17,14.0%,8.3%,12.39,3.23%,A2ca,-,F,ESN,No
+72,SN-38,SDMM,17723,"San Nicolas Island, CA",,,0.505,22.2%,2.1%,49.12,0.87%,C1b41a1,Q1a-B654,M,LSN,Yes
+73,SN-39,SDMM,17728,"San Nicolas Island, CA",,,0.121,15.1%,1.3%,14.96,0.26%,A2cb,-,F,ESN,Yes
+74,SN-40,SDMM,17732,"San Nicolas Island, CA",,,0.46,32.9%,3.5%,56.82,1.47%,A2cb,-,F,ESN,Yes
+75,SN-41,SDMM,17732,"San Nicolas Island, CA",,,0.023,3.3%,11.5%,8.57,0.00%,A2ca,-,F,ESN,Yes
+76,SN-43,SDMM,17736,"San Nicolas Island, CA",2541 ± 26,Oxa-34809,0.078,9.2%,2.2%,15.07,1.14%,C1b41a,-,F,LSN,Yes
+77,SN-44,SDMM,17737,"San Nicolas Island, CA",4647 ± 54,UBA-32254,9.361,51.2%,11.7%,109.94,0.55%,A2cb,Q1a*,M,ESN,Yes
+78,SN-45,SDMM,17739,"San Nicolas Island, CA",,,0.013,1.2%,3.1%,1.94,1.82%,A2,nd,M,ESN,Yes
+79,SN-48,SDMM,1961-36-1,"San Nicolas Island, CA",,,0.423,45.0%,2.1%,28.68,6.02%,A2,-,F,ESN,No
+80,SN-50,MDLH,PE7105,"San Nicolas Island, CA",1593 ± 27,OxA-16576,0.99,62.6%,4.8%,101.36,1.54%,C1b41a1,-,F,LSN,Yes
+81,SN-51,MDLH,PE7106,"San Nicolas Island, CA",1620 ± 26,OxA-16577,0.4,52.4%,10.1%,127.14,1.25%,C1b41a1,-,F,LSN,Yes
+82,SN-52,MDLH,PE10252,"San Nicolas Island, CA",1013 ± 26,OxA-16578,0.439,27.8%,3.8%,66.3,1.45%,B2y1,-,F,LSN,Yes
+83,SN-53,MDLH,PE10250,"San Nicolas Island, CA",840 ± 26,OxA-16579,0.614,40.5%,3.7%,64,1.23%,B2a5b,-,F,LSN,Yes
+84,SN-54,SK,28F-140 ID 113,"San Nicolas Island, CA",3960 ± 70,Beta-124308,0.433,38.9%,3.6%,86.82,1.30%,A2cb,Q1a,M,ESN,Yes
+85,SN-55,SK,257-69 Burial \#1,"San Nicolas Island, CA",4410 ± 100,UCLA-147,0.028,3.4%,2.5%,17.29,0.44%,A2,nd,M,ESN,Yes
+86,SN-56,SK,257-76 Burial \#8,"San Nicolas Island, CA",4410 ± 100,UCLA-147,0.044,6.2%,2.6%,95.2,0.35%,A2cb,nd,M,ESN,Yes
+87,SN-57,SK,257-80 Burial \#12,"San Nicolas Island, CA",4410 ± 100,UCLA-147,0.043,5.2%,1.9%,35.66,0.81%,A2ca,nd,M,ESN,Yes
+88,SN-58,SK,Burial \#16,"San Nicolas Island, CA",4410 ± 100,UCLA-147,0.165,15.8%,5.7%,105.75,0.35%,A2ca,Q1a,M,ESN,Yes
+89,SN-59,SK,28F - 137,"San Nicolas Island, CA",4430 ± 30,NOSAMS-34058,0.16,17.7%,7.6%,112.47,0.79%,A2cb,Q1,M,ESN,Yes
+90,SN-60,SK,28F-70 Burial \#2,"San Nicolas Island, CA",3960 ± 70,Beta-124308,0.025,0.9%,2.2%,8.56,0.35%,A2cb,nd,M,ESN,Yes
+91,US-14,AMNH,99.1/2270,"Shohola Creek, Indian Cabin Ridge, PA",269 ± 26,OxA-34348,0.448,38.9%,3.1%,48.16,1.38%,U4c1a,I1a-Z73,M,Colonist,Yes
+Note: ID codes of the samples: B-Baja; CH-Chumash; CK-Lucier; CR-Santa Cruz ; CT-Santa Catalina ; LU-Lucier ; MX-Iron Springs Mexico; PS-Point Sal; SC-San Clemente; SM-San Miguel; SN-San Nicolas; US-United States; RM-Ripan,,,,,,,,,,,,,,,,
+Malhi.,,,,,,,,,,,,,,,,
+Depth - Average depth of the coverage of human genome; % Human - proportion of reads mapping to human genome; % Dupli. - proportion of PCR duplicate reads mapping to human genome; % contamination estimated on mtDNA (see,,,,,,,,,,,,,,,,
+Supplementary Materials).,,,,,,,,,,,,,,,,
+"Sources: SDMM - San Diego Museum of Man, MDLH - Musée de l'Homme, UT - University of Toronto, RM - Ripan Malhi, AMNH - American Museum of Natural History, SK - Susan Kerr (UCLA/Southwest Museum/U.S. NAVY), JRJ -",,,,,,,,,,,,,,,,
+John Johnson.,,,,,,,,,,,,,,,,
+"Population ID codes: ASO - Ancient Southwestern Ontario, LSCI - Late Southern Channel Islands, LSN - Late San Nicolas, ESN - Early San Nicolas.",,,,,,,,,,,,,,,,
+"**with low coverage samples sex determination was consistent with sex shown, but not definitive.",,,,,,,,,,,,,,,,
+nd = no data.,,,,,,,,,,,,,,,,
