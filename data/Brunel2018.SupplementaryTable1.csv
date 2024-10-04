@@ -1,0 +1,245 @@
+Table S1-1: Sample information, sequencing and contamination for the individuals analyzed in this study																										
+ID	Site	Location	Latitude	longitude	Period	Culture	Dates (BP) on specimen	Dates (E)	Region	Department	Archeologist	Bone type	Site Number FigS1-1	analysis method	Group Label mtDNA	Group Label Genome	% endogenous DNA	Sex	mt Haplogroup shotgun	Y haplogroup (shotgun)	mt haplogroup (capture)	Y haplogroup (capture)	Capture mt reads	mt contamination	X contamination (Method2: MoM, SE)	
+PER1150B	Les Perrats	Agris	45.77	0.33	Mesolithic	Mesolithic		7177-7057	Nouvelle-Aquitaine (South-West)	Charente	B. Boulestin	PB	1	capture	F-HG						U5b1-16189-@16192		3989	0.055+/-0.01		
+PER26	Les Perrats	Agris	45.77	0.33	Mesolithic	Mesolithic		7177-7057	Nouvelle-Aquitaine (South-West)	Charente	B. Boulestin	PB	1	capture	F-HG		30.272	XX			U5b1		6223	0.07+/-0.005		
+PER3023	Les Perrats	Agris	45.77	0.33	Mesolithic	Mesolithic		7177-7057	Nouvelle-Aquitaine (South-West)	Charente	B. Boulestin	PB	1	capture + shotgun	F-HG	F-HG	61.518	XX	U5b3e		U5b1-16189-@16192		12136	0+/-0		
+PER3123	Les Perrats	Agris	45.77	0.33	Mesolithic	Mesolithic		7177-7057	Nouvelle-Aquitaine (South-West)	Charente	B. Boulestin	PB	1	capture + shotgun	F-HG	F-HG	60.891	XY	U5b1-16189	I	U5b1-16189	I2a1b2	11097	0.115+/-0.005		
+PER503	Les Perrats	Agris	45.77	0.33	Mesolithic	Mesolithic		7177-7057	Nouvelle-Aquitaine (South-West)	Charente	B. Boulestin	PB	1	capture + shotgun	F-HG	F-HG	60.604	XX	U5b1-16189		U5b1-16189		13141	0+/-0		
+Mor5	ZAC des collines I IKEA, Hungeheuer Hoelzle	Morschwiller-le-Bas	48.82027	7.62599	Early Neolithic	LBK		5200-5000	Grand-Est (East)	Bas-Rhin	Luc Vergnaud	PB	4	capture	NFEN						T2b23		6500	0+/-0		
+Mor4	ZAC des collines I IKEA, Hungeheuer Hoelzle	Morschwiller-le-Bas	48.82027	7.62599	Early Neolithic	LBK			Grand-Est (East)	Bas-Rhin	Luc Vergnaud	PB	4	capture	NFEN											
+Mor6	ZAC des collines I IKEA, Hungeheuer Hoelzle	Morschwiller-le-Bas	48.82027	7.62599	Early Neolithic	LBK	6120+/-25BP (GrM-15764)	5208-4964	Grand-Est (East)	Bas-Rhin	Luc Vergnaud	PB	4	capture + shotgun	NFEN	F-LBK	56.9	XX	H3q1							
+Schw72-15	Lotissement Les Terrasses de la Zorn	Schwindratzheim	48.75563	7.59958	Early Neolithic	LBK			Grand-Est (East)	Bas-Rhin	A. Denaire	PB	3	capture + shotgun	NFEN	F-LBK	54.8	XY	T2f	C1a2	T2f	C1a2			-0.0041	0.002716626
+Schw72-16	Lotissement Les Terrasses de la Zorn	Schwindratzheim	48.75563	7.59958	Early Neolithic	LBK	6340 +/-40BP (Poz-64772)	5383-5220	Grand-Est (East)	Bas-Rhin	A. Denaire	PB	3	capture	NFEN			XX			H1		17373	0+/-0		
+Schw72-17	Lotissement Les Terrasses de la Zorn	Schwindratzheim	48.75563	7.59958	Early Neolithic	LBK		-	Grand-Est (East)	Bas-Rhin	A. Denaire	PB	3	capture	NFEN			XY			J1c2	G2a	19406	0+/-0		
+Schw432	Lotissement Les Terrasses de la Zorn	Schwindratzheim	48.75563	7.59958	Early Neolithic	LBK	6130 +/-40BP (Poz-64773)	5211-4962	Grand-Est (East)	Bas-Rhin	A. Denaire	PB	3	capture + shotgun	NFEN	F-LBK	35.3	XX	X2b							
+BRE447	ZAC st Martin	Bréviandes	48.25698	4.09535	Early Neolithic	LBK	6100 +/- 40BP (GrN-31286)	5209-4912	Grand-Est (East)	Aube	C. Laurelut	PB	17	capture	NFEN						V		8560	0.105+/-0.02		
+LARZ4	le champ Buchotte	Larzicourt	48.63529	4.71446	Early Neolithic	LBK		5200-4700	Grand-Est (East)	Marne	G. Basset	PB	20	capture	NFEN						J1c3	H2	21497	0+/-0		
+ORC1	les Noues	Orcontes	48.66896	4.73421	Early Neolithic	LBK		-	Grand-Est (East)	Marne	G. Basset	PB	18	capture	NFEN						J1c1b1		16582	0+/-0		
+ORC2	les Noues	Orcontes	48.66896	4.73421	Early Neolithic	LBK			Grand-Est (East)	Marne	G. Basset	PB	18	capture	NFEN											
+SLPT201	Le Château de la Planche 	St Léger près Troyes	48.23588	4.07874	Early Neolithic	LBK	6120 +/- 50BP (Poz-50933)	5216-4932	Grand-Est (East)	Marne	K. Raynaud	PB	16	capture	NFEN											
+SLPT505	Le Château de la Planche 	St Léger près Troyes	48.23588	4.07874	Early Neolithic	LBK	6190 +/- 40BP (Poz-40934)	5293-5248	Grand-Est (East)	Marne	K. Raynaud	PB	16	capture	NFEN											
+MDV272	Derrière le village	Menneville	49.41905	4.00774	Early Neolithic	LBK			Hauts-de-France (North)	Aisne	C. Thevenet	TO	19	capture	NFEN											
+MDV248	Derrière le village	Menneville	49.41905	4.00774	Early Neolithic	LBK	6090 +/-30BP (SacA-5462)	5193-4938	Hauts-de-France (North)	Aisne	C. Thevenet	TO	19	capture + shotgun	NFEN	F-LBK	20.7	XY	K1a12	H2a1	K1a2		19463	0+/-0		
+Gazel	La Grotte Gazel	Sallèles-Cabardès	43.19	2.25	Early Neolithic	Epicardial	6215+/- 30BP (Ly14859)	5296-5062 	Occitanie (South)	Aude	J. Guilaine	TO	34	capture	SF-Car-Low						H1					
+ROS6	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						J1c2		24342	0+/-0		
+ROS25	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						U8b1b1		24594	0+/-0		
+ROS26	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						T2b3-151		10997	0+/-0		
+ROS31	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						T2b3-151		15370	0+/-0		
+ROS36	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach			Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						T2b					
+ROS40B	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						H3-152		30307	0+/-0		
+ROS42	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach	5762 +/- 33BP (SUERC-46442)	4680-4590	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						K1b1		6551	0+/-0		
+ROS43	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 2	Grossgartach			Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						N1a1a					
+ROS45	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach	5833 +/- 29BP (OxA-27814)	4730-4655	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture + shotgun	EF-MN1	EF-MN1	70.8	XY	H5u	I2a1b	H5u	I2	18673	0+/-0	-0.002293	0.001366021
+ROS47	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						H1c	I2a1a2	23933	0+/-0		
+ROS57	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						T2f	G2a2b2a4a1a2 	30178	0.015+/-0.005		
+ROS62	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						J1c2		11462	0+/-0		
+ROS66	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						K1a	IJK	11640	0+/-0		
+ROS78	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500 	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture + shotgun	EF-MN1	EF-MN1	75.2	XY	U8b1b1	I2a1b	U8b1b1	I2a2b~	24660	0+/-0	0.002322	0.004366649
+ROS82	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach	5816 +/-28BP (SUERC-46435)	4725-4640	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture + shotgun	EF-MN1	EF-MN1	49.3	XX	T2f7		T2b		29391	0+/-0		
+ROS85	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						X2b4		7427	0+/-0		
+ROS86	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						J2b1a		19946	0+/-0		
+ROS88	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach	5792 +/- 33BP (SUERC-46279)	4720-4635	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						K2a9		12354	0+/-0		
+ROS91	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach	5812 +/- 30BP (OxA-27815)	4730-4645	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						K2a		16748	0+/-0		
+ROS96	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						K2b1		5294	0.255+/-0.02		
+ROS100	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach	5789 +/- 33BP (SUERC-46283)	4720-4635	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						T2b	I2a	15046			
+ROS102	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500 	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture + shotgun	EF-MN1	EF-MN1	71.2	XY	K1a1a	I2a1b	K1a1	I2a1a2	22503	0+/-0	0.017169	0.02328368
+ROS108	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach	5787 +/- 33BP (SUERC-46278)	4720-4635	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1											
+ROS111	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach	5791 +/- 33BP (SUERC46284)	4720-4635	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						J1c		17230			
+ROS115	Rosheim "Mittelfeld" "Rosenmeer"	Rosheim	48.49666	7.47052	Middle Neolithic 1 	Grossgartach		4700-4500	Grand-Est (East)	Bas-Rhin	E. Boes / C. Jeunesse	PB	5	capture	EF-MN1						T2b	I2a1a2~	27170	0.005+/-0.005		
+BUCH5	PLA D39	Buchères	48.23569	4.11263	Middle Neolithic 1 	Cerny			Grand-Est (East)	Aube	C. Paresys	PB	21	capture	EF-MN1											
+BUCH4	PLA D39	Buchères	48.23569	4.11263	Middle Neolithic 1 	Cerny	5625 +/- 35BP (Poz-60682)	4527-4365	Grand-Est (East)	Aube	C. Paresys	PB	21	capture	EF-MN1						H1c		8704	0+/-0		
+BUCH3	PLA D39	Buchères	48.23569	4.11263	Middle Neolithic 1 	Cerny	5575 +/- 35BP (Poz-60662)	4464-4346	Grand-Est (East)	Aube	C. Paresys	PB	21	capture	EF-MN1						K1b1a1		14017	0+/-0		
+BUCH8	PLA D39	Buchères	48.23569	4.11263	Middle Neolithic 1 	Cerny			Grand-Est (East)	Aube	C. Paresys	PB	21	capture	EF-MN1											
+BUCH6	PLA D39	Buchères	48.23569	4.11263	Middle Neolithic 1 	Cerny		4400-4200	Grand-Est (East)	Aube	C. Paresys	PB	21	capture	EF-MN1						K1a4		23848	0.12+/-0.00499999999999999		
+BUCH2	PLA D39	Buchères	48.23569	4.11263	Middle Neolithic 1 	Cerny		4400-4200 	Grand-Est (East)	Aube	C. Paresys	PB	21	 shotgun	EF-MN1	EF-Cer	29.8	XY	U5b1-16189	H2a1			22154	0+/-0	0.011248	0.007817365
+BERG57	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg	5255 +/- 35BP (Poz-53881)	4230-3978	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						H5		5001	0+/-0		
+BERG79	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg	5205 +/-35BP (Poz-53882)	4222-3956	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						K1a2c	E1b1b1a1	18205	0.005+/-0.005		
+BERG61	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg			Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich											
+BERG34-1	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg	5190 +/-40BP (Poz-53880)	4224-3824	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						K1a2a		14149	0+/-0		
+BERG34-2	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg			Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich											
+BERG02-2	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg	5135 +/- 35BP (Poz-53879)	4037-3803	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture + shotgun	EF-Mich	EF-MN2	42.001	XX	W5b		W5b		18541	0+/-0		
+BERG02-3	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg			Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich											
+BERG02-5	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg		4000-3800	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						W5b		19419	0+/-0		
+BERG157-1	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg	5245 +/-35BP (Poz-53887)	4300-3900	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						U8a1	I2	17096	0+/-0		
+BERG157-2	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg		4300-3900 	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture + shotgun	EF-Mich	EF-MN2	75.164	XX	J1c1b		J1c1b		32106	0+/-0		
+BERG157-3	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg		4300-3900	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						K1a-195	E1b1b1a1	28911	0+/-0		
+BERG157-4	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg		4300-3900	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						X2b	E1b1b	27397	0+/-0		
+BERG157-5	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg		4300-3900	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						J2b1a	I2a1a2	31682	0+/-0		
+BERG157-6	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg		4300-3900	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						J1c1b1		31775	0+/-0		
+BERG157-7	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg	5335 +/-35BP (Poz-53888)	4315-4048	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture + shotgun	EF-Mich	EF-MN2	63.039	XY	U5b1c	I2a1b	U5b1c	I2a1a2~	31344	0+/-0	0.002785	0.007237889
+BERG157-9	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg		4300-3900	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						K1a3a	E1b1b1a1	32687	0+/-0		
+BERG103-2	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg	5020 +/-35BP (Poz-53883)	3943-3710	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						X2b-226	I2a2b1h~	10318	0+/-0		
+BERG746	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg	4995 +/-35BP (Poz-53889)	3941-3666	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						U5b2a3	I2a1a2	16091	0+/-0		
+BERG118-1	Saulager	Bergheim	43.21817	2.4127	Middle Neolithic 2	BORS-Michelsberg	4970 +/-40BP (Poz-53885)	3930-3654	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	EF-Mich						K1		9298	0+/-0		
+Schw9	Lotissement Les Terrasses de la Zorn	Schwindratzheim	48.75563	7.59958	Middle Neolithic 2	Bisheim			Grand-Est (East)	Bas-Rhin	A. Denaire	PB	3	capture	EF-Mich											
+WET370	Wettolsheim	Wettolsheim	48.0578	7.3	Middle Neolithic 2		4764 +/-45BP (LTL18703A)	3645-3497	Grand-Est (East)	Haut-Rhin	C. Jeunesse	PB	15	shotgun	EF-Mich	EF-MN2	59.2	XY	H1c5a'						-0.005486	0.005689159
+PSS2042	Ferme de l'Ile	Pont-sur-Seine	48.51852	3.59633	Middle Neolithic 2	Noyen		-	Grand-Est (East)	Aube	F. Dugois/S. Loiseau	PB	23	capture	EF-Noy						U5b2c		13735	0+/-0		
+PSS282	Ferme de l'Ile	Pont-sur-Seine	48.51852	3.59633	Middle Neolithic 2	Noyen		-	Grand-Est (East)	Aube	F. Dugois/S. Loiseau	PB	23	capture	EF-Noy						U5b1-16189-@16192	E1b1a1a1a1c2c	19284	0+/-0		
+PSS3072	Ferme de l'Ile	Pont-sur-Seine	48.51852	3.59633	Middle Neolithic 2	Noyen		-	Grand-Est (East)	Aube	F. Dugois/S. Loiseau	PB	23	capture	EF-Noy						U5a2d	I2a1a2	16971	0+/-0		
+PSS4693	Ferme de l'Ile	Pont-sur-Seine	48.51852	3.59633	Middle Neolithic 2	Noyen	4650 +/- 45BP (GrA-46284)	3626-3351	Grand-Est (East)	Aube	F. Dugois/S. Loiseau	PB	23	capture + shotgun	EF-Noy	EF-MN2	59.02	XX	U5b3b		U5b3b		26542	0+/-0		
+VAC4155-1	Pré Chevalier	La-Villeneuve-au-Chatelot	48.55007	3.61223	Middle Neolithic 2	Noyen		-	Grand-Est (East)	Aube	E. Millet	PB	24	capture	EF-Noy						J1c1b1		9877	0+/-0		
+VAC4155-2	Pré Chevalier	La-Villeneuve-au-Chatelot	48.55007	3.61223	Middle Neolithic 2	Noyen			Grand-Est (East)	Aube	E. Millet	PB	24	capture	EF-Noy-rel						J1c1b1		9715	0.095+/-0.015		
+BLP10	la Plaine	Beaurieux 	49.39246	3.73641	Middle Neolithic 2	Michelsberg	5275 +/- 40BP (GrA-3117)	4224-3980	Hauts-de-France (North)	Aisne	C. Thevenet	PB	22	capture + shotgun	EF-Noy	EF-MN2	32.34	XY	H1e	I	H1	I	20968	0+/-0		
+Mairy4249	Les Hautes Chanvières	Mairy	49.64849	5.04797	Middle Neolithic 2	Michelsberg	4770 +/- 45BP	3646-3379	Grand-Est (East)	Ardennes	C. Laurelut	PB	28	capture	EF-Noy						K1a3a		11975	0+/-0		
+PSS1	Haut de Launois	Pont-sur-Seine	48.51852	3.59633	Middle Neolithic 2	Noyen	4715 +/- 40BP (GrA-47169)	3634-3373	Grand-Est (East)	Aube	V. Desbrosse	PB	23	capture	EF-Noy						T2b-152	I2a1b	27227	0+/-0		
+PSS2	Haut de Launois	Pont-sur-Seine	48.51852	3.59633	Middle Neolithic 2	Noyen			Grand-Est (East)	Aube	V. Desbrosse	PB	23	capture	EF-Noy											
+PSS2323	Haut de Launois	Pont-sur-Seine	48.51852	3.59633	Middle Neolithic 2	Noyen	4775 +/- 40BP (GrA-58050)	3646-3382	Grand-Est (East)	Aube	V. Desbrosse	PB	23	capture	EF-Noy						K1a2		11579	0+/-0		
+PSS3378	Haut de Launois	Pont-sur-Seine	48.51852	3.59633	Middle Neolithic 2	Noyen			Grand-Est (East)	Aube	V. Desbrosse	PB	23	capture	EF-Noy											
+VAC1061	Pré Chevalier	La-Villeneuve-au-Chatelot	48.55007	3.61223	Middle/Late Neolithic 2			-	Grand-Est (East)	Aube	E. Millet	PB	24	capture	EF-Noy						U5b1-16189-@16192		11426	0+/-0		
+Recy1	Parc de Référence	Recy	48.98879	4.3173	Middle/Late Neolithic 2		4710 +/- 35BP (Poz-69373)	3632-3373	Grand-Est (East)	Marne	N. Achard-Corompt	PB	27	capture	EF-Noy						T2b		21536	0+/-0		
+Es1018-16	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						X2b-226		27331	0+/-0		
+Es133-1	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						K1a4a1		12158	0+/-0		
+Es168	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	LB	2	capture	NF-Mich						K1a4a1b		30552	0+/-0		
+Es278-1	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						H10-16093		27657	0+/-0		
+Es42-3	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						T2b	I	30076	0+/-0		
+Es454-1	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						K1a-195		29854	0+/-0		
+Es48-8	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						T2b3c		29936	0+/-0		
+Es48bis	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						K1a3a		29426	0+/-0		
+Es626-27	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						K1a4a1		31895	0.025+/-0.005		
+Es637-1	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						K1a4a1		30960	0+/-0		
+Es75-5	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						K1a4a1		25868	0+/-0		
+Es791-1	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						U5b1c		23411	0+/-0		
+Es90-9	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4200-3800	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture	NF-Mich						H1e1a		11425	0+/-0		
+Es97-1	Mont d'Hubert	Escalles	50.91781	1.7131	Middle Neolithic 2	Michelsberg		4230-3879	Hauts-de-France (North)	Pas-de-Calais	I. Praud	PB	2	capture + shotgun	NF-Mich	NF-MN2	47.13	XY	K1a26	I	K1a-195		30207	0+/-0	0.009629	0.009930672
+CCF315-1	Les Fontinettes	Cuiry-lès-Chaudardes	49.3869	3.7706	Middle Neolithic 2	Michelsberg	4800 +/- 45 BP (Ly2727)	3660-3510 	Hauts-de-France (North)	Aisne	L. Hachem	LB	25	capture	NF-Mich-Low											
+CCT99	Le Champ Tordu	Cuiry-lès-Chaudardes	49.3869	3.7706	Middle Neolithic 2	Michelsberg	5040 +/- 40BP (GrA-47885)	3953-3714	Hauts-de-France (North)	Aisne	L. Hahem	LB	25	capture	NF-Mich-Low											
+SP1	Le Champ du Poste	Carcassonne	43.1247	2.2107	Middle Neolithic 1	Neolithique moyen1	5695 +/- 40BP (GrA-44216)	4680-4453	Occitanie (South)	Aude	F. Convertini	PB	35	capture	SF-MN						V		7177	0+/-0		
+SP395	Le Champ du Poste	Carcassonne	43.1247	2.2107	Middle Neolithic 1	Neolithique moyen1	5870 +/- 30BP (Ly-15189)	4827-4687	Occitanie (South)	Aude	F. Convertini	PB	35	capture	SF-MN						K1a-195		18084	0+/-0		
+SP249	Le Champ du Poste	Carcassonne	43.1247	2.2107	Middle Neolithic 2	Chasséen ancien	5425 +/- 30BP (Ly-15188)	4341-4239	Occitanie (South)	Aude	F. Convertini	PB	35	capture	SF-MN						J2b1a2		9248	0+/-0		
+SP386	Le Champ du Poste	Carcassonne	43.1247	2.2107	Middle Neolithic 2	Neolithique moyen1	5890 +/- 35BP (GrA-44260)	4827-4687	Occitanie (South)	Aude	F. Convertini	PB	35	capture	SF-MN											
+Cx13	ZAC Agora	Cugnaux	43.3219	1.204	Middle Neolithic 2	Chasséen classique	5310 +/- 40BP (Ly-3697)	4260-3990	Occitanie (South)	Haute-Garonne	J. Vaquer/M. Gandelin	PB	40	capture	SF-MN						U5b1-16189		11253	0+/-0		
+Cx161	ZAC Agora	Cugnaux	43.3219	1.204	Middle Neolithic 2	Chasséen classique	5340 +/  30BP (Ly-15193)	4314-4052	Occitanie (South)	Haute-Garonne	J.Vaquer/M. Gandelin	PB	40	capture	SF-MN						H1	I1a2b4~	12331	0+/-0		
+Cx165	ZAC Agora	Cugnaux	43.3219	1.204	Middle Neolithic 2	Chasséen classique	5250 +/- 35BP (Ly-3699)	4230-3970	Occitanie (South)	Haute-Garonne	J.Vaquer/M. Gandelin	PB	40	capture	SF-MN						H1e1a		18043	0+/-0		
+Cx166	ZAC Agora	Cugnaux	43.3219	1.204	Middle Neolithic 2	Chasséen classique	5325 +/- 30BP (Ly-3559)	4260-4040	Occitanie (South)	Haute-Garonne	J.Vaquer/M. Gandelin	PB	40	capture	SF-MN						J1c3		3717	0+/-0		
+Cx19	ZAC Agora	Cugnaux	43.3219	1.204	Middle Neolithic 2	Chasséen ancien	5445 +/- 35BP (Ly-15194)	4351-4242	Occitanie (South)	Haute-Garonne	J.Vaquer/M. Gandelin	PB	40	capture	SF-MN						K1a4a1	I2a1a2	21767	0+/-0		
+Cx18	ZAC Agora	Cugnaux	43.3219	1.204	Middle Neolithic 2	Chasséen ancien			Occitanie (South)	Haute-Garonne	J.Vaquer/M. Gandelin	PB	40	capture	SF-MN											
+Cx30	ZAC Agora	Cugnaux	43.3219	1.204	Middle Neolithic 2	Chasséen ancien			Occitanie (South)	Haute-Garonne	J.Vaquer/M. Gandelin	PB	40	capture	SF-MN											
+Cx20	ZAC Agora	Cugnaux	43.3219	1.204	Middle Neolithic 2	Chasséen ancien	5405 +/- 30BP (Ly-15195)	4339-4177	Occitanie (South)	Haute-Garonne	J.Vaquer/M. Gandelin	PB	40	capture	SF-MN						H4a1a		7471	0+/-0		
+VT5-7	La Terrasse	Villeneuve-Tolosane	43.3129	1.2033	Middle Neolithic 2	Chasséen classique ou récent		4100-3700	Occitanie (South)	Haute-Garonne	J.Vaquer/M. Gandelin	PB	39	capture	SF-MN						X2b-226	I2a1a2	20040	0+/-0		
+VT7	La Terrasse	Villeneuve-Tolosane	43.3129	1.2033	Middle Neolithic 2	Chasséen ancien	5350 +/- 30BP (Ly-15190)	4322-4053	Occitanie (South)	Haute-Garonne	J.Vaquer/M. Gandelin	PB	39	capture	SF-MN						HV0-195		5453	0+/-0		
+VTP4-3	La Terrasse	Villeneuve-Tolosane	43.3129	1.2033	Middle Neolithic 2	Chasséen récent	5154 +/- 45BP (Erl-11364)	4046-3802	Occitanie (South)	Haute-Garonne	J.Vaquer/M. Gandelin	PB	39	capture	SF-MN						U5b2b		21298	0+/-0		
+BER49	Les Plots	Berriac	43.1303	2.2451	Middle Neolithic 2	Chasséen ancien	5410 +/-30BP (Ly-14868)	4340-4180	Occitanie (South)	Aude	M. Gandelin	PB	36	capture	SF-MN						J1c1b		11702	0+/-0		
+BER36	Les Plots	Berriac	43.1303	2.2451	Middle Neolithic 2	Chasséen ancien	5400 +/-30BP (Ly-14867)	4338-4172	Occitanie (South)	Aude	M. Gandelin	PB	36	capture	SF-MN						K1b1a		8275	0+/-0		
+BER37	Les Plots	Berriac	43.1303	2.2451	Middle Neolithic 2	Chasséen ancien	5390 +/-30BP (Ly-14866)	4336-4076	Occitanie (South)	Aude	M. Gandelin	PB	36	capture	SF-MN						U3a1		17692	0+/-0		
+CRE3	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien	5320 +/- 35BP (Ly-3422)	4257-4044	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						U3a1	I2a1a2	15268	0+/-0		
+CRE5B	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien		4336-4070	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						H3c		13167	0+/-0		
+CRE5C	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien	5385 +/- 35BP (Ly-3423	4336-4071	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						H1a		14705	0+/-0		
+CRE5D	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien		4336-4072	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						J1c3		14250	0+/-0		
+CRE7-A	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien	5415 +/-30BP (Ly-14860)	4341-4233	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						J2b1a		7371	0+/-0		
+CRE8C	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien	5475 +/- 35BP (Ly-14861)	4500-4100	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						H1		3540			
+CRE11A	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien		4500-4100	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						X2b-226	I2	14802	0+/-0		
+CRE11B	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien		4500-4100	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						J1c3		15443	0+/-0		
+CRE11C	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien		4500-4100	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						J2b1a2		14794	0+/-0		
+CRE14	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien	5485 +/-30BP (Ly-14862)	4442-4261	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						H4a1a		20148	0+/-0		
+CRE20-A	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien	5380 +/- 35BP (Ly-3424)	4334-4068	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						K1a4a1		8640	0+/-0		
+CRE20-B	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien		4334-4069	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						U5b1c		21272	0+/-0		
+CRE20-D	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien		4334-4068	Occitanie (South)	Herault	V. Fabre	PB	37	capture + shotgun	SF-MN	SF-MN2	28.08	XX	H-16291		H3		17307	0+/-0		
+CRE21	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien	5460 +/- 30BP (Ly-14863)	4356-4258	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						K1a-195		13089	0+/-0		
+CRE29	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien	5385 +/- 35BP (Ly3426)	4336-4071	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						K1a1b1	I2a1b1a2b1a2a2b1b1~	16137	0+/-0		
+CRE30	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien	5475 +/-30BP (Ly-14864)	4366-4259	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						H3		6072	0+/-0		
+CRE34	Le Crès	Béziers	43.2051	3.1308	Middle Neolithic 2	Chasséen ancien	5495 +/- 30BP (Ly-14865)	4446-4265	Occitanie (South)	Herault	V. Fabre	PB	37	capture	SF-MN						V		8839	0+/-0		
+PIR1	Le Pirou	Valros	43.2516	3.2202	Middle Neolithic 2	Chasséen ancien	5406 +/- 48BP (Erl13045)	4346-4246	Occitanie (South)	Herault	M. Gandelin	PB	38	capture	SF-MN						U5b3 					
+Pir2	Le Pirou	Valros	43.2516	3.2202	Middle Neolithic 2	Chasséen ancien	5440 +/- 30BP (Ly-15187)	4346-4246	Occitanie (South)	Herault	M. Gandelin	PB	38	capture	SF-MN						J1c3		15750	0+/-0		
+Pir3	Le Pirou	Valros	43.2516	3.2202	Middle Neolithic 2	Chasséen ancien	5450 +/- 47BP (Erl13042)	4444-4172	Occitanie (South)	Herault	M. Gandelin	PB	38	capture	SF-MN						K1a4a1		15904	0+/-0		
+Pir4	Le Pirou	Valros	43.2516	3.2202	Middle Neolithic 2	Chasséen  ancien	5494 +/-49BP (Erl13040)	4450-4173	Occitanie (South)	Herault	M. Gandelin	PB	38	capture + shotgun	SF-MN	SF-MN2	23.234	XX	V10a		V		17978	0+/-0		
+Pir7	Le Pirou	Valros	43.2516	3.2202	Middle Neolithic 2	Chasséen ancien	5456+/-49BP (Erl13035)	4446-4176	Occitanie (South)	Herault	M. Gandelin	PB	38	capture	SF-MN						X2b		16060	0+/-0		
+ISM1	Le Prieuré	Isle-sur-Marne	48.64004	4.68797	Late Neolithic	Néolithique récent		2800-2500	Grand-Est (East)	Marne	O. Baillif	PB	29	capture	EF-LN						X2b-226		25272	0+/-0		
+ISM2	Le Prieuré	Isle-sur-Marne	48.64004	4.68797	Late Neolithic	Néolithique récent	4130 +/- 30BP (Beta-450195)	2872-2583	Grand-Est (East)	Marne	O. Baillif	PB	29	capture	EF-LN						U5b1-16189		25863	0+/-0		
+CHEP2	chemin Royat	La Cheppe	49.05071	4.49884	Late Neolithic	Neolithique final	4015 +/- 35BP (GrA-44231)	2621-2468	Grand-Est (East)	Marne	H. Bocquillon	PB	30	capture	EF-LN						H1		16906	0+/-0		
+CHEP3	chemin Royat	La Cheppe	49.05071	4.49884	Late Neolithic	Neolithique final		2600-2400	Grand-Est (East)	Marne	H. Bocquillon	PB	30	capture	EF-LN						U5b1b2		21398	0+/-0		
+CHEP4	chemin Royat	La Cheppe	49.05071	4.49884	Late Neolithic	Neolithique final		2600-2400	Grand-Est (East)	Marne	H. Bocquillon	PB	30	capture	EF-LN						U5b1b2		23116	0.015+/-0.005		
+BRE445A	ZAC st Martin	Bréviandes	48.25698	4.09535	Late Neolithic	Neolithique final		2500-2200	Grand-Est (East)	Aube	C. Laurelut	PB	17	capture	EF-LN						K1b1a1		11761	0+/-0		
+BRE445B	ZAC st Martin	Bréviandes	48.25698	4.09535	Late Neolithic	Neolithique final	3940 +/-40BP (GrN-31284)	2568-2299	Grand-Est (East)	Aube	C. Laurelut	PB	17	capture	EF-LN						T2c1e		20741	0+/-0		
+BRE445C	ZAC st Martin	Bréviandes	48.25698	4.09535	Late Neolithic	Neolithique final		2500-2200	Grand-Est (East)	Aube	C. Laurelut	PB	17	capture	EF-LN						V		7834	0.1+/-0.015		
+BRE445FK	ZAC st Martin	Bréviandes	48.25698	4.09535	Late Neolithic	Neolithique final		2500-2200	Grand-Est (East)	Aube	C. Laurelut	PB	17	capture	EF-LN						U5b1		7527	0+/-0		
+BRE445HI	ZAC st Martin	Bréviandes	48.25698	4.09535	Late Neolithic	Neolithique final		2500-2200	Grand-Est (East)	Aube	C. Laurelut	PB	17	capture	EF-LN						K1b1a1		32136	0+/-0		
+BOU1	Aven de la Boucle	Corconne	43.5222	3.5625	Late Neolithic	Néolithique final 1	4590 +/- 30BP (Ly-14870)	3499-3126	Occitanie (South)	Gard	H Duday	PB	41	capture	SF-LN						U2e1c1	G2a	25993	0.1+/-0.005		
+BOU10	Aven de la Boucle	Corconne	43.5222	3.5625	Late Neolithic	Néolithique final 1 ou 2 (Ferrières)		3500-3000	Occitanie (South)	Gard	H Duday	PB	41	capture	SF-LN						K1a-195		12546	0+/-0		
+BOU11	Aven de la Boucle	Corconne	43.5222	3.5625	Late Neolithic	Néolithique final 2 (Ferrières)	4485 +/-30BP (Ly-14871)	3344-3035	Occitanie (South)	Gard	H Duday	PB	41	capture	SF-LN						T2c1d-152	G2a1a1a1a1a	32184	0.02+/-0.005		
+BOU12	Aven de la Boucle	Corconne	43.5222	3.5625	Late Neolithic	Néolithique final 1 ou 2 (Ferrières)	4560 +/- 30BP (Ly-15201)	3487-3107	Occitanie (South)	Gard	H Duday	PB	41	capture	SF-LN						H-195		9111	0+/-0		
+BOU15	Aven de la Boucle	Corconne	43.5222	3.5625	Late Neolithic	Néolithique final 2 (Ferrières)	4465 +/- 30BP (Ly14872)	3337-3024	Occitanie (South)	Gard	H Duday	PB	41	capture	SF-LN						V17		15441	0.105+/-0.00499999999999999		
+BOU4	Aven de la Boucle	Corconne	43.5222	3.5625	Late Neolithic	Néolithique final 2 (Ferrières)	4530 +/- 30BP (Ly-15198)	3361-3103	Occitanie (South)	Gard	H Duday	PB	41	capture	SF-LN						K1b1a	G2a2b2b	25346	0.04+/-0.005		
+BOU6	Aven de la Boucle	Corconne	43.5222	3.5625	Late Neolithic	Néolithique final 1	4680 +/- 30BP (Ly-14869)	3623-3370	Occitanie (South)	Gard	H Duday	PB	41	capture	SF-LN						U5b2b3a		12879	0+/-0		
+BOU7	Aven de la Boucle	Corconne	43.5222	3.5625	Late Neolithic	Néolithique final 2 (Ferrières)	4530 +/- 30BP (Ly-15199)	3361-3103	Occitanie (South)	Gard	H Duday	PB	41	capture	SF-LN						H10-16093		17535	0.07+/-0.005		
+BOU9	Aven de la Boucle	Corconne	43.5222	3.5625	Late Neolithic	Néolithique final 2 (Ferrières)	4475 +/-30BP (Ly-15200)	3339-3029	Occitanie (South)	Gard	H Duday	PB	41	capture	SF-LN						K1a-195	G2a	29110	0+/-0		
+MIT1155	MITRA 3	Garons	43.77005	4.42454	Late Neolithic	Néolithique final 3 (Fontbouisse)	3950 +/- 35BP (Poz-50751)	2502-2340	Occitanie (South)	Gard	B. Sendra	PB	45	capture	SF-LN						U5b1-16189		4714	0+/-0		
+MIT83A	MITRA 3	Garons	43.77005	4.42454	Late Neolithic	Néolithique final 3 (Fontbouisse)	3890 +/- 35BP (Poz-50752)	2471-2235	Occitanie (South)	Gard	B. Sendra	PB	45	capture	SF-LN						K1b1a		4378	0+/-0		
+EUG12	Dolmen de Saint-Eugène	Laure	43.162	2.3116	Late Neolithic	Néolithique final 2 (Vérazien classique) 	4190 +/- 30BP (Ly-15197)	2891-2671	Occitanie (South)	Aude	J. Guilaine	PB	42	capture	SF-LN						J1c8a		10365	0+/-0		
+EUG2	Dolmen de Saint-Eugène	Laure	43.162	2.3116	Late Neolithic	Néolithique final 2 (Vérazien classique) ? 		3000-2600	Occitanie (South)	Aude	J. Guilaine	PB	42	capture	SF-LN						U5b1d1		12650	0+/-0		
+EUG5	Dolmen de Saint-Eugène	Laure	43.162	2.3116	Late Neolithic	Néolithique final 2 (Vérazien classique) ? 	4140 +/-30BP (Beta-471247)	2874-2621	Occitanie (South)	Aude	J. Guilaine	PB	42	capture	SF-LN						H1ak1		5199	0+/-0		
+EUG8	Dolmen de Saint-Eugène	Laure	43.162	2.3116	Late Neolithic	Néolithique final 2 (Vérazien classique) ? 	4270 +/-30BP (Beta471250)	2925-2871	Occitanie (South)	Aude	J. Guilaine	PB	42	capture	SF-LN						T2c1d-152		6965	0+/-0		
+EUG10	Dolmen de Saint-Eugène	Laure	43.162	2.3116	Late Neolithic	Néolithique final 2 (Vérazien classique) ? 	4390 +/-30BP (Ly-15197)	3092-2918	Occitanie (South)	Aude	J. Guilaine	PB	42	capture	SF-LN											
+FAD1	Dolmen des Fades	Pépieux	43.1751	2.4049	Late Neolithic	Néolithique final 2 (Vérazien classique) 	4240 +/-30BP (Ly-14873)	2911-2705	Occitanie (South)	Aude	J. Guilaine	PB	43	capture	SF-LN						J1c1b		14694	0+/-0		
+FAD10	Dolmen des Fades	Pépieux	43.1751	2.4049	Late Neolithic	Néolithique final 3 (Vérazien récent)	4015 +/- 30BP (Ly-15204)	2618-2470	Occitanie (South)	Aude	J. Guilaine	PB	43	capture	SF-LN						H		21404	0+/-0		
+FAD12	Dolmen des Fades	Pépieux	43.1751	2.4049	Late Neolithic	Néolithique final 2 (Vérazien classique) 	4135 +/- 30BP (Ly15205)	2872-2620	Occitanie (South)	Aude	J. Guilaine	PB	43	capture	SF-LN						H		10699	0+/-0		
+FAD3	Dolmen des Fades	Pépieux	43.1751	2.4049	Late Neolithic	Néolithique final 2 (Vérazien classique) 	4405 +/- 30BP (Ly-15203)	3264-2917	Occitanie (South)	Aude	J. Guilaine	PB	43	capture	SF-LN						H3	I2	13653	0+/-0		
+CBV95	La Bouche-à-Vesle	Ciry_Salsogne	49.36232	3.46272	Late Neolithic	Campaniforme	3970 +/- 30BP (GrA-32767)	2574-2452	Hauts-de-France (North)	Aisne	C. Thevenet	PB	31	capture + shotgun	NF-BB	NF-BB	65.969	XY	J2a1a1	R1b1a1a2	J2a1a1	R1b1a1	12862	0.105+/-0.00499999999999999	0.023183	0.02494612
+PEI2	Dolmen des Peirières	Villedubert	43.1355	2.2519	Late Neolithic	Campaniforme	3935 +/- 30BP (Ly-14875)	2563-2308	Occitanie (South)	Aude	H Duday	PB	44	capture + shotgun	SF-BB	SF-BB	13.259	XY	H3	G2a2b2b1a1~	H1				0.048156	0.01272432
+PEI10	Dolmen des Peirières	Villedubert	43.1355	2.2519	Late Neolithic	Néolithique final 2 (Vérazien classique) 	4200 +/- 30BP (Ly-14876)	2894-2678	Occitanie (South)	Aude	H Duday	PB	44	capture + shotgun	SF-LN	SF-LN	13.259	XX			V					
+PSS4170	Pont-sur-Seine	Pont-sur-Seine	48.51852	3.59633	Early Bronze Age	Early Bronze Age	3690 +/- 30BP (Beta-490471)	2196-1977	Grand-Est (East)	Aube	F. Dugois/S. Loiseau	PB	23	capture + shotgun	F-BA	EF-BA1	30.693	XY	H25	R1b1a1a2a2a	H	R1b1	12456	0+/-0	0.004128	0.005096676
+OBE3626-1	PAEI	Obernai	48.46226	7.48167	Early Bronze Age	Early Bronze Age	3505 +/- 35BP (Poz-67563)	1926-1701	Grand-Est (East)	Bas-Rhin	C. Féliu	PB	9	shotgun	F-BA	EF-BA1	76.44	XY	R1b	R1b1a1a2					0.001544	0.009544461
+OBE3626-2	PAEI	Obernai	48.46226	7.48167	Early Bronze Age	Early Bronze Age		2000-1700	Grand-Est (East)	Bas-Rhin	C. Féliu	PB	9	capture	F-BA						V		4629	0+/-0		
+OBE3628	PAEI	Obernai	48.46226	7.48167	Early Bronze Age	Early Bronze Age		2000-1701	Grand-Est (East)	Bas-Rhin	C. Féliu	PB	9	capture	F-BA						H2a1					
+OBE3722	PAEI	Obernai	48.46226	7.48167	Early Bronze Age	Early Bronze Age		2000-1700 	Grand-Est (East)	Bas-Rhin	C. Féliu	PB	9	capture + shotgun	F-BA	EF-BA1	63.88	XX	I5		I4a		6116	0+/-0		
+RIX4	Zac du Petit Prince	Rixheim	47.74437	7.39683	Early Bronze Age	Bronze Age A2a	3415+/-40BP (GrA-33880)	1750-1630	Grand-Est (East)	Haut-Rhin	Axelle MURER	PB	10	capture + shotgun	F-BA	EF-BA1	82.805	XX	K1a4a1a1		K1a4a1a		9442	0.13+/-0.005		
+RIX2	Zac du Petit Prince	Rixheim	47.74437	7.39683	Early Bronze Age	Bronze Age A2a		1700-1600 	Grand-Est (East)	Haut-Rhin	Axelle MURER	PB	10	shotgun	F-BA	EF-BA1	57.828	XY	T2c1d-152	R1b1a1a2a1a					0.0131	0.01655032
+RIX15	Zac du Petit Prince	Rixheim	47.74437	7.39683	Early Bronze Age	Bronze Age A2a		1700-1600 	Grand-Est (East)	Haut-Rhin	Axelle MURER	PB	10	capture + shotgun	F-BA	EF-BA1	80.744	XY	T2b19	R1b1a1a2a1a	T2b19		11612	0.05+/-0.005	-0.001099	0.002294959
+BIS385	Muehlacker	Bischwihr	48.09825	7.43701	Early Bronze Age	Bronze Age A2a		2000-1800 	Grand-Est (East)	Haut-Rhin	Luc Vergnaud	PB	8	capture + shotgun	F-BA	EF-BA1	77.716	XX	T2c1d2a		T2c1d1		3098	0+/-0		
+BIS159	Muehlacker	Bischwihr	48.09825	7.43701	Early Bronze Age	Bronze Age A2a		2000-1800	Grand-Est (East)	Haut-Rhin	Luc Vergnaud	PB	8	capture	F-BA			XY			U5a1a1		7405	0+/-0		
+BIS382	Muehlacker	Bischwihr	48.09825	7.43701	Early Bronze Age	Bronze Age A2a		2000-1800	Grand-Est (East)	Haut-Rhin	Luc Vergnaud	PB	8	capture	F-BA			XY			U2e2a4		9025	0+/-0		
+BIS388-1	Muehlacker	Bischwihr	48.09825	7.43701	Early Bronze Age	Bronze Age A2a		2000-1800	Grand-Est (East)	Haut-Rhin	Luc Vergnaud	PB	8	capture	F-BA						U2e1		4749	0+/-0		
+BIS388-2	Muehlacker	Bischwihr	48.09825	7.43701	Early Bronze Age	Bronze Age A2a		2000-1800	Grand-Est (East)	Haut-Rhin	Luc Vergnaud	PB	8	capture	F-BA						X2b-226		6058	0+/-0		
+BIS130	Muehlacker	Bischwihr	48.09825	7.43701	Early Bronze Age	Bronze Age A2a		2000-1800 	Grand-Est (East)	Haut-Rhin	Luc Vergnaud	PB	8	capture + shotgun	F-BA	EF-BA1	53.683	XY	K2b1b	R1b1a1a2	K2b1b		6983	0.135+/-0.005		
+NIED	Innere Allmende	Niederergheim	47.98479	7.39916	Late Bronze Age	Bronze Age IIIb		914-810	Grand-Est (East)	Haut-Rhin	H Barrand Emam	PB	7	capture + shotgun	F-BA	EF-BA2	79.157	XX	U5b2b		U5b2b		15983	0.075+/-0.00499999999999999		
+VTQ14	La Terrasse	Villeneuve-Tolosane	43.3129	1.2033	Early Bronze Age	Early Bronze Age	3510 +/- 30BP (Ly-15192)	1918-1748	Occitanie (South)	Haute-Garonne	M. Gandelin	PB	39	capture	F-BA						I2		16784	0+/-0		
+PIR3116B	Rec de Ligno	Valros	43.2516	3.2202	Early Bronze Age	Early Bronze Age	3790 +/-30BP (Ly-14877)	2336-2135	Occitanie (South)	Herault	M. Gandelin	PB	38	capture + shotgun	F-BA	SF-BA1	48.76	XY	H2a1e	R1b1a1a2	H2a1	R1b1	10374	0+/-0	0.051866	0.05552951
+PIR3037AB	Rec de Ligno	Valros	43.2516	3.2202	Early Bronze Age	Early Bronze Age	3663 +/- 43BP (Erl-12277)	2195-1922	Occitanie (South)	Herault	M. Gandelin	PB	38	capture + shotgun	F-BA	SF-BA1	34.373	XY	U4c1	R1b1a1a2	U4c1a		3770	0+/-0	0.130497	0.1316966
+PIR3117	Rec de Ligno	Valros	43.2516	3.2202	Early Bronze Age	Early Bronze Age	3606 +/- 43BP (Erl-12278)	2132-1785	Occitanie (South)	Herault	M. Gandelin	PB	38	capture	F-BA						K2a5	I2	3455	0+/-0		
+EUG11	Dolmen de Saint-Eugène	Laure	43.162	2.3116	Early Bronze Age	Early Bronze Age 	3580 +/- 30BP (Beta-471249)	2028-1878	Occitanie (South)	Aude	J. Guilaine	PB	42	capture + shotgun	F-BA	SF-BA1	16.325	XY	V9	R1b1a2a	V	R	12083	0+/-0	-0.007125	0.004310694
+FAD9	Dolmen des Fades	Pépieux	43.1751	2.4049	Early Bronze Age	Early Bronze Age	3490 +/- 30BP (Ly-14874)	1893-1700	Occitanie (South)	Aude	J. Guilaine	PB	43	capture	F-BA						K1b1a1	I1a2a1a1a3a2b~	20180	0+/-0		
+QUIN59	Quinquiris	Castelnaudary	43.29568	1.96175	Early/Middle Bronze Age	Early/Middle Bronze Age		-	Occitanie (South)	Aude	F. Maziere	PB	46	capture	F-BA						N1a1a1a		4830	0+/-0		
+QUIN234	Quinquiris	Castelnaudary	43.29568	1.96175	Early/Middle Bronze Age	Early/Middle Bronze Age			Occitanie (South)	Aude	F. Maziere	PB	46	Shotgun	F-BA	SF-BA1	48.233	XX	H3m		H3					
+QUIN58	Quinquiris	Castelnaudary	43.29568	1.96175	Early/Middle Bronze Age	Early/Middle Bronze Age		2100-1200 	Occitanie (South)	Aude	F. Maziere	PB	46	capture + shotgun	F-BA	SF-BA1	47.298	XY	H1ah	R1b1a1a2	H1ah	R1b1a1a2	12815	0.03+/-0.005		
+PIR6	Le Pirou	Valros	43.2516	3.2202	Middle Bronze Age	Middle Bronze Age	3356+/- 43BP (Erl-12275)	1745-1529	Occitanie (South)	Herault	M. Gandelin	PB	38	capture + shotgun	F-BA	SF-BA1	60.06	XX	V		V					
+MIT1031	MITRA 3	Garons	43.77005	4.42454	Middle Bronze Age	Middle Bronze Age		1800-1600	Occitanie (South)	Gard	B. Sendra	PB	45	capture	F-BA						J1b1a1		3836	0+/-0		
+FAD2	Dolmen des Fades	Pépieux	43.1751	2.4049	Middle Bronze Age	Middle Bronze Age	3320 +/- 30BP (Ly-15202)	1683-1521	Occitanie (South)	Aude	J. Guilaine	PB	43	capture	F-BA						H1-16189	R1b1a1b1	18870	0+/-0		
+MIT11	MITRA 3	Garons	43.77005	4.42454	Middle Bronze Age	Middle Bronze Age	3390 +/- 35BP (Poz-50754)	1772-1608	Occitanie (South)	Gard	B. Sendra	PB	45	capture	F-BA						K1c		2684	0+/-0		
+MAND1175	Manduel	Manduel	43.81	4.47	Middle Bronze Age	Middle Bronze Age		-	Occitanie (South)	Gard	F. Maziere	PB	48	capture	F-BA						X2b-226	R1b1	6786	0.02+/-0.01		
+MIT1030B	 MITRA 2	Garons	43.77005	4.42454	Late Bronze Age	Late Bronze Age		1400-1100	Occitanie (South)	Gard	B. Sendra	PB	45	capture	F-BA						J2a1a1		5023	0+/-0		
+MIT1167A	 MITRA 2	Garons	43.77005	4.42454	Late Bronze Age	Late Bronze Age	3005 +/- 30BP	1382-1127	Occitanie (South)	Gard	M. Laroche	PB	45	capture	F-BA						T2e		5278	0+/-0		
+MIT1167B	 MITRA 2	Garons	43.77005	4.42454	Late Bronze Age	Late Bronze Age		1400-1100	Occitanie (South)	Gard	M. Laroche	PB	45	capture	F-BA						T2e		6173	0+/-0		
+MIT1167C	 MITRA 2	Garons	43.77005	4.42454	Late Bronze Age	Late Bronze Age		1400-1100	Occitanie (South)	Gard	M. Laroche	PB	45	capture	F-BA						H1e1a		5904	0+/-0		
+MIT1059	 MITRA 2	Garons	43.77005	4.42454	Late Bronze Age	Late Bronze Age		1400-1100	Occitanie (South)	Gard	M. Laroche	PB	45	capture	F-BA						V					
+VIGN203	Mas de Vignoles IV	Nîmes	43.81986	4.36264	Late Bronze Age	Late Bronze Age			Occitanie (South)	Gard	F. Maziere	PB	47	capture	F-BA						U5b1b1-@16192		2290	0+/-0		
+VIGN3052	Mas de Vignoles IV	Nîmes	43.81986	4.36264	Late Bronze Age	Late Bronze Age			Occitanie (South)	Gard	F. Maziere	PB	47	capture	F-BA						T2e		11507	0+/-0		
+NOR2B6	Nordhouse	Nordhouse	48.44526	7.67118	First Iron Age	Hallstatt C - Early "La Tène"		800-700 	Grand-Est (East)	Bas-Rhin	S. Plouin 	PB	11	shotgun	F-IA	EF-IA1	69.936	XX	K1a2a							
+NOR3-15	Nordhouse	Nordhouse	48.44526	7.67118	First Iron Age	Hallstatt C - Early "La Tène"		800-700 	Grand-Est (East)	Bas-Rhin	S. Plouin	PB	11	shotgun	F-IA	EF-IA1	53.368	XX	J1c2o							
+NOR3-6	Nordhouse	Nordhouse	48.44526	7.67118	First Iron Age	Hallstatt C - Early "La Tène"		620-500 	Grand-Est (East)	Bas-Rhin	S. Plouin	PB	11	shotgun	F-IA	EF-IA1	80.019	XX	H7d							
+NOR4	Nordhouse	Nordhouse	48.44526	7.67118	First Iron Age	Hallstatt C - Early "La Tène"		620-480 	Grand-Est (East)	Bas-Rhin	S. Plouin	PB	11	shotgun	F-IA	EF-IA1	48.755	XX	U5a1a1							
+NOR2B2	Nordhouse	Nordhouse	48.44526	7.67118	First Iron Age	Hallstatt C - Early "La Tène"		-	Grand-Est (East)	Bas-Rhin	S. Plouin	PB	11	capture	F-IA			XY			J1c-16261	G2a	5977	0.185+/-0.005		
+JEB8	Jebsen Boden	Sainte-Croix-en-Plaine	48.00894	7.38445	First Iron Age	Hallstatt		600-400 	Grand-Est (East)	Haut-Rhin	C. Georjon	PB	14	shotgun	F-IA	EF-IA1	64.394	XX	J1c8a							
+ERS1164	Erstein Untergasse	Erstein	48.42353	7.66326	Second Iron Age	"La Tène"		400-100 	Grand-Est (East) 	Bas-Rhin	F. Abert	PB	12	shotgun	F-IA	EF-IA2	77.088	XX	H2a2a1							
+ERS86	Erstein Untergasse	Erstein	48.42353	7.66326	Second Iron Age	"La Tène"		400-100 	Grand-Est (East) 	Bas-Rhin	F. Abert	PB	12	shotgun	F-IA	EF-IA2	58.057	XX	HV0							
+ERS88	Erstein Untergasse	Erstein	48.42353	7.66326	Second Iron Age	"La Tène"		400-100 	Grand-Est (East) 	Bas-Rhin	F. Abert	PB	12	shotgun	F-IA	EF-IA2	79.662	XX	U5a1g							
+BERG351-2	Saulager	Bergheim	48.2058	7.3625	Second Iron Age	Early "La Tène"		-	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	F-IA						K1a-195		9471	0+/-0		
+BERG643-2	Saulager	Bergheim	48.2058	7.3625	Second Iron Age	Early "La Tène"		-	Grand-Est (East)	Haut-Rhin	B. Perrin	PB	6	capture	F-IA						K1c1		16711	0+/-0		
+COL11	Jardin des Aubépines	Colmar	48.07935	7.35851	Second Iron Age	"La Tène B"		360-320 	Grand-Est (East)	Haut-Rhin	M. Roth-Zehner	PB	13	shotgun	F-IA	EF-IA2	44.646	XX	H2b							
+COL153A	Jardin des Aubépines	Colmar	48.07935	7.35851	Second Iron Age	"La Tène B"		360-320 	Grand-Est (East)	Haut-Rhin	M. Roth-Zehner	PB	13	shotgun	F-IA	EF-IA2	57.196	XX	K1a26							
+COL153i	Jardin des Aubépines	Colmar	48.07935	7.35851	Second Iron Age	"La Tène B"		360-320 	Grand-Est (East)	Haut-Rhin	M. Roth-Zehner	PB	13	shotgun	F-IA	EF-IA2	57.062	XX	H1q							
+BFM265	le fond du Marais	Bucy-le-Long	49.39009	3.39243	Second Iron Age	"La Tène C1"		250-190 	Hauts-de-France (North)	Aisne	C. Thevenet	PB	33	shotgun	F-IA	EF-IA2	67.633	XX	U2e1b2							
+ATT26	Le Buissonnet	Attichy-Bitry	49.41303	3.0484	Second Iron Age	"La Tène B1-B2"		350-200 	Hauts-de-France (North) 	Oise	S. Desenne	PB	32	shotgun	F-IA	EF-IA2	20.637	XX	H8							
+BES1248	La Monédière	Bessan	43.3614	3.42701	Second Iron Age	"La Tène"		200-50 	Occitanie (South) 	Hérault	A. Beylier	PB	53	shotgun	F-IA	SF-IA2	75.391	XY	J1c8a2	I1					0.011658	0.01167867
+PECH5	Pech Maho	Sigean	43.04563	2.95644	Second Iron Age	"La Tène"		600-300 	Occitanie (South)	Aude	E. Gailledrat	PB	51	capture + shotgun	F-IA	SF-IA2	82.349	XY	H1e1b1a	R1b1a1a2a	H1ab	R1b1a1a2	12956	0.04+/-0.005		
+PECH8	Pech Maho	Sigean	43.04563	2.95644	Second Iron Age	"La Tène"		600-300 	Occitanie (South)	Aude	E. Gailledrat	PB	51	capture + shotgun	F-IA	SF-IA2	76.1	XY	J1c2m	R1b1a1a2a1a	J1c3j	R1b1a1a2a1a2c1a1a1a1a1	15011	0.015+/-0.005	0.021095	0.02271851
+PECH10	Pech Maho	Sigean	43.04563	2.95644	Second Iron Age	"La Tène"		600-300 	Occitanie (South)	Aude	E. Gailledrat	PB	51	capture	F-IA						H1t	R1b1	7356	0+/-0		
+PECH3	Pech Maho	Sigean	43.04563	2.95644	Second Iron Age	"La Tène"		600-300 	Occitanie (South)	Aude	E. Gailledrat	PB	51	capture	F-IA						V	R1b1a1a	5227	0+/-0		
+PECH9	Pech Maho	Sigean	43.04563	2.95644	Second Iron Age	"La Tène"		600-300 	Occitanie (South)	Aude	E. Gailledrat	PB	51	capture	F-IA						J1c5		11363	0.04+/-0.005		
+CLR05	Le Cailar	Le Cailar	43.67556	4.23619	Second Iron Age	"La Tène"		400-300 	Occitanie (South)	Gard	R. Roure 	TO	49	capture	F-IA						H-16291		3810	0.51+/-0.03		
+CLR1	Le Cailar	Le Cailar	43.67556	4.23619	Second Iron Age	"La Tène"		400-300 	Occitanie (South)	Gard	R. Roure 	TO	49	capture	F-IA						H3-16311	R1b1a1a2	8343	0.035+/-0.01		
+CLR11	Le Cailar	Le Cailar	43.67556	4.23619	Second Iron Age	"La Tène"		400-300 	Occitanie (South)	Gard	R. Roure 	TO	49	capture	F-IA						U8	E1b1b	18218	0+/-0		
+CLR12	Le Cailar	Le Cailar	43.67556	4.23619	Second Iron Age	"La Tène"		400-300 	Occitanie (South)	Gard	R. Roure 	TO	49	capture	F-IA						H1		7106	0.09+/-0.04		
+CLR13	Le Cailar	Le Cailar	43.67556	4.23619	Second Iron Age	"La Tène"		400-300 	Occitanie (South)	Gard	R. Roure 	TO	49	capture	F-IA						W5b		11176	0.08+/-0.02		
+PT2	Oppidum du Plan de la Tour	Gailhan	43.84402	4.03237	Second Iron Age	"La Tène"		450-400 	Occitanie (South)	Gard	B. Dedet	PB	50	shotgun	F-IA	SF-IA2	58.212	XX	J1c1b1							
+PEY163	Le Peyrou	Agde	43.31137	3.48196	Second Iron Age	"La Tène"		400-200 	Occitanie (South) 	Hérault	B. Dedet	PB	52	shotgun	F-IA	SF-IA2	60.277	XY	W1g	R1b1a1a2					0.030399	0.03287894
+PEY53	Le Peyrou	Agde	43.31137	3.48196	Second Iron Age	"La Tène"		200-150 	Occitanie (South) 	Hérault	B. Dedet	PB	52	shotgun	F-IA	SF-IA2	66.873	XX	J1c11a							
+PEY74	Le Peyrou	Agde	43.31137	3.48196	Second Iron Age	"La Tène"		400-200 	Occitanie (South) 	Hérault	B. Dedet	PB	52	capture	F-IA						H-152	R	23853	0+/-0		

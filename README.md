@@ -139,7 +139,6 @@ sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB64656_tsv.txt | cut -f 7 | grep
 
 # To map `SAMPLE <-> FILE`
 (sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB64656_tsv.txt | cut -f 7,8 | grep 'NEO898\|NEO813\|ERR12075080' -v | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' -e 's/.sort.rmdup.realign.md.bam;//g' -e 's/.neo.merge.bam;//g' -e 's/.neo.clean.bam;//g' | sed 's/ //g'; echo "ERR12075080\tNEO962")
-
 ```
 
 442 samples from Margaryan et al., 2020 (https://doi.org/10.1038/s41586-020-2688-8; https://www.ebi.ac.uk/ena/browser/view/PRJEB37976):
@@ -195,7 +194,18 @@ mkdir -p $DIR_BASE/sequencing_data/ancient/Allentoft2015
 sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB9021_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Allentoft2015'
 
 # To map `SAMPLE <-> FILE`
-ed '1d' $DIR_BASE/data/filereport_read_run_PRJEB9021_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($6,$11)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' | sed -e 's/.hg19.flt.sort.rmdup.realign.md.bam//g' | sed 's/ //g'
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB9021_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($6,$11)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' | sed -e 's/.hg19.flt.sort.rmdup.realign.md.bam//g' | sed 's/ //g'
+```
+
+58 samples from Brunel et al., 2020 (https://doi.org/10.1073/pnas.1918034117; https://www.ebi.ac.uk/ena/browser/view/PRJEB38152)
+
+```shell
+#sed '1d' filereport_read_run_PRJEB38152_tsv.txt | grep -i -Ff <(sed '1,2d' Brunel2018.SupplementaryTable1.csv | cut -f 1 | sed -e 's/Schw72-15/Sch72-15/g' -e 's/CRE8C/CRE8-C/g' -e 's/BIS388-/BIS388/g'; echo CRE20D)
+mkdir -p $DIR_BASE/sequencing_data/ancient/Brunel2020
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB38152_tsv.txt | grep bam | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Brunel2020'
+
+# To map `SAMPLE <-> FILE`
+sed '1d' filereport_read_run_PRJEB38152_tsv.txt | cut -f 7,8 | grep bam | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' | sed -e 's/.mappedHs37d5.trim2.bam//g' -e 's/.mappedHs37d5.trim2.bam//g' -e 's/.mappedHs37.trim2.bam//g' | sed 's/ //g'
 ```
 
 ### Modern
