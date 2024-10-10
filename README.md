@@ -33,7 +33,8 @@ go mod init cosigt && go mod tidy && go build cosigt
 Create a `conda` environment for `cosigt` with all its dependencies:
 
 ```shell
-conda create --prefix /lizardfs/guarracino/condatools/cosigt -c conda-forge -c bioconda -c anaconda snakemake cookiecutter python=3.9 pip pyyaml pandas pyfaidx bwa-mem2 matplotlib Pillow scipy scikit-learn -y
+export PATH="/scratch/cosigt:$PATH"
+conda create --prefix /lizardfs/guarracino/condatools/cosigt -c conda-forge -c bioconda -c anaconda snakemake=7.32.4 cookiecutter bwa-mem2=2.2.1 matplotlib samtools=1.21 bedtools=2.31.0 python=3.9 pip pyyaml pandas pyfaidx Pillow scipy scikit-learn -y
 ```
 
 It assumes that all `pggb` and its tools (`wfmash`, `seqwish`, `smoothxg`, `odgi`, `gfaffix`), `samtools`, `bedtools` are in `$PATH` are installed and included in system's `$PATH` environment variable so they can be executed from any directory.
@@ -51,42 +52,38 @@ conda create --prefix /lizardfs/guarracino/condatools/moni/0.2.2 -c conda-forge 
 Preparation:
 
 ```shell
-mkdir -p $DIR_BASE/small_test && cd $DIR_BASE/small_test
-
-# Prepare folders
-cd $DIR_BASE/small_test
-mkdir cram reference assemblies paf roi
+mkdir -p /scratch/small_test && cd /scratch/small_test
 
 # Region-of-interest
-echo -e "grch38#chr6\t31972057\t32055418" > roi/roi.bed
+mkdir roi && echo -e "grch38#chr6\t31972057\t32055418" > roi/roi.bed
 
 # Cram
-cd cram
+mkdir cram && cd cram
 wget https://1000genomes.s3.amazonaws.com/1000G_2504_high_coverage/additional_698_related/data/ERR3988768/HG00438.final.cram
 wget https://1000genomes.s3.amazonaws.com/1000G_2504_high_coverage/additional_698_related/data/ERR3988768/HG00438.final.cram.crai
 cd ..
 
 # Reference
-cd reference
+mkdir reference && cd reference
 wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa
 samtools faidx GRCh38_full_analysis_set_plus_decoy_hla.fa
 cd ..
 
 # Assemblies
-curl -o HPRC-yr1.agc https://zenodo.org/record/5826274/files/HPRC-yr1.agc?download=1
-curl -L https://github.com/refresh-bio/agc/releases/download/v1.1/agc-1.1_x64-linux.tar.gz|tar -zxvf - agc-1.1_x64-linux/agc
-cd assemblies
+curl -L https://github.com/refresh-bio/agc/releases/download/v1.1/agc-1.1_x64-linux.tar.gz | tar -zxvf - agc-1.1_x64-linux/agc
+mkdir assemblies && cd assemblies
+wget -O HPRC-yr1.agc "https://zenodo.org/record/5826274/files/HPRC-yr1.agc?download=1"
+rm chr6.y1.fa
 while read -r line; do
-    ../agc-1.1_x64-linux/agc getctg $DIR_BASE/data/HPRC-yr1.agc $line >> /scratch/chr6.y1.fa
-done < ../chr6.y1.txt
+    ../agc-1.1_x64-linux/agc getctg HPRC-yr1.agc $line >> chr6.y1.fa
+done < $DIR_BASE/data/chr6.y1.txt
 samtools faidx ../reference/GRCh38_full_analysis_set_plus_decoy_hla.fa chr6 | sed 's/^>chr6/>grch38#chr6/' > chr6.grhch38.fa
-cat chr6.grhch38.fa >> /scratch/chr6.y1.fa
-samtools faidx /scratch/chr6.y1.fa
-mv /scratch/chr6.y1.fa*$DIR_BASE/small_test/assemblies
+cat chr6.grhch38.fa >> chr6.y1.fa
+samtools faidx chr6.y1.fa
 cd ..
 
 # Paf
-cd paf
+mkdir paf && cd paf
 wfmash ../assemblies/chr6.grhch38.fa ../assemblies/chr6.y1.fa -X -t 16 -s 10k -p 95 > chr6.y1.s10p95.paf
 cd ..
 ```
@@ -94,12 +91,15 @@ cd ..
 Genotyping:
 
 ```shell
+# Remove all paths containing `/gnu/store/` or the string `guix` from the `PATH` environment variable, to avoid issues with Python paths leading to a broken `h5py` (and then missing databases)
+export PATH=$(echo $PATH | tr ':' '\n' | awk '!(/\/gnu\/store\// || /guix/)' | paste -sd ':')
+
 # Activate conda environment
 conda activate /lizardfs/guarracino/condatools/cosigt
 
 # Prepare input files
-cd /lizardfs/guarracino/git/cosigt/cosigt_smk
-python workflow/scripts/organize.py -a $DIR_BASE/small_test/cram -r $DIR_BASE/small_test/reference/GRCh38_full_analysis_set_plus_decoy_hla.fa --fasta $DIR_BASE/small_test/assemblies/chr6.y1.fa --paf $DIR_BASE/small_test/paf/chr6.y1.s10p95.paf --roi $DIR_BASE/small_test/roi/roi.bed --temp_dir /scratch
+cd /scratch/cosigt/cosigt_smk
+python workflow/scripts/organize.py -a /scratch/small_test/cram -r /scratch/small_test/reference/GRCh38_full_analysis_set_plus_decoy_hla.fa --assemblies /scratch/small_test/assemblies/chr6.y1.fa --roi /scratch/small_test/roi/roi.bed --pggb_tmpdir /scratch
 
 # Genotyping
 snakemake cosigt --cores 16
@@ -180,7 +180,7 @@ sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB20658_tsv.txt | cut -f 7,8 | aw
 # 70 samples, but the paper mentions 74 samples
 mkdir -p $DIR_BASE/sequencing_data/ancient/Damgaard2018_Science
 cd /scratch
-sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB26349_tsv.txt | grep -Ff <(sed '1d' $DIR_BASE/data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1) | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Damgaard2018_Nature'
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB26349_tsv.txt | grep -Ff <(sed '1d' $DIR_BASE/data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1) | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Damgaard2018_Science'
 
 # The 4 missed samples are in the Damgaard et al., 2018, Nature paper
 sed '1d' $DIR_BASE/data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1 | sort | grep -Ff <(sed '1d' data/filereport_read_run_PRJEB26349_tsv.txt | grep -Ff <(sed '1d' data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1) | cut -f 8 | cut -f 6 -d '/' | cut -f 1 -d '.' | cut -f 1 -d '_' ) -v
@@ -194,6 +194,7 @@ sed '1d' $DIR_BASE/data/Damgaard2018.Science.SupplementaryTable1.csv | cut -f 1 
 
 ```shell
 mkdir -p $DIR_BASE/sequencing_data/ancient/Allentoft2015
+cd /scratch
 sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB9021_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Allentoft2015'
 
 # To map `SAMPLE <-> FILE`
@@ -205,6 +206,7 @@ sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB9021_tsv.txt | cut -f 7,8 | awk
 ```shell
 #sed '1d' filereport_read_run_PRJEB38152_tsv.txt | grep -i -Ff <(sed '1,2d' Brunel2018.SupplementaryTable1.csv | cut -f 1 | sed -e 's/Schw72-15/Sch72-15/g' -e 's/CRE8C/CRE8-C/g' -e 's/BIS388-/BIS388/g'; echo CRE20D)
 mkdir -p $DIR_BASE/sequencing_data/ancient/Brunel2020
+cd /scratch
 sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB38152_tsv.txt | grep bam | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Brunel2020'
 
 # To map `SAMPLE <-> FILE`
@@ -226,7 +228,7 @@ sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB25445_tsv.txt | cut -f 7 | grep
 ```shell
 mkdir -p $DIR_BASE/sequencing_data/ancient/Sikora2019
 cd /scratch
-sed '1d' filereport_read_run_PRJEB29700_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Sikora2019'
+sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB29700_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Sikora2019'
 
 # To map `SAMPLE <-> FILE`
 sed '1d' $DIR_BASE/data/filereport_read_run_PRJEB29700_tsv.txt | cut -f 7,8 | awk -v FS='/' '{print($7,$12)}' | sed -e 's/ftp.sra.ebi.ac.uk//g' -e 's/.fastq.gz//g' -e 's/.sort.rmdup.realign.md.bam;//g' -e 's/.realigned.calmd.readsadded.bam;//g' -e 's/.sort.rmdup.uniq.rg.realn.md.bam;//g' | sed 's/ //g'
