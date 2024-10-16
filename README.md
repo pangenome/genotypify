@@ -34,7 +34,7 @@ Create a `conda` environment for `cosigt` with all its dependencies:
 
 ```shell
 export PATH="/scratch/cosigt:$PATH"
-conda create --prefix /lizardfs/guarracino/condatools/cosigt -c conda-forge -c bioconda -c anaconda snakemake=7.32.4 cookiecutter bwa-mem2=2.2.1 matplotlib samtools=1.21 bedtools=2.31.0 python=3.9 pip pyyaml pandas pyfaidx Pillow scipy scikit-learn -y
+conda create --prefix /lizardfs/guarracino/condatools/cosigt -c conda-forge -c bioconda -c anaconda snakemake=7.32.4 cookiecutter=2.6.0 bwa-mem2=2.2.1 samtools=1.21 bedtools=2.31.1 python=3.9 pyyaml=6.0.2 pandas r-base r-rjson=0.2.23 r-reshape2=1.4.4 r-nbclust=3.0.1 r-ggplot2=3.5.1 r-dendextend=1.18.1 r-gggenes=0.5.1 bioconductor-rtracklayer -y
 ```
 
 It assumes that all `pggb` and its tools (`wfmash`, `seqwish`, `smoothxg`, `odgi`, `gfaffix`), `samtools`, `bedtools` are in `$PATH` are installed and included in system's `$PATH` environment variable so they can be executed from any directory.
@@ -91,8 +91,8 @@ cd ..
 Genotyping:
 
 ```shell
-# Remove all paths containing `/gnu/store/` or the string `guix` from the `PATH` environment variable, to avoid issues with Python paths leading to a broken `h5py` (and then missing databases)
-export PATH=$(echo $PATH | tr ':' '\n' | awk '!(/\/gnu\/store\// || /guix/)' | paste -sd ':')
+export PYTHONNOUSERSITE=1 # Tells Python not to use the user site-packages directory and clear the Python path
+snakemake cosigt --cores 16
 
 # Activate conda environment
 conda activate /lizardfs/guarracino/condatools/cosigt
