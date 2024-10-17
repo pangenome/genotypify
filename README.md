@@ -33,7 +33,7 @@ go mod init cosigt && go mod tidy && go build cosigt
 Create a `conda` environment for `cosigt` with all its dependencies:
 
 ```shell
-conda create --prefix /lizardfs/guarracino/condatools/cosigt -c conda-forge -c bioconda -c anaconda snakemake=7.32.4 cookiecutter=2.6.0 bwa-mem2=2.2.1 samtools=1.21 bedtools=2.31.1 python=3.9 pyyaml=6.0.2 pandas r-base r-rjson=0.2.23 r-reshape2=1.4.4 r-nbclust=3.0.1 r-data.table r-ggplot2=3.5.1 r-dendextend=1.18.1 r-gggenes=0.5.1 bioconductor-rtracklayer time -y
+conda create --prefix /lizardfs/guarracino/condatools/cosigt -c conda-forge -c bioconda -c anaconda -c vikky34v snakemake=7.32.4 cookiecutter=2.6.0 bwa-mem2=2.2.1 samtools=1.21 bedtools=2.31.1 python=3.9 pyyaml=6.0.2 pandas -y #r-base r-rjson=0.2.23 r-reshape2=1.4.4 r-nbclust=3.0.1 r-data.table r-ggplot2=3.5.1 r-dendextend=1.18.1 r-gggenes=0.5.1 bioconductor-rtracklayer time glibc=2.33 -y
 ```
 
 It assumes that all `pggb` and its tools (`wfmash`, `seqwish`, `smoothxg`, `odgi`, `gfaffix`), `samtools`, `bedtools` are in `$PATH` are installed and included in system's `$PATH` environment variable so they can be executed from any directory.
@@ -92,10 +92,11 @@ Genotyping:
 ```shell
 export PATH=$(echo $PATH | tr ':' '\n' | awk '!(/\/gnu\/store\// || /guix/)' | paste -sd ':') # Remove guix's path
 export PYTHONNOUSERSITE=1 # Tells Python not to use the user site-packages directory and clear the Python path
+export PATH="/home/guarracino/.guix-profile/bin:$PATH"
+export PATH="/scratch/cosigt:$PATH"
 
 # Activate conda environment
 conda activate /lizardfs/guarracino/condatools/cosigt
-export PATH="/scratch/cosigt:$PATH"
 
 # Prepare input files
 cd /scratch/cosigt/cosigt_smk
