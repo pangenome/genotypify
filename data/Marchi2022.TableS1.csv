@@ -11,7 +11,7 @@ AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL2	SL2_7	16.25	yes	SL2_7_6	200	11	H
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL2	SL2_7	16.25	yes	SL2_7_7	200	11	HiSeq_2_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL2	SL2_7	16.25	yes	SL2_7_8	200	11	HiSeq_19_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL2	SL2_7	16.25	yes	SL2_7_9	200	11	HiSeq_19_LW	SE. 100 cycles
-AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL3	SL3_3	16.25	yes	SL3_3	200	11	HiSeq_20_LW	SE. 100 cycles
+AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL3	SL3_3	16.25	yes	SL3_3_1	200	11	HiSeq_20_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL3	SL3_3	16.25	yes	SL3_3_10	200	11	HiSeq_20_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL3	SL3_3	16.25	yes	SL3_3_11	200	11	HiSeq_20_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL3	SL3_3	16.25	yes	SL3_3_12	200	11	HiSeq_20_LW	SE. 100 cycles
@@ -24,7 +24,7 @@ AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL3	SL3_3	16.25	yes	SL3_3_6	200	11	H
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL3	SL3_3	16.25	yes	SL3_3_7	200	11	HiSeq_21_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL3	SL3_3	16.25	yes	SL3_3_8	200	11	HiSeq_20_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2	SL3	SL3_3	16.25	yes	SL3_3_9	200	11	HiSeq_20_LW	SE. 100 cycles
-AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2_+_SE1_AKT16_2_EXT1 (merged)	SL3	SL3_5	17	yes	SL3_5	200	11	HiSeq_19_LW	SE. 100 cycles
+AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2_+_SE1_AKT16_2_EXT1 (merged)	SL3	SL3_5	17	yes	SL3_5_1	200	11	HiSeq_19_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2_+_SE1_AKT16_2_EXT1 (merged)	SL3	SL3_5	17	yes	SL3_5_10	200	11	HiSeq_21_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2_+_SE1_AKT16_2_EXT1 (merged)	SL3	SL3_5	17	yes	SL3_5_11	200	11	HiSeq_20_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EDTA2_+_SE1_AKT16_2_EXT1 (merged)	SL3	SL3_5	17	yes	SL3_5_12	200	11	HiSeq_20_LW	SE. 100 cycles
@@ -49,7 +49,7 @@ AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EXT1	SL1	SL1_1	16.25	yes	SL1_1_6	200	11	Hi
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EXT1	SL1	SL1_1	16.25	yes	SL1_1_7	200	11	HiSeq_1_LW	PE. 150 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EXT1	SL1	SL1_1	16.25	yes	SL1_1_8	200	11	HiSeq_2_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EXT1	SL1	SL1_1	16.25	yes	SL1_1_9	200	11	HiSeq_2_LW	SE. 100 cycles
-AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EXT1	SL3	SL3_4	16.25	yes	SL3_4	200	11	HiSeq_19_LW	SE. 100 cycles
+AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EXT1	SL3	SL3_4	16.25	yes	SL3_4_1	200	11	HiSeq_19_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EXT1	SL3	SL3_4	16.25	yes	SL3_4_10	200	11	HiSeq_20_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EXT1	SL3	SL3_4	16.25	yes	SL3_4_11	200	11	HiSeq_20_LW	SE. 100 cycles
 AKT16	Aktropraklik	Turkey	SE1_AKT16_2_EXT1	SL3	SL3_4	16.25	yes	SL3_4_12	200	11	HiSeq_20_LW	SE. 100 cycles
@@ -120,7 +120,7 @@ Asp6	Asparn-Schletz	Austria	SE1_Asp6_EXT1	SL1	SL1_6	16.25	yes	SL1_6_6	200	11	HiS
 Asp6	Asparn-Schletz	Austria	SE1_Asp6_EXT1	SL1	SL1_6	16.25	yes	SL1_6_7	200	11	HiSeq_7_LW	SE. 100 cycles
 Asp6	Asparn-Schletz	Austria	SE1_Asp6_EXT1	SL1	SL1_6	16.25	yes	SL1_6_8	200	11	HiSeq_9_LW	SE. 100 cycles
 Asp6	Asparn-Schletz	Austria	SE1_Asp6_EXT1	SL1	SL1_6	16.25	yes	SL1_6_9	200	11	HiSeq_9_LW	SE. 100 cycles
-Asp6	Asparn-Schletz	Austria	SE1_Asp6_EXT1	SL3	SL3_6	16.25	yes	SL3_6	200	11	HiSeq_10_LW	SE. 100 cycles
+Asp6	Asparn-Schletz	Austria	SE1_Asp6_EXT1	SL3	SL3_6	16.25	yes	SL3_6_1	200	11	HiSeq_10_LW	SE. 100 cycles
 Asp6	Asparn-Schletz	Austria	SE1_Asp6_EXT1	SL3	SL3_6	16.25	yes	SL3_6_10	200	11	HiSeq_10_LW	SE. 100 cycles
 Asp6	Asparn-Schletz	Austria	SE1_Asp6_EXT1	SL3	SL3_6	16.25	yes	SL3_6_11	200	11	HiSeq_9_LW	SE. 100 cycles
 Asp6	Asparn-Schletz	Austria	SE1_Asp6_EXT1	SL3	SL3_6	16.25	yes	SL3_6_12	200	11	HiSeq_9_LW	SE. 100 cycles
@@ -318,7 +318,7 @@ Herx	Herxheim	Germany	SE1_281-19-6_EDTA2	SL2	SL2_13	16.25	yes	SL2_13_6	200	11	Hi
 Herx	Herxheim	Germany	SE1_281-19-6_EDTA2	SL2	SL2_13	16.25	yes	SL2_13_7	200	11	HiSeq_17_LW	SE. 100 cycles
 Herx	Herxheim	Germany	SE1_281-19-6_EDTA2	SL2	SL2_13	16.25	yes	SL2_13_8	200	11	HiSeq_17_LW	SE. 100 cycles
 Herx	Herxheim	Germany	SE1_281-19-6_EDTA2	SL2	SL2_13	16.25	yes	SL2_13_9	200	11	HiSeq_17_LW	SE. 100 cycles
-Herx	Herxheim	Germany	SE1_281-19-6_EDTA2	SL3	SL3_1	16.25	yes	SL3_1	200	11	HiSeq_17_LW	SE. 100 cycles
+Herx	Herxheim	Germany	SE1_281-19-6_EDTA2	SL3	SL3_1	16.25	yes	SL3_1_1	200	11	HiSeq_17_LW	SE. 100 cycles
 Herx	Herxheim	Germany	SE1_281-19-6_EDTA2	SL3	SL3_1	16.25	yes	SL3_1_10	200	11	HiSeq_18_LW	SE. 100 cycles
 Herx	Herxheim	Germany	SE1_281-19-6_EDTA2	SL3	SL3_1	16.25	yes	SL3_1_11	200	11	HiSeq_18_LW	SE. 100 cycles
 Herx	Herxheim	Germany	SE1_281-19-6_EDTA2	SL3	SL3_1	16.25	yes	SL3_1_12	200	11	HiSeq_18_LW	SE. 100 cycles
@@ -342,7 +342,7 @@ Herx	Herxheim	Germany	SE1_281-19-6_EXT1	SL1	SL1_7	16.25	yes	SL1_7_6	200	11	HiSeq
 Herx	Herxheim	Germany	SE1_281-19-6_EXT1	SL1	SL1_7	16.25	yes	SL1_7_7	200	11	HiSeq_8_LW	SE. 100 cycles
 Herx	Herxheim	Germany	SE1_281-19-6_EXT1	SL1	SL1_7	16.25	yes	SL1_7_8	200	11	HiSeq_18_LW	SE. 100 cycles
 Herx	Herxheim	Germany	SE1_281-19-6_EXT1	SL1	SL1_7	16.25	yes	SL1_7_9	200	11	HiSeq_18_LW	SE. 100 cycles
-Herx	Herxheim	Germany	SE1_281-19-6_EXT1	SL3	SL3_2	16.25	yes	SL3_2	200	11	HiSeq_18_LW	SE. 100 cycles
+Herx	Herxheim	Germany	SE1_281-19-6_EXT1	SL3	SL3_2	16.25	yes	SL3_2_1	200	11	HiSeq_18_LW	SE. 100 cycles
 Herx	Herxheim	Germany	SE1_281-19-6_EXT1	SL3	SL3_2	16.25	yes	SL3_2_10	160	11	HiSeq_17_LW	SE. 100 cycles
 Herx	Herxheim	Germany	SE1_281-19-6_EXT1	SL3	SL3_2	16.25	yes	SL3_2_11	160	11	HiSeq_17_LW	SE. 100 cycles
 Herx	Herxheim	Germany	SE1_281-19-6_EXT1	SL3	SL3_2	16.25	yes	SL3_2_12	160	11	HiSeq_17_LW	SE. 100 cycles
@@ -489,7 +489,7 @@ LEPE48	Lepenski Vir	Serbia	SE1_LEPE48_2_EXT1	SL1	SL1_5	16.25	yes	SL1_5_6	200	10	
 LEPE48	Lepenski Vir	Serbia	SE1_LEPE48_2_EXT1	SL1	SL1_5	16.25	yes	SL1_5_7	200	10	HiSeq_6_LW	SE. 100 cycles
 LEPE48	Lepenski Vir	Serbia	SE1_LEPE48_2_EXT1	SL1	SL1_5	16.25	yes	SL1_5_8	200	10	HiSeq_11_LW	SE. 100 cycles
 LEPE48	Lepenski Vir	Serbia	SE1_LEPE48_2_EXT1	SL1	SL1_5	16.25	yes	SL1_5_9	200	10	HiSeq_11_LW	SE. 100 cycles
-LEPE48	Lepenski Vir	Serbia	SE1_LEPE48_2_EXT1	SL3	SL3_7	16.25	yes	SL3_7	200	10	HiSeq_11_LW	SE. 100 cycles
+LEPE48	Lepenski Vir	Serbia	SE1_LEPE48_2_EXT1	SL3	SL3_7	16.25	yes	SL3_7_1	200	10	HiSeq_11_LW	SE. 100 cycles
 LEPE48	Lepenski Vir	Serbia	SE1_LEPE48_2_EXT1	SL3	SL3_7	16.25	yes	SL3_7_10	200	10	HiSeq_12_LW	SE. 100 cycles
 LEPE48	Lepenski Vir	Serbia	SE1_LEPE48_2_EXT1	SL3	SL3_7	16.25	yes	SL3_7_11	200	10	HiSeq_12_LW	SE. 100 cycles
 LEPE48	Lepenski Vir	Serbia	SE1_LEPE48_2_EXT1	SL3	SL3_7	16.25	yes	SL3_7_12	200	10	HiSeq_12_LW	SE. 100 cycles
@@ -512,7 +512,7 @@ LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EDTA2	SL2	SL2_8	16.25	yes	SL2_8_5	200	11
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EDTA2	SL2	SL2_8	16.25	yes	SL2_8_6	200	11	HiSeq_13_LW	SE. 100 cycles
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EDTA2	SL2	SL2_8	16.25	yes	SL2_8_7	200	11	HiSeq_13_LW	SE. 100 cycles
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EDTA2	SL2	SL2_8	16.25	yes	SL2_8_8	200	11	HiSeq_13_LW	SE. 100 cycles
-LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EDTA2	SL3	SL3_8	16.25	yes	SL3_8	200	11	HiSeq_13_LW	SE. 100 cycles
+LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EDTA2	SL3	SL3_8	16.25	yes	SL3_8_1	200	11	HiSeq_13_LW	SE. 100 cycles
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EDTA2	SL3	SL3_8	16.25	yes	SL3_8_11	200	11	HiSeq_14_LW	SE. 100 cycles
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EDTA2	SL3	SL3_8	16.25	yes	SL3_8_12	200	11	HiSeq_14_LW	SE. 100 cycles
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EDTA2	SL3	SL3_8	16.25	yes	SL3_8_13	200	11	HiSeq_13_LW	SE. 100 cycles
@@ -536,7 +536,7 @@ LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EXT1	SL1	SL1_2	16.25	yes	SL1_2_6	200	11	
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EXT1	SL1	SL1_2	16.25	yes	SL1_2_7	200	11	HiSeq_3_LW	SE. 100 cycles
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EXT1	SL1	SL1_2	16.25	yes	SL1_2_8	200	11	HiSeq_13_LW	SE. 100 cycles
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EXT1	SL1	SL1_2	16.25	yes	SL1_2_9	200	11	HiSeq_13_LW	SE. 100 cycles
-LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EXT1	SL3	SL3_9	16.25	yes	SL3_9	200	11	HiSeq_14_LW	SE. 100 cycles
+LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EXT1	SL3	SL3_9	16.25	yes	SL3_9_1	200	11	HiSeq_14_LW	SE. 100 cycles
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EXT1	SL3	SL3_9	16.25	yes	SL3_9_10	200	11	HiSeq_14_LW	SE. 100 cycles
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EXT1	SL3	SL3_9	16.25	yes	SL3_9_11	200	11	HiSeq_14_LW	SE. 100 cycles
 LEPE52	Lepenski Vir	Serbia	SE1_LEPE52_1_EXT1	SL3	SL3_9	16.25	yes	SL3_9_12	200	11	HiSeq_14_LW	SE. 100 cycles
@@ -680,7 +680,7 @@ STAR1	Starcevo Grad/2011	Serbia	SE1_STAR1_EXT2	SL2	SL2_2	16.25	yes	SL2_2_6	200	1
 STAR1	Starcevo Grad/2011	Serbia	SE1_STAR1_EXT2	SL2	SL2_2	16.25	yes	SL2_2_7	200	11	HiSeq_15_LW	SE. 100 cycles
 STAR1	Starcevo Grad/2011	Serbia	SE1_STAR1_EXT2	SL2	SL2_2	16.25	yes	SL2_2_8	200	11	HiSeq_15_LW	SE. 100 cycles
 STAR1	Starcevo Grad/2011	Serbia	SE1_STAR1_EXT2	SL2	SL2_2	16.25	yes	SL2_2_9	200	11	HiSeq_15_LW	SE. 100 cycles
-STAR1	Starcevo Grad/2011	Serbia	SE1_STAR1_EXT2	SL3	SL3_10	16.25	yes	SL3_10	200	11	HiSeq_16_LW	SE. 100 cycles
+STAR1	Starcevo Grad/2011	Serbia	SE1_STAR1_EXT2	SL3	SL3_10	16.25	yes	SL3_10_1	200	11	HiSeq_16_LW	SE. 100 cycles
 STAR1	Starcevo Grad/2011	Serbia	SE1_STAR1_EXT2	SL3	SL3_10	16.25	yes	SL3_10_10	200	11	HiSeq_16_LW	SE. 100 cycles
 STAR1	Starcevo Grad/2011	Serbia	SE1_STAR1_EXT2	SL3	SL3_10	16.25	yes	SL3_10_11	200	11	HiSeq_16_LW	SE. 100 cycles
 STAR1	Starcevo Grad/2011	Serbia	SE1_STAR1_EXT2	SL3	SL3_10	16.25	yes	SL3_10_12	200	11	HiSeq_16_LW	SE. 100 cycles
@@ -704,7 +704,7 @@ VC3	Vinca	Serbia	SE1_VC3_2_EDTA2	SL2	SL2_9	16.25	yes	SL2_9_6	200	10	HiSeq_23_LW	
 VC3	Vinca	Serbia	SE1_VC3_2_EDTA2	SL2	SL2_9	16.25	yes	SL2_9_7	200	10	HiSeq_23_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EDTA2	SL2	SL2_9	16.25	yes	SL2_9_8	200	11	HiSeq_23_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EDTA2	SL2	SL2_9	16.25	yes	SL2_9_9	200	11	HiSeq_23_LW	SE. 100 cycles
-VC3	Vinca	Serbia	SE1_VC3_2_EDTA2	SL3	SL3_11	16.25	yes	SL3_11	200	10	HiSeq_22_LW	SE. 100 cycles
+VC3	Vinca	Serbia	SE1_VC3_2_EDTA2	SL3	SL3_11	16.25	yes	SL3_11_1	200	10	HiSeq_22_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EDTA2	SL3	SL3_11	16.25	yes	SL3_11_10	200	11	HiSeq_22_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EDTA2	SL3	SL3_11	16.25	yes	SL3_11_11	200	11	HiSeq_22_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EDTA2	SL3	SL3_11	16.25	yes	SL3_11_12	200	11	HiSeq_22_LW	SE. 100 cycles
@@ -729,7 +729,7 @@ VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL1	SL1_3	16.25	yes	SL1_3_6	200	11	HiSeq_4_LW	SE
 VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL1	SL1_3	16.25	yes	SL1_3_7	200	11	HiSeq_4_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL1	SL1_3	16.25	yes	SL1_3_8	200	11	HiSeq_22_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL1	SL1_3	16.25	yes	SL1_3_9	200	11	HiSeq_22_LW	SE. 100 cycles
-VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL3	SL3_12	16.25	yes	SL3_12	200	11	HiSeq_24_LW	SE. 100 cycles
+VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL3	SL3_12	16.25	yes	SL3_12_1	200	11	HiSeq_24_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL3	SL3_12	16.25	yes	SL3_12_10	200	11	HiSeq_22_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL3	SL3_12	16.25	yes	SL3_12_11	200	11	HiSeq_23_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL3	SL3_12	16.25	yes	SL3_12_12	200	11	HiSeq_22_LW	SE. 100 cycles
@@ -741,17 +741,17 @@ VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL3	SL3_12	16.25	yes	SL3_12_6	200	11	HiSeq_23_LW
 VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL3	SL3_12	16.25	yes	SL3_12_7	200	11	HiSeq_24_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL3	SL3_12	16.25	yes	SL3_12_8	200	11	HiSeq_24_LW	SE. 100 cycles
 VC3	Vinca	Serbia	SE1_VC3_2_EXT1	SL3	SL3_12	16.25	yes	SL3_12_9	200	11	HiSeq_23_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SL_MU_3_12_2	200	11	HiSeq_22_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SL_MU_3_12_3	200	11	HiSeq_22_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SL_MU_3_12_4	200	11	HiSeq_22_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SL_MU_3_12_5	200	11	HiSeq_22_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SL_MU_3_12_6	200	11	HiSeq_23_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SL_MU_3_12_7	200	11	HiSeq_22_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E2	SL2_MU	SL2.12_MU	20	no	SL_MU_2_12_3	200	12	HiSeq_23_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E2	SL2_MU	SL2.12_MU	20	no	SL_MU_2_12_4	200	12	HiSeq_24_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E2	SL2_MU	SL2.12_MU	20	no	SL_MU_2_12_5	200	12	HiSeq_24_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E2	SL2_MU	SL2.12_MU	20	no	SL_MU_2_12_6	200	12	HiSeq_24_LW	SE. 100 cycles
-VC3	Vinca	Serbia	VC3_2_E2	SL2_MU	SL2.12_MU	20	no	SL_MU_2_12_7	200	12	HiSeq_23_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SLMU3_12_2	200	11	HiSeq_22_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SLMU3_12_3	200	11	HiSeq_22_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SLMU3_12_4	200	11	HiSeq_22_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SLMU3_12_5	200	11	HiSeq_22_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SLMU3_12_6	200	11	HiSeq_23_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E1	SL3_MU	SL3.12_MU	20	no	SLMU3_12_7	200	11	HiSeq_22_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E2	SL2_MU	SL2.12_MU	20	no	SLMU2_12_3	200	12	HiSeq_23_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E2	SL2_MU	SL2.12_MU	20	no	SLMU2_12_4	200	12	HiSeq_24_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E2	SL2_MU	SL2.12_MU	20	no	SLMU2_12_5	200	12	HiSeq_24_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E2	SL2_MU	SL2.12_MU	20	no	SLMU2_12_6	200	12	HiSeq_24_LW	SE. 100 cycles
+VC3	Vinca	Serbia	VC3_2_E2	SL2_MU	SL2.12_MU	20	no	SLMU2_12_7	200	12	HiSeq_23_LW	SE. 100 cycles
 VLASA32	Vlasac	Serbia	SE3_VLASA32_2_EDTA2	SL10	SL10_9	16.25	yes	SL10_9_1	200	12	HiSeq_60_LW	SE. 100 cycles
 VLASA32	Vlasac	Serbia	SE3_VLASA32_2_EDTA2	SL10	SL10_9	16.25	yes	SL10_9_10	200	11	HiSeq_58_LW	SE. 100 cycles
 VLASA32	Vlasac	Serbia	SE3_VLASA32_2_EDTA2	SL10	SL10_9	16.25	yes	SL10_9_11	200	11	HiSeq_59_LW	SE. 100 cycles
