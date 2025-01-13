@@ -33,11 +33,19 @@ It assumes that all `pggb` and its tools (`wfmash`, `seqwish`, `smoothxg`, `odgi
 
 ### MONI
 
-I've added `moni` on `bioconda`, so we can just:
+I've added `moni` on `bioconda` (https://github.com/bioconda/bioconda-recipes/pull/50925), so we can just:
 
 ```shell
 conda create --prefix /lizardfs/guarracino/condatools/moni/0.2.2 -c conda-forge -c bioconda moni=0.2.2 -y
 conda create --prefix /lizardfs/guarracino/condatools/bwa/0.7.18 -c conda-forge -c bioconda bwa=0.7.18 -y
+```
+
+### bmws (beta-mixture-with-spikes model)
+
+```shell
+conda create --prefix /lizardfs/guarracino/condatools/bmws/0.2.1/ -c conda-forge -c bioconda python==3.10 #zlib==1.2.13 pandas numpy pip gcc bcftools -y
+conda activate /lizardfs/guarracino/condatools/bmws/0.2.1
+pip install -e git+https://github.com/jthlab/bmws#egg=bmws
 ```
 
 ## Small test for cosigt
