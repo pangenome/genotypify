@@ -43,7 +43,7 @@ conda create --prefix /lizardfs/guarracino/condatools/bwa/0.7.18 -c conda-forge 
 ### bmws (beta-mixture-with-spikes model)
 
 ```shell
-conda create --prefix /lizardfs/guarracino/condatools/bmws/0.2.1/ -c conda-forge -c bioconda python==3.10 #zlib==1.2.13 pandas numpy pip gcc bcftools -y
+conda create --prefix /lizardfs/guarracino/condatools/bmws/0.2.1/ -c conda-forge -c bioconda python==3.10 numpy scipy matplotlib #zlib==1.2.13 pandas pip gcc bcftools -y
 conda activate /lizardfs/guarracino/condatools/bmws/0.2.1
 pip install -e git+https://github.com/jthlab/bmws#egg=bmws
 ```
