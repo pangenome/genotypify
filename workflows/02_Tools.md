@@ -77,7 +77,7 @@ wget -O HPRC-yr1.agc "https://zenodo.org/record/5826274/files/HPRC-yr1.agc?downl
 rm chr6.y1.fa
 while read -r line; do
     ../agc-1.1_x64-linux/agc getctg HPRC-yr1.agc $line >> chr6.y1.fa
-done < $DIR_BASE/data/chr6.y1.txt
+done < $dir_base/data/chr6.y1.txt
 samtools faidx ../reference/GRCh38_full_analysis_set_plus_decoy_hla.fa chr6 | sed 's/^>chr6/>grch38#chr6/' > chr6.grhch38.fa
 cat chr6.grhch38.fa >> chr6.y1.fa
 samtools faidx chr6.y1.fa

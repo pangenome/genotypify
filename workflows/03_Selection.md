@@ -3,7 +3,7 @@
 ## Variables
 
 ```shell
-DIR_BASE=/lizardfs/guarracino/genotypify
+dir_base=/lizardfs/guarracino/genotypify
 ```
 
 ## bmws
@@ -11,10 +11,10 @@ DIR_BASE=/lizardfs/guarracino/genotypify
 Run it:
 
 ```shell
-mkdir -p $DIR_BASE/amylase/bmws && $DIR_BASE/amylase/bmws
+mkdir -p $dir_base/amylase/bmws && $dir_base/amylase/bmws
 conda activate /lizardfs/guarracino/condatools/bmws/0.2.1
 
-bmws analyze $DIR_BASE/data/amy.vcf.gz $DIR_BASE/data/amy.meta -d diploid -l 4.5 -g 30 -n 10000 -t -o $DIR_BASE/amylase/bmws/amy.out
+bmws analyze $dir_base/data/amy.vcf.gz $dir_base/data/amy.meta -d diploid -l 4.5 -g 30 -n 10000 -t -o $dir_base/amylase/bmws/amy.out
 ```
 
 Plot the result:
@@ -57,14 +57,14 @@ s_trajectory %>%
 Parameter estimation:
 
 ```shell
-python3 $DIR_BASE/scripts/amy1.py $DIR_BASE/data/amy.txt $DIR_BASE/amylase/bmws 1000
+python3 $dir_base/scripts/amy1.py $dir_base/data/amy.txt $dir_base/amylase/bmws 1000
 
 # Estimate s
-mkdir -p $DIR_BASE/amylase/bmws/bootstrap
+mkdir -p $dir_base/amylase/bmws/bootstrap
 conda activate /lizardfs/guarracino/condatools/bmws/0.2.1
 for SEED in {0..999}; do
     echo "Running simulation for SEED=${SEED}..."
-    python $DIR_BASE/scripts/amy2.py $DIR_BASE/amylase/bmws $DIR_BASE/amylase/bmws/bootstrap ${SEED} > $DIR_BASE/amylase/bmws/bootstrap/amy.s_hat.${SEED}.log 2>&1
+    python $dir_base/scripts/amy2.py $dir_base/amylase/bmws $dir_base/amylase/bmws/bootstrap ${SEED} > $dir_base/amylase/bmws/bootstrap/amy.s_hat.${SEED}.log 2>&1
 done
 ```
 
