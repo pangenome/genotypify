@@ -7,9 +7,7 @@ Genotyping lots of samples with big pangenomes
 dir_base=/lizardfs/guarracino/genotypify
 ```
 
-## Data
-
-### Ancient
+## Ancient
 
 Create folder:
 
@@ -39,7 +37,7 @@ sed -e 's/VC3-2/VC3/g' -e 's/Bar25/BAR25/g' $dir_base/data/Marchi2022.Table1.csv
 grep -Ff <(cut -f 1 $dir_base/data/Marchi2022.Table1.csv) $dir_base/data/Marchi2022.TableS1.csv -w
 ```
 
-#### Likely not raw reads
+### Likely not raw reads
 
 315 (317 - 2 samples with missing FASTQ files) samples from Allentoft et al., 2024 (https://doi.org/10.1038/s41586-023-06865-0):
 
@@ -177,7 +175,7 @@ cd /scratch
 sed '1d' $dir_base/data/filereport_tables/filereport_read_run_PRJEB28451_tsv.txt | cut -f 7 | xargs -n 1 -I {} sh -c 'wget {}; mv $(basename {}) /lizardfs/guarracino/genotypify/sequencing_data/ancient/Schroeder2019'
 ```
 
-#### Check if reads are sanitized with hg38
+### Check if reads are sanitized with hg38
 
 With minimap2:
 
@@ -270,9 +268,9 @@ done | pigz -9 > /scratch/ancientHead200.depth.windows.200kbp.bed.gz && mv /scra
 #bedtools coverage -a /scratch/chm13v2.windows.200kbp.bed -b $(basename $PAF .paf.gz).bed > coverage.bed
 ```
 
-### Modern
+## Modern
 
-1000 Genomes Project sample collection to 30x coverage (from https://www.internationalgenome.org/data-portal/data-collection/30x-grch38). Initially, the 2504 unrelated samples from the phase three panel from the 1000 Genomes Project were sequenced. Thereafter, an additional 698 samples, related to samples in the 2504 panel, were also sequenced.
+1000 Genomes Project sample collection to 30x coverage (from <https://www.internationalgenome.org/data-portal/data-collection/30x-grch38>). Initially, the 2504 unrelated samples from the phase three panel from the 1000 Genomes Project were sequenced. Thereafter, an additional 698 samples, related to samples in the 2504 panel, were also sequenced.
 
 ```shell
 mkdir -p $dir_base/sequencing_data/modern/1000G/2504_high_coverage
@@ -286,7 +284,7 @@ wget -c http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_hi
 awk '!/^#/ {print $1}' 1000G_698_related_high_coverage.sequence.index | xargs -n 1 wget
 ```
 
-Simons Genome Diversity Project (from https://www.ebi.ac.uk/ena/browser/view/PRJEB9586):
+Simons Genome Diversity Project (from <https://www.ebi.ac.uk/ena/browser/view/PRJEB9586>):
 
 ```shell
 mkdir -p $dir_base/sequencing_data/modern/SGDP/
