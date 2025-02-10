@@ -43,7 +43,7 @@ cd cosigt_smk
 # Disable stuff we don't care about for now
 sed "/\/ava\.pdf/s/^/#/" workflow/Snakefile -i
 sed "/\/pgrtk/s/^/#/" workflow/Snakefile -i
-sed "/\/annotations/s/^/#/" workflow/Snakefile -i
+sed "/annotations/s/^/#/" workflow/Snakefile -i
 sed "/\/untangle/s/^/#/" workflow/Snakefile -i
 
 # Fix current issues
