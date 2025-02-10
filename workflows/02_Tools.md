@@ -37,7 +37,7 @@ It assumes that all `pggb` and its tools (`wfmash`, `seqwish`, `smoothxg`, `odgi
 Prepare the R environment:
 
 ```shell
-guix install r-dbscan
+guix install r-data-table r-rjson r-ggplot2 r-reshape2 r-nbclust r-dendextend r-tidyverse r-dbscan r-ggnewscale r-ggforce r-wesanderson r-abind r-xml r-v8 r-curl
 ```
 
 ### agc (to obtain assemblies)
@@ -104,26 +104,44 @@ git clone https://github.com/davidebolo1993/cosigt
 cd cosigt
 git checkout eb36f56f210be9de9859fbe7902a21879267a94a
 cd cosigt_smk
+
+# Disable stuff we don't care about for now
 sed "/\/ava\.pdf/s/^/#/" workflow/Snakefile -i
 sed "/\/pgrtk/s/^/#/" workflow/Snakefile -i
 sed "/\/annotations/s/^/#/" workflow/Snakefile -i
 sed "/\/untangle/s/^/#/" workflow/Snakefile -i
 
-# OPTIONAL: create a map of alignment name to id
-for s in $(ls ../../cram/*.cram); do cram=$(basename $s) && id=$(echo $cram | cut -d "." -f 1) && echo -e "$cram\t$id"; done > sample.map.tsv
-# OPTIONAL: add some annotations for the region of interest
-
-cd resources/annotations
-wget -c https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_47/gencode.v47.annotation.gtf.gz
-
+# Fix current issues
 sed 's/reg[3]/reg[2]/g' workflow/scripts/annotate.r -i
 sed 's/reg[4]/reg[3]/g' workflow/scripts/annotate.r -i
 
+# OPTIONAL: create a map of alignment name to id
+for s in $(ls ../../cram/*.cram); do cram=$(basename $s) && id=$(echo $cram | cut -d "." -f 1) && echo -e "$cram\t$id"; done > sample.map.tsv
 
+# OPTIONAL: add some annotations for the region of interest
+cd resources/annotations
+wget -c https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_47/gencode.v47.annotation.gtf.gz
 cd ../..
 
 # Create a temporary directory
 mkdir -p /scratch/small_test/tmp
+
+# Prepare the configuration files
+conda activate /lizardfs/guarracino/condatools/cosigt
+
+cd /scratch/small_test/cosigt/cosigt_smk
+python workflow/scripts/organize.py \
+    -a /scratch/small_test/cram \
+    -r /scratch/small_test/reference/GRCh38_full_analysis_set_plus_decoy_hla.fa \
+    --assemblies /scratch/small_test/assemblies/chr6.y1.fa \
+    --roi /scratch/small_test/roi/roi.bed \
+    --wfmash_tmpdir /scratch/small_test/tmp \
+    --pggb_tmpdir /scratch/small_test/tmp \
+    --output /scratch/small_test/output \
+    --samplemap /scratch/small_test/cosigt/cosigt_smk/sample.map.tsv \
+    --annotation /scratch/small_test/cosigt/cosigt_smk/resources/annotations/gencode.v47.annotation.gtf.gz
+
+conda deactivate
 ```
 
 ### Genotyping
@@ -132,9 +150,12 @@ On the UTHSC cluster, put the following in `~/.bashrc` (or `~/.zshrc`):
 
 ```shell
 export PATH=$(echo $PATH | tr ':' '\n' | awk '!(/\/gnu\/store\// || /guix/)' | paste -sd ':') # Remove guix's path
+
+export GUIX_PROFILE="/home/guarracino/.guix-profile"
+ . "$GUIX_PROFILE/etc/profile"
 #export PYTHONNOUSERSITE=1 # Tells Python not to use the user site-packages directory and clear the Python path
 #export PATH="/home/guarracino/.guix-profile/bin:$PATH"
-#export PATH="/scratch/cosigt:$PATH"
+#export GUIX_LOCPATH="/home/guarracino/.guix-profile/lib/locale"
 
 export PATH="/lizardfs/guarracino/tools/bedtools2/bin:$PATH"
 export PATH="/lizardfs/guarracino/tools/samtools-1.21:$PATH"
@@ -155,25 +176,16 @@ export PATH="/lizardfs/guarracino/tools/agc-1.1_x64-linux:$PATH"
 export PATH="/lizardfs/guarracino/git/cosigt:$PATH"
 ```
 
-Prepare the configuration files and run the `cosigt` pipeline:
+Run the `cosigt` pipeline:
 
 ```shell
 # Activate conda environment
 conda activate /lizardfs/guarracino/condatools/cosigt
 
-python workflow/scripts/organize.py \
-    -a /scratch/small_test/cram \
-    -r /scratch/small_test/reference/GRCh38_full_analysis_set_plus_decoy_hla.fa \
-    --assemblies /scratch/small_test/assemblies/chr6.y1.fa \
-    --roi /scratch/small_test/roi/roi.bed \
-    --wfmash_tmpdir /scratch/small_test/tmp \
-    --pggb_tmpdir /scratch/small_test/tmp \
-    --output /scratch/small_test/output \
-    --samplemap /scratch/small_test/cosigt/cosigt_smk/sample.map.tsv \
-    --annotation /scratch/small_test/cosigt/cosigt_smk/resources/annotations/gencode.v47.annotation.gtf.gz
-
-# Genotyping
-snakemake cosigt --cores 16
+cd /scratch/small_test/cosigt/cosigt_smk
+snakemake cosigt --cores 8
 
 conda deactivate
 ```
+
+Results will be in `/scratch/small_test/output`.
