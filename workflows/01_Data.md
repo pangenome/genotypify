@@ -7,7 +7,7 @@ Genotyping lots of samples with big pangenomes
 dir_base=/lizardfs/guarracino/genotypify
 ```
 
-## Assemblies
+## HPRCv2 assemblies
 
 Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/blob/main/data_tables/README.md
 
@@ -39,12 +39,36 @@ tail -n +2 assemblies_pre_release_v0.6.1.index.csv | awk -F',' -v col="$ASSEMBLY
     bgzip -l 9 -@ 24 /scratch/HPRCv2/annotation/censat/$name_v1.cenSat.bed
 done
 
-mv /scratch/HPRCv2 $dir_base
+mkdir -p /lizardfs/guarracino/pangenomes/HPRCv2
+mv /scratch/HPRCv2 /lizardfs/guarracino/pangenomes
 ```
 
-## Ancient
+## HPRCv2 short reads
 
-Create folder:
+Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/blob/main/data_tables/sequencing_data/README.md
+
+```shell
+mkdir -p /scratch/HPRCv2
+cd /scratch/HPRCv2
+
+# Download the index file
+wget https://raw.githubusercontent.com/human-pangenomics/hprc_intermediate_assembly/refs/heads/main/data_tables/sequencing_data/data_illumina_pre_release.index.csv
+
+READS_COLUMN_NUM=22
+tail -n +2 data_illumina_pre_release.index.csv | awk -F',' -v col="$READS_COLUMN_NUM" '{print $col}' | while read -r reads_file; do
+    echo "Downloading $reads_file..."
+    aws s3 --no-sign-request cp "$reads_file" .
+done
+
+mkdir -p $dir_base/data/illumina
+mv /scratch/HPRCv2/*cram $dir_base/data/illumina
+
+rm -rf /scratch/HPRCv2
+```
+
+## Ancient samples
+
+<!-- Create folder:
 
 ```shell
 mkdir -p $dir_base/sequencing_data/ancient
@@ -301,9 +325,9 @@ done | pigz -9 > /scratch/ancientHead200.depth.windows.200kbp.bed.gz && mv /scra
 #zcat $PAF | awk -v OFS="\t" '{print $6, $8, $9, $1, ".", $5}' | sort -k1,1 -k2,2n -T /scratch > $(basename $PAF .paf.gz).bed
 # Compute the coverage of sequence alignments (file B) across XX kilobase windows (file A) tiling a genome of interest
 #bedtools coverage -a /scratch/chm13v2.windows.200kbp.bed -b $(basename $PAF .paf.gz).bed > coverage.bed
-```
+``` -->
 
-## Modern
+## Modern samples
 
 1000 Genomes Project sample collection to 30x coverage (from <https://www.internationalgenome.org/data-portal/data-collection/30x-grch38>). Initially, the 2504 unrelated samples from the phase three panel from the 1000 Genomes Project were sequenced. Thereafter, an additional 698 samples, related to samples in the 2504 panel, were also sequenced.
 
