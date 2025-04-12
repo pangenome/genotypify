@@ -7,6 +7,41 @@ Genotyping lots of samples with big pangenomes
 dir_base=/lizardfs/guarracino/genotypify
 ```
 
+## Assemblies
+
+Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/blob/main/data_tables/README.md
+
+```shell
+# Create directories
+mkdir -p /scratch/HPRCv2/annotation/repeat_masker
+mkdir -p /scratch/HPRCv2/annotation/censat
+
+cd /scratch/HPRCv2
+
+# Download the index file
+wget https://raw.githubusercontent.com/human-pangenomics/hprc_intermediate_assembly/refs/heads/main/data_tables/assemblies_pre_release_v0.6.1.index.csv
+
+## S3 locations for assembly are stored in column 13 (2025 Feb 24)
+ASSEMBLY_COLUMN_NUM=13
+tail -n +2 assemblies_pre_release_v0.6.1.index.csv | awk -F',' -v col="$ASSEMBLY_COLUMN_NUM" '{print $col}' | while read -r assembly_file; do
+    echo "Downloading $assembly_file..."
+    aws s3 --no-sign-request cp "$assembly_file" .
+    samtools fadix $assembly_file
+
+    dir_parent="$(dirname $assembly_file)";
+    name_v1=$(basename $assembly_file)
+    name_v1=$(echo $name_v1 | cut -f 1 -d '.')
+
+    aws s3 --no-sign-request cp  "$dir_parent/annotation/repeat_masker/$name_v1.RepeatMasker.bed" /scratch/HPRCv2/annotation/repeat_masker
+    bgzip -l 9 -@ 24 /scratch/HPRCv2/annotation/repeat_masker/$name_v1.RepeatMasker.bed
+
+    aws s3 --no-sign-request cp "$dir_parent/annotation/censat/$name_v1.cenSat.bed" /scratch/HPRCv2/annotation/censat
+    bgzip -l 9 -@ 24 /scratch/HPRCv2/annotation/censat/$name_v1.cenSat.bed
+done
+
+mv /scratch/HPRCv2 $dir_base
+```
+
 ## Ancient
 
 Create folder:
