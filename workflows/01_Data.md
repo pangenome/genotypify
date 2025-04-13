@@ -55,7 +55,9 @@ cd /scratch/HPRCv2
 wget https://raw.githubusercontent.com/human-pangenomics/hprc_intermediate_assembly/refs/heads/main/data_tables/sequencing_data/data_illumina_pre_release.index.csv
 
 READS_COLUMN_NUM=22
-tail -n +2 data_illumina_pre_release.index.csv | awk -F',' -v col="$READS_COLUMN_NUM" '{print $col}' | while read -r reads_file; do
+# Manage that the ',' can be present as a column value, like in "NA20302,NA20313"
+tail -n +2 data_illumina_pre_release.index.csv | awk -F, -v FPAT='([^,]+)|("[^"]+")' -v col="$READS_COLUMN_NUM" '{print $col}' | 
+tr -d '"' | while read -r reads_file; do
     echo "Downloading $reads_file..."
     aws s3 --no-sign-request cp "$reads_file" .
 done
