@@ -48,14 +48,14 @@ curl -L https://github.com/refresh-bio/agc/releases/download/v1.1/agc-1.1_x64-li
 #Add 'export PATH="/lizardfs/guarracino/tools/agc-1.1_x64-linux:$PATH"' to ~/.zshrc
 ```
 
-### TO IGNORE: MONI
+<!-- ### TO IGNORE: MONI
 
 I've added `moni` on `bioconda` (https://github.com/bioconda/bioconda-recipes/pull/50925), so we can just:
 
 ```shell
 conda create --prefix /lizardfs/guarracino/condatools/moni/0.2.2 -c conda-forge -c bioconda moni=0.2.2 -y
 conda create --prefix /lizardfs/guarracino/condatools/bwa/0.7.18 -c conda-forge -c bioconda bwa=0.7.18 -y
-```
+``` -->
 
 ### bmws (beta-mixture-with-spikes model)
 
