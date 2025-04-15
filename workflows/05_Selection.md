@@ -133,7 +133,8 @@ combined_plot
 
 
 #### Estimate s 
-##### Try 50 iteration for quicker results
+
+```shell
 for SEED in {0..999}; do
     echo "Running simulation for SEED=${SEED}..."
     source ~/.bashrc
@@ -141,3 +142,4 @@ for SEED in {0..999}; do
     python /home/bioinfo26/Amylase_project/bmws/amy.2.py ${SEED} > /home/bioinfo26/Amylase_project/bmws/bootstrap/amy.s_hat.${SEED}.log 2>&1
 done
 ```
+
