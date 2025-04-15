@@ -68,6 +68,28 @@ mv /scratch/HPRCv2/*cram $dir_base/data/illumina
 rm -rf /scratch/HPRCv2
 ```
 
+### FLAGGER
+
+Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/tree/main/data_tables/assembly_qc
+
+```shell
+mkdir -p /scratch/HPRCv2
+cd /scratch/HPRCv2
+
+# Download the index file
+wget https://raw.githubusercontent.com/human-pangenomics/hprc_intermediate_assembly/refs/heads/main/data_tables/assembly_qc/flagger/flagger_hifi_v0.1.csv
+
+FLAGGER_COLUMN_NUM=4
+tail -n +2 flagger_hifi_v0.1.csv | awk -F',' -v col="$FLAGGER_COLUMN_NUM" '{print $col}' | while read -r flagger_file; do
+    echo "Downloading $flagger_file..."
+    aws s3 --no-sign-request cp "$flagger_file" .
+done
+
+mkdir -p $dir_base/data/flagger
+mv /scratch/HPRCv2/*bed $dir_base/data/flagger
+
+rm -rf /scratch/HPRCv2
+
 ## Ancient samples
 
 <!-- Create folder:
