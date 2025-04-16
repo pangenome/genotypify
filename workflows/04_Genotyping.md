@@ -94,21 +94,18 @@ export GUIX_PROFILE="/home/guarracino/.guix-profile"
 
 export PATH="/lizardfs/guarracino/tools/bedtools2/bin:$PATH"
 export PATH="/lizardfs/guarracino/tools/samtools-1.21:$PATH"
-export PATH="/lizardfs/guarracino/tools_for_cosigt/gafpack/target/release:$PATH"
-export PATH="/lizardfs/guarracino/tools_for_cosigt/GFAffix/target/release:$PATH"
-export PATH="/lizardfs/guarracino/tools_for_cosigt/impg/target/release:$PATH"
-export PATH="/lizardfs/guarracino/tools_for_cosigt/gfainject/target/release:$PATH"
-
-export PATH="/lizardfs/guarracino/tools_for_cosigt/wfmash/build/bin:$PATH"
-export PATH="/lizardfs/guarracino/tools_for_cosigt/seqwish/bin:$PATH"
-export PATH="/lizardfs/guarracino/tools_for_cosigt/smoothxg/bin:$PATH"
-export PATH="/lizardfs/guarracino/tools_for_cosigt/odgi/bin:$PATH"
-export PATH="/lizardfs/guarracino/tools_for_cosigt/pggb:$PATH"
-
-# Added for go and cosigt installation
-export PATH="/lizardfs/guarracino/tools/go/bin:$PATH"
-export PATH="/lizardfs/guarracino/tools/agc-1.1_x64-linux:$PATH"
-export PATH="/lizardfs/guarracino/git/cosigt:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/impg/target/release:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/wfmash/build/bin:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/seqwish/bin:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/smoothxg/bin:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/GFAffix/target/release:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/odgi/bin:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/pggb:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/gfainject/target/release:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/gafpack/target/release:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping//lizardfs/guarracino/tools_for_genotyping/bwa-mem2-2.2.1_x64-linux:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/cosigt:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/agc-1.1_x64-linux:$PATH"
 ```
 
 Run the `cosigt` pipeline:
