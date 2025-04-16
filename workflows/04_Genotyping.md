@@ -1,4 +1,4 @@
-# Genotyping
+# Genotyping (TO UPDATE)
 
 ## Small test for cosigt on UTHSC cluster
 
