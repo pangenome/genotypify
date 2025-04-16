@@ -21,6 +21,15 @@ samtools faidx GRCh38_full_analysis_set_plus_decoy_hla.fa $(grep chr GRCh38_full
 samtools faidx GRCh38.fa.gz
 ```
 
+## Annotation
+
+```shell
+mkdir -p $dir_base/annotation
+cd $dir_base/annotation
+
+wget -c https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_47/gencode.v47.annotation.gtf.gz
+```
+
 ## HPRCv2 assemblies
 
 Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/blob/main/data_tables/README.md
