@@ -7,6 +7,20 @@ Genotyping lots of samples with big pangenomes
 dir_base=/lizardfs/guarracino/genotypify
 ```
 
+## Reference (no PanSN-spec)
+
+```shell
+mkdir -p $dir_base/reference
+cd $dir_base/reference
+
+wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa
+wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+
+# Remove alt contigs to avoid fragmented ROI-specific pangenome sequences
+samtools faidx GRCh38_full_analysis_set_plus_decoy_hla.fa $(grep chr GRCh38_full_analysis_set_plus_decoy_hla.fa.fai  | grep '_' -v | cut -f 1) | bgzip -l 9 -@ 24 > GRCh38.fa.gz
+samtools faidx GRCh38.fa.gz
+```
+
 ## HPRCv2 assemblies
 
 Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/blob/main/data_tables/README.md
