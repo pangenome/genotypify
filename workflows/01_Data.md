@@ -62,13 +62,13 @@ tr -d '"' | while read -r reads_file; do
     aws s3 --no-sign-request cp "$reads_file" .
 done
 
-mkdir -p $dir_base/data/illumina
-mv /scratch/HPRCv2/*cram $dir_base/data/illumina
+mkdir -p $dir_base/data/HPRCv2/illumina
+mv /scratch/HPRCv2/*cram $dir_base/data/HPRCv2/illumina
 
 rm -rf /scratch/HPRCv2
 ```
 
-### FLAGGER
+## FLAGGER
 
 Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/tree/main/data_tables/assembly_qc
 
@@ -85,18 +85,21 @@ tail -n +2 flagger_hifi_v0.1.csv | awk -F',' -v col="$FLAGGER_COLUMN_NUM" '{prin
     aws s3 --no-sign-request cp "$flagger_file" .
 done
 
-mkdir -p $dir_base/data/flagger
-mv /scratch/HPRCv2/*bed $dir_base/data/flagger
+mkdir -p $dir_base/data/HPRCv2/flagger
+mv /scratch/HPRCv2/*bed $dir_base/data/HPRCv2/flagger
 
 rm -rf /scratch/HPRCv2
+```
 
-## Ancient samples
+## Ancient samples (TO DO)
 
 <!-- Create folder:
 
 ```shell
 mkdir -p $dir_base/sequencing_data/ancient
 ```
+
+## TO IGNORE FOR NOW
 
 15 samples from Marchi et al., 2022 (https://doi.org/10.1016/j.cell.2022.04.008).
 
@@ -351,7 +354,7 @@ done | pigz -9 > /scratch/ancientHead200.depth.windows.200kbp.bed.gz && mv /scra
 #bedtools coverage -a /scratch/chm13v2.windows.200kbp.bed -b $(basename $PAF .paf.gz).bed > coverage.bed
 ``` -->
 
-## Modern samples
+## Modern samples (INCOMPLETE)
 
 1000 Genomes Project sample collection to 30x coverage (from <https://www.internationalgenome.org/data-portal/data-collection/30x-grch38>). Initially, the 2504 unrelated samples from the phase three panel from the 1000 Genomes Project were sequenced. Thereafter, an additional 698 samples, related to samples in the 2504 panel, were also sequenced.
 
