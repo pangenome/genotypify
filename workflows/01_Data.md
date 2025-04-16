@@ -76,6 +76,8 @@ tr -d '"' | while read -r reads_file; do
     aws s3 --no-sign-request cp "$reads_file" .
 done
 
+ls *.cram | while read cram; do samtools index $cram; done
+
 mkdir -p $dir_base/data/HPRCv2/illumina
 mv /scratch/HPRCv2/*cram $dir_base/data/HPRCv2/illumina
 
