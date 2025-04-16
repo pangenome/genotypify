@@ -112,7 +112,7 @@ Download `go`:
 cd /lizardfs/guarracino/tools_for_genotyping
 
 wget -c https://go.dev/dl/go1.24.2.linux-amd64.tar.gz
-tar -C ~ -xzf go1.24.2.linux-amd64.tar.gz && rm go1.24.2.linux-amd64.tar.gz
+tar -xzf go1.24.2.linux-amd64.tar.gz && rm go1.24.2.linux-amd64.tar.gz
 ```
 
 Build `cosigt`:
@@ -126,8 +126,6 @@ git clone https://github.com/davidebolo1993/cosigt
 cd cosigt
 git checkout 97fd01f1147cfc999800531a58cb9f43cf451703
 go mod init cosigt && go mod tidy && go build cosigt
-
-
 ```
 
 ## cosigt (pipeline)

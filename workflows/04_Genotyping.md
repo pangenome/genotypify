@@ -103,7 +103,7 @@ export PATH="/lizardfs/guarracino/tools_for_genotyping/odgi/bin:$PATH"
 export PATH="/lizardfs/guarracino/tools_for_genotyping/pggb:$PATH"
 export PATH="/lizardfs/guarracino/tools_for_genotyping/gfainject/target/release:$PATH"
 export PATH="/lizardfs/guarracino/tools_for_genotyping/gafpack/target/release:$PATH"
-export PATH="/lizardfs/guarracino/tools_for_genotyping//lizardfs/guarracino/tools_for_genotyping/bwa-mem2-2.2.1_x64-linux:$PATH"
+export PATH="/lizardfs/guarracino/tools_for_genotyping/bwa-mem2-2.2.1_x64-linux:$PATH"
 export PATH="/lizardfs/guarracino/tools_for_genotyping/cosigt:$PATH"
 export PATH="/lizardfs/guarracino/tools_for_genotyping/agc-1.1_x64-linux:$PATH"
 ```
