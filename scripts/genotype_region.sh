@@ -41,11 +41,7 @@ setup_environment() {
     mkdir -p "$scratch_dir/odgi/dissimilarity"
     mkdir -p "$scratch_dir/clusters"
     mkdir -p "$scratch_dir/alignments/$region"
-    
-    # Setup logging
-    local log_file="$scratch_dir/${region}_processing.log"
-    exec > >(tee -a "$log_file") 2>&1
-    
+
     # Return directory paths
     echo "$scratch_dir $scratch_dir/impg/$region $scratch_dir/pggb/$region $scratch_dir/odgi $scratch_dir/odgi/dissimilarity $scratch_dir/clusters $scratch_dir/alignments/$region"
 }
@@ -161,8 +157,14 @@ main() {
     local clusters_dir="${dirs[5]}"
     local align_dir="${dirs[6]}"
     
+    # start logging for *everything* that follows
+    log_file="$scratch_dir/${region}_processing.log"
+    exec > >(tee -a "$log_file") 2>&1
+
     cd "$scratch_dir"
-    
+    export TMPDIR="$scratch_dir/tmp"
+    mkdir -p "$TMPDIR"
+
     # Print configuration
     echo "=== Starting processing of region $region at $(date) ==="
     echo "Working directory: $scratch_dir"
@@ -185,7 +187,7 @@ main() {
     ls $dir_alignments/*-vs-grch38.aln.paf | grep -Ff $path_samples_txt > $scratch_dir/samples_paf.txt
     
     # Use parallel to process PAF files
-    cat $scratch_dir/samples_paf.txt | parallel -j $threads process_paf_file {} "$bed_file_path" "$impg_dir"
+    cat $scratch_dir/samples_paf.txt | parallel --tmpdir $scratch_dir -j $threads process_paf_file {} "$bed_file_path" "$impg_dir"
     
     # 2. Collect sequences
     echo "  Collecting sequences..."
@@ -194,7 +196,7 @@ main() {
         sed 's/^>chr/>GRCh38#0#chr/g' > $impg_dir/$region.pangenome.fa
     
     # Process merged bed files in parallel
-    ls $impg_dir/*.merged.bed | parallel -j $threads process_merged_bed {} "$dir_pangenome" "$impg_dir"
+    ls $impg_dir/*.merged.bed | parallel --tmpdir $scratch_dir -j $threads process_merged_bed {} "$dir_pangenome" "$impg_dir"
     
     # Concatenate results
     echo "  Combining all fasta files..."
@@ -206,7 +208,7 @@ main() {
     echo "  Pangenome graph building..."
     pggb -i $impg_dir/$region.pangenome.fa.gz -o $pggb_dir -t $threads -D $scratch_dir -c 2
     mv $pggb_dir/*smooth.final.og $pggb_dir/$region.final.og
-    
+   
     # 4. Process path coverage matrix
     echo "  Getting the path coverage matrix..."
     odgi chop -i $pggb_dir/$region.final.og -c 30 -t $threads -o $odgi_dir/$region.chopped.og
@@ -240,7 +242,7 @@ main() {
     echo "  Processing $sample_count samples with $parallel_samples in parallel ($threads_per_sample threads each)"
     
     # Process CRAM files in parallel
-    cat $scratch_dir/samples_cram.txt | parallel -j $parallel_samples \
+    cat $scratch_dir/samples_cram.txt | parallel --tmpdir $scratch_dir -j $parallel_samples \
         process_cram_file {} "$path_reference_cram" "$bed_file_path" "$threads_per_sample" \
         "$impg_dir" "$region" "$odgi_dir" "$align_dir" "$scratch_dir" "$clusters_dir"
     
