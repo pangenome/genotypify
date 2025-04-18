@@ -1,19 +1,19 @@
 #!/bin/bash
 #
-# Usage: ./genotype_region.sh <bed_file_path> <dir_alignments> <path_reference> <path_reference_cram> <path_samples_txt> <dir_pangenome> <dir_reads> <threads>
+# Usage: ./genotype_region.sh <bed_file_path> <dir_alignments> <path_reference> <path_reference_cram> <path_samples_txt> <dir_pangenome> <dir_reads> <threads> <work_dir> <output_dir>
 
 set -e
 set -o pipefail
 
 # Function to parse command line arguments
 parse_arguments() {
-    if [ $# -lt 8 ]; then
-        echo "Usage: $0 <bed_file_path> <dir_alignments> <path_reference> <path_reference_cram> <path_samples_txt> <dir_pangenome> <dir_reads> <threads>"
+    if [ $# -lt 10 ]; then
+        echo "Usage: $0 <bed_file_path> <dir_alignments> <path_reference> <path_reference_cram> <path_samples_txt> <dir_pangenome> <dir_reads> <threads> <work_dir> <output_dir>"
         exit 1
     fi
     
     # Return all arguments
-    echo "$1 $2 $3 $4 $5 $6 $7 $8"
+    echo "$1 $2 $3 $4 $5 $6 $7 $8 $9 ${10}"
 }
 
 # Function to extract region name from BED file
@@ -25,21 +25,22 @@ get_region_name() {
 # Function to create and setup working directory
 setup_environment() {
     local region="$1"
+    local work_dir="$2"
     
     # Use SLURM JOB ID as part of output directory if available
     if [ -n "$SLURM_JOB_ID" ]; then
-        local scratch_dir="/scratch/gt-${SLURM_JOB_ID}"
+        local scratch_dir="${work_dir}/pangt-${SLURM_JOB_ID}"
     else
-        local scratch_dir="/scratch/gt-$$"  # Use PID if not running under SLURM
+        local scratch_dir="${work_dir}/pangt-$$"  # Use PID if not running under SLURM
     fi
     
     # Create scratch directory and subdirectories
     mkdir -p "$scratch_dir"
     mkdir -p "$scratch_dir/impg/$region"
     mkdir -p "$scratch_dir/pggb/$region"
-    mkdir -p "$scratch_dir/odgi"
     mkdir -p "$scratch_dir/odgi/dissimilarity"
     mkdir -p "$scratch_dir/clusters"
+    mkdir -p "$scratch_dir/cosigt"
     mkdir -p "$scratch_dir/alignments/$region"
 
     # Return directory paths
@@ -143,12 +144,14 @@ main() {
     local dir_pangenome="${args[5]}"
     local dir_reads="${args[6]}"
     local threads="${args[7]}"
+    local work_dir="${args[8]}"
+    local output_dir="${args[9]}"
     
     # Get region name
     local region=$(get_region_name "$bed_file_path")
     
     # Setup environment and get directories
-    local dirs=($(setup_environment "$region"))
+    local dirs=($(setup_environment "$region" "$work_dir"))
     local scratch_dir="${dirs[0]}"
     local impg_dir="${dirs[1]}"
     local pggb_dir="${dirs[2]}"
@@ -167,7 +170,6 @@ main() {
 
     # Print configuration
     echo "=== Starting processing of region $region at $(date) ==="
-    echo "Working directory: $scratch_dir"
     echo "BED file: $bed_file_path"
     echo "Alignments directory: $dir_alignments"
     echo "Reference: $path_reference"
@@ -176,6 +178,8 @@ main() {
     echo "Pangenome directory: $dir_pangenome"
     echo "Reads directory: $dir_reads"
     echo "Threads: $threads"
+    echo "Working directory: $scratch_dir"
+    echo "Output directory: $output_dir"
     
     echo "Processing $region..."
     
@@ -246,8 +250,20 @@ main() {
         process_cram_file {} "$path_reference_cram" "$bed_file_path" "$threads_per_sample" \
         "$impg_dir" "$region" "$odgi_dir" "$align_dir" "$scratch_dir" "$clusters_dir"
     
+    # Copy results to output directory
+    echo "  Copying results to output directory..."
+    mkdir -p "$output_dir"
+    mv "$scratch_dir/impg" "$output_dir/"
+    mv "$scratch_dir/pggb" "$output_dir/"
+    mv "$scratch_dir/odgi" "$output_dir/"
+    mv "$scratch_dir/clusters" "$output_dir/"
+    mv "$scratch_dir/cosigt" "$output_dir/"
+    mv "$scratch_dir/alignments" "$output_dir/"
+    mv "$log_file" "$output_dir/"
+    rm -rf "$scratch_dir"
+
     echo "=== Completed processing of region $region at $(date) ==="
-    echo "Results are in $scratch_dir"
+    echo "Results are in $output_dir/$region"
 }
 
 # Execute main function with all arguments
