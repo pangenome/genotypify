@@ -48,25 +48,42 @@ done
 Genotyping:
 
 ```shell
-# Project the aligments to the region-of-interest (ROI)
-# cat $dir_base/data/loci.bed |  while read chrom start end name; do
-#     # Process each line from the BED file
-#     echo "Processing region: $chrom:$start-$end ($name)"
-# done
-# TEMPORARY
+mkdir -p $dir_base/genotyping
+ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done | head -n 100 > $dir_base/genotyping/samples-to-consider.txt
 mkdir -p $dir_base/regions_of_interest
-# Replaces any characters that aren't alphanumeric, period, underscore, or hyphen with an '-', and takes only the first 32 characters of each line
-cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32)}' | while read -r chrom start end name; do echo -e "$chrom\t$start\t$end\t$name" > $dir_base/regions_of_interest/${chrom}_${start}_${end}_${name}.bed; done
+# Project the aligments to the region-of-interest (ROI)
+# Sort by length to start with the shortest ones
+cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
+    echo "Processing region: $chrom:$start-$end ($name, len: $len)"
+
+    echo -e "$chrom\t$start\t$end\t$name" > $dir_base/regions_of_interest/${chrom}_${start}_${end}_${name}.bed
+
+    sbatch -c 48 -p workers --job-name $name --wrap "hostname; $dir_base/scripts/genotype_region.sh \
+        $dir_base/regions_of_interest/${chrom}_${start}_${end}_${name}.bed \
+        /$dir_base/wfmash \
+        $dir_base/reference/GRCh38.fa.gz \
+        $dir_base/reference/GRCh38_full_analysis_set_plus_decoy_hla.fa \
+        $dir_base/genotyping/samples-to-consider.txt \
+        /lizardfs/guarracino/pangenomes/HPRCv2 \
+        $dir_base/data/HPRCv2/illumina \
+        48 \
+        /scratch \
+        $dir_base/genotyping/${chrom}_${start}_${end}_${name}"
+done
 
 
+
+# OK
 mkdir -p /scratch/HPRCv2-gt
 cd /scratch/HPRCv2-gt
-ls $dir_base/regions_of_interest | sed 's/.bed//g' | head -n 10 | while read region; do
+
+ls $dir_base/regions_of_interest | sed 's/.bed//g' | while read region; do
     echo "Processing $region..."
+
 
     echo "  Projecting alignments..."
     mkdir -p impg/$region
-    ls $dir_base/wfmash/*-vs-grch38.aln.paf | grep -Ff $dir_base/data/HPRCv2/illumina/samples.txt | head -n 20 | while read paf; do
+    ls $dir_base/wfmash/*-vs-grch38.aln.paf | grep -Ff $dir_base/data/HPRCv2/illumina/samples.txt | while read paf; do
         sample=$(basename $paf -vs-grch38.aln.paf)
         
         impg query \
@@ -77,6 +94,7 @@ ls $dir_base/regions_of_interest | sed 's/.bed//g' | head -n 10 | while read reg
         bedtools sort -i impg/$region/$sample.projected.bedpe | \
             bedtools merge -d 100000 > impg/$region/$sample.merged.bed
     done
+
 
     echo "  Filtering sequences..."
     # QC TO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
@@ -96,13 +114,13 @@ ls $dir_base/regions_of_interest | sed 's/.bed//g' | head -n 10 | while read reg
 
         bedtools getfasta -fi $fasta -bed impg/$region/$sample.merged.bed
     done >> impg/$region/$region.pangenome.fa
-    bgzip -@ 8 impg/$region/$region.pangenome.fa
+    bgzip -@ 48 impg/$region/$region.pangenome.fa
     samtools faidx impg/$region/$region.pangenome.fa.gz
 
 
     echo "  Pangenome graph building..."
     mkdir -p pggb
-    pggb -i impg/$region/$region.pangenome.fa.gz -o pggb/$region -t 8 -D /scratch -c 2
+    pggb -i impg/$region/$region.pangenome.fa.gz -o pggb/$region -t 48 -D /scratch -c 2
     mv pggb/$region/*smooth.final.og pggb/$region/$region.final.og # Rename the final ODGI graph
 
 
@@ -127,7 +145,7 @@ ls $dir_base/regions_of_interest | sed 's/.bed//g' | head -n 10 | while read reg
     echo "  Alignment, injection, genotyping..." 
     odgi view -i odgi/$region.chopped.og -g > odgi/$region.chopped.gfa
     mkdir -p alignments/$region
-    ls $dir_reads/*cram | grep -Ff $dir_base/data/HPRCv2/illumina/samples.txt | head -n 10 | while read cram; do
+    ls $dir_reads/*cram | grep -Ff $dir_base/data/HPRCv2/illumina/samples.txt | while read cram; do
         echo $cram
 
         name=$(basename $cram .cram)
@@ -140,8 +158,8 @@ ls $dir_base/regions_of_interest | sed 's/.bed//g' | head -n 10 | while read reg
             $cram | \
             samtools sort -n | \
             samtools fasta | \
-            bwa-mem2.avx mem -t 6 impg/$region/$region.pangenome.fa.gz - | \
-            samtools view -b -F 4 -@ 2 - \
+            bwa-mem2.avx mem -t 42 impg/$region/$region.pangenome.fa.gz - | \
+            samtools view -b -F 4 -@ 6 - \
             > alignments/$region/$name.reads-vs-pangenome.bam
 
         gfainject \
@@ -166,7 +184,7 @@ ls $dir_base/regions_of_interest | sed 's/.bed//g' | head -n 10 | while read reg
 done
 
 mkdir -p benchmark
-Rscript /lizardfs/guarracino/git/cosigt/cosigt_smk/workflow/scripts/plottpr.r cosigt clusters odgi/dissimilarity/ benchmark/benchmark.pdf
+Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/plottpr.r cosigt clusters odgi/dissimilarity/ benchmark/benchmark.pdf
 
 # OPTIONAL
 mkdir -p annotation

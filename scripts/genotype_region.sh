@@ -91,8 +91,8 @@ process_cram_file() {
     echo "  Processing alignment for sample $sample..."
     
     # Set up working threads
-    local bwa_threads=$(( threads_per_sample > 1 ? threads_per_sample - 2 : 1 ))
-    local samtools_threads=$(( threads_per_sample > 1 ? 2 : 1 ))
+    local bwa_threads=$(( threads_per_sample > 4 ? threads_per_sample - 4 : 1 ))
+    local samtools_threads=$(( threads_per_sample > 4 ? 2 : 1 ))
     
     # Create cosigt directory for this sample
     mkdir -p "$scratch_dir/cosigt/$sample"
@@ -104,7 +104,7 @@ process_cram_file() {
         -M \
         -b \
         "$cram_file" | \
-        samtools sort -n | \
+        samtools sort -n -@ $samtools_threads -m 4G | \
         samtools fasta | \
         bwa-mem2.avx mem -t $bwa_threads "$impg_dir/$region.pangenome.fa.gz" - | \
         samtools view -b -F 4 -@ $samtools_threads - \
@@ -237,13 +237,13 @@ main() {
     sample_count=$(cat $scratch_dir/samples_cram.txt | wc -l)
     
     # Calculate per-sample thread allocation
-    local threads_per_sample=6  # Minimum threads per sample
+    local threads_per_sample=8  # Minimum threads per sample
     local parallel_samples=$(( threads / threads_per_sample ))
     [[ $parallel_samples -lt 1 ]] && parallel_samples=1
     [[ $parallel_samples -gt $sample_count ]] && parallel_samples=$sample_count
     threads_per_sample=$(( threads / parallel_samples ))
     
-    echo "  Processing $sample_count samples with $parallel_samples in parallel ($threads_per_sample threads each)"
+    echo "  Processing $sample_count samples ($parallel_samples samples in parallel, $threads_per_sample threads each)"
     
     # Process CRAM files in parallel
     cat $scratch_dir/samples_cram.txt | parallel --tmpdir $scratch_dir -j $parallel_samples \
