@@ -49,179 +49,72 @@ done
 Genotyping:
 
 ```shell
+LENGTH_THRESHOLD=3000000
+
 mkdir -p $dir_base/genotyping
 ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done | head -n 20 > $dir_base/genotyping/samples-to-consider.txt
-
-mkdir -p $dir_base/regions_of_interest
 # Project the aligments to the region-of-interest (ROI)
 # Sort by length to start with the shortest ones
-cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | head -n 200 | while read chrom start end name len; do
+cd $dir_base/genotyping
+cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
     echo "Processing region: $chrom:$start-$end ($name, len: $len)"
-
+    
     region=${chrom}_${start}_${end}
-    echo -e "$chrom\t$start\t$end\t$name" > $dir_base/regions_of_interest/$region.bed
+    echo -e "$chrom\t$start\t$end\t$name" > $dir_base/genotyping/$region.bed
 
-    sbatch -c 48 -p workers --job-name $name --wrap "hostname; $dir_base/scripts/genotype_region.sh \
-        $dir_base/regions_of_interest/$region.bed \
+    threads=48
+    if [ $len -gt $LENGTH_THRESHOLD ]; then
+        threads=96
+    fi
+
+    sbatch -c $threads -p allnodes --job-name $name --wrap "hostname; $dir_base/scripts/genotype_region.sh \
+        $dir_base/genotyping/$region.bed \
         $dir_base/wfmash \
         $dir_base/reference/GRCh38.fa.gz \
         $dir_base/reference/GRCh38_full_analysis_set_plus_decoy_hla.fa \
         $dir_base/genotyping/samples-to-consider.txt \
         /lizardfs/guarracino/pangenomes/HPRCv2 \
         $dir_base/data/HPRCv2/illumina \
-        48 \
+        $threads \
         /scratch \
         $dir_base/genotyping/$region"
 done
 
-
-
-# OK
-chrom=chr11; start=69809692; end=69819692; name=FGF3; len=10000
-
-mkdir -p /scratch/HPRCv2-gt
-cd /scratch/HPRCv2-gt
-
-cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | head -n 20 | tail -n 15 | while read chrom start end name len; do
-    echo "Processing region: $chrom:$start-$end ($name, len: $len)"
-
-    region=${chrom}_${start}_${end}
-    echo -e "$chrom\t$start\t$end\t$name" > $dir_base/regions_of_interest/$region.bed
-
-    echo "  Projecting alignments..."
-    mkdir -p impg/$chrom/$region
-    ls $dir_base/wfmash/*-vs-grch38.aln.paf | grep -Ff $dir_base/genotyping/samples-to-consider.txt | while read paf; do
-        sample=$(basename $paf -vs-grch38.aln.paf)
-        
-        impg query \
-            -p $paf \
-            -b $dir_base/regions_of_interest/$region.bed \
-            > impg/$chrom/$region/$sample.projected.bedpe
-
-        bedtools sort -i impg/$chrom/$region/$sample.projected.bedpe | \
-            bedtools merge -d 200000 > impg/$chrom/$region/$sample.merged.bed
-    done
-
-
-    echo "  Filtering sequences..."
-
-    # By length: not sure, because it is okay but not super okay
-    cat impg/$chrom/$region/*.merged.bed > impg/$chrom/$region/ALL.tmp.bed
-    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/outliers.r \
-        impg/$chrom/$region/ALL.tmp.bed \
-        impg/$chrom/$region/ALL.merged.filtered.bed
-    rm impg/$chrom/$region/ALL.tmp.bed
-
-    # QC TO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-    # - FULLY SPAN THE LOCUS (5% on both sides?)
-    # - FLAGGER-FLAGGED REGIONS (max 5/10% of bad regions?)
-    # from impg/$region/$sample.merged.bed to impg/$region/$sample.merged.filtered.bed
-    # - same with merqury?
-    # QC TO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-
-
-    echo "  Collecting sequences..."
-    bedtools getfasta -fi $dir_base/reference/GRCh38.fa.gz -bed $dir_base/regions_of_interest/$region.bed | sed 's/^>chr/>GRCh38#0#chr/g' > impg/$chrom/$region/$region.pangenome.fa
-
-    ls impg/$chrom/$region/*.merged.bed | while read bed; do # ...merged.filtered.bed
-        sample=$(basename $bed .merged.bed)
-        fasta=$dir_pangenome/$sample.fa.gz
-
-        bedtools getfasta -fi $fasta -bed $bed
-    done >> impg/$chrom/$region/$region.pangenome.fa
-    bgzip -@ 48 impg/$chrom/$region/$region.pangenome.fa
-    samtools faidx impg/$chrom/$region/$region.pangenome.fa.gz
-
-
-    echo "  Pangenome graph building..."
-    mkdir -p pggb/$chrom
-    pggb_param="-c 2"
-    pggb -i impg/$chrom/$region/$region.pangenome.fa.gz -o pggb/$chrom/$region -t 48 -D /scratch $pggb_param
-    mv pggb/$chrom/$region/*smooth.final.og pggb/$chrom/$region/$region.final.og # Rename the final ODGI graph
-
-
-    echo "  Getting the path coverage matrix..."
-    mkdir -p odgi/$chrom
-    #odgi chop -i pggb/$chrom/$region/$region.final.og -c 32 -o odgi/$chrom/$region.chopped.og
-    #odgi paths -i odgi/$chrom/$region.chopped.og -H | cut -f 1,4- | gzip > odgi/$chrom/$region.paths_matrix.tsv.gz
-    odgi paths -i pggb/$chrom/$region/$region.final.og -H | cut -f 1,4- | gzip > odgi/$chrom/$region.paths_matrix.tsv.gz
-    #odgi view -i odgi/$chrom/$region.chopped.og -g > odgi/$chrom/$region.gfa
-    odgi view -i pggb/$chrom/$region/$region.final.og -g > odgi/$chrom/$region.gfa
-
-
-    echo "  Pangenome clustering..."
-    mkdir -p odgi/dissimilarity/$chrom
-    #odgi similarity -i odgi/$chrom/$region.chopped.og --distances -t 48 > odgi/dissimilarity/$chrom/$region.tsv
-    odgi similarity -i pggb/$chrom/$region/$region.final.og --distances --all -t 48 > odgi/dissimilarity/$chrom/$region.tsv
-    mkdir -p clusters/$chrom
-    grep '^S' odgi/$chrom/$region.gfa | awk '{{print("node."$2,length($3))}}' OFS="\t" > odgi/$chrom/$region.node.length.tsv
-    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/filter.r \
-        odgi/$chrom/$region.paths_matrix.tsv.gz \
-        odgi/$chrom/$region.node.length.tsv \
-        no_filter \
-        odgi/$chrom/$region.shared.tsv
-    region_similarity=$(cut -f 3 odgi/$chrom/$region.shared.tsv | tail -1)
-    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/cluster.r \
-        odgi/dissimilarity/$chrom/$region.tsv \
-        clusters/$chrom/$region.clusters.json \
-        automatic \
-        $region_similarity
-
-
-    echo "  Pangenome indexing..."
-    bwa-mem2.avx index impg/$chrom/$region/$region.pangenome.fa.gz # "bwa-mem2 index" returns "ERROR: prefix is too long!"
-
-    echo "  Alignment, injection, genotyping..."
-    ls $dir_reads/*cram | grep -Ff $dir_base/genotyping/samples-to-consider.txt | while read cram; do
-        echo $cram
-
-        sample=$(basename $cram .cram)
-
-        mkdir -p bwa-mem2/$sample/$chrom
-        samtools view \
-            -T $dir_base/reference/GRCh38.fa.gz \
-            -L $dir_base/regions_of_interest/$region.bed \
-            -M \
-            -b \
-            -@ 3 \
-            $cram | \
-            samtools sort -n -T /scratch | \
-            samtools fasta | \
-            bwa-mem2.avx mem -t 42 -p -h 10000 impg/$chrom/$region/$region.pangenome.fa.gz - | \
-            samtools view -b -F 4 -@ 3 - \
-            > bwa-mem2/$sample/$chrom/$region.realigned.bam
-
-        mkdir -p gfainject/$sample/$chrom
-        gfainject \
-            --gfa odgi/$chrom/$region.gfa \
-            --bam bwa-mem2/$sample/$chrom/$region.realigned.bam \
-            --alt-hits 10000 | \
-            gzip > gfainject/$sample/$chrom/$region.gaf.gz
-
-        mkdir -p gafpack/$sample/$chrom
-        gafpack \
-            --gfa odgi/$chrom/$region.gfa \
-            --gaf gfainject/$sample/$chrom/$region.gaf.gz \
-            --len-scale \
-            --weight-queries | \
-            gzip > gafpack/$sample/$chrom/$region.gafpack.gz
-
-        mkdir -p cosigt/$sample/$chrom
-        cosigt \
-            -i $sample \
-            -p odgi/$chrom/$region.paths_matrix.tsv.gz \
-            -g gafpack/$sample/$chrom/$region.gafpack.gz \
-            -c clusters/$chrom/$region.clusters.json \
-            -o cosigt/$sample/$chrom/$region
-    done
+# Prepare for benchmark
+cd $dir_base/genotyping
+mkdir -p /scratch/hprcv2-benchmark/cosigt
+for dir in chr*/cosigt; do
+    parent=$(dirname "$dir")
+    cp -r "$dir"/* /scratch/hprcv2-benchmark/cosigt
+done
+mkdir -p /scratch/hprcv2-benchmark/clusters
+for dir in chr*/clusters; do
+  parent=$(dirname "$dir")
+  cp -r "$dir"/* /scratch/hprcv2-benchmark/clusters
+done
+mkdir -p /scratch/hprcv2-benchmark/odgi/dissimilarity
+cp -r chr*/odgi/dissimilarity/* /scratch/hprcv2-benchmark/odgi/dissimilarity
+mkdir -p /scratch/hprcv2-benchmark/pggb
+for og_file in chr*/pggb/*/*/*.final.og; do
+  chr_name=$(echo $og_file | cut -d'/' -f3)
+  region=$(echo $og_file | cut -d'/' -f4)
+  dest_dir=/scratch/hprcv2-benchmark/pggb/$chr_name/$region
+  mkdir -p $dest_dir
+  filename=$(basename "$og_file")
+  cp $og_file $dest_dir
+done
+mkdir -p /scratch/hprcv2-benchmark/odgi
+for gfa in chr*/odgi/view/*/*.gfa; do
+  chr_dir=$(echo $gfa | cut -d'/' -f1)
+  chr_name=$(echo $gfa | cut -d'/' -f4)
+  dest_dir=/scratch/hprcv2-benchmark/odgi/view/$chr_name
+  mkdir -p $dest_dir
+  filename=$(basename "$gfa")
+  cp $gfa $dest_dir
 done
 
-
-chrom=chr11; start=69809692; end=69819692; name=FGF3; len=10000
-region=${chrom}_${start}_${end}
-
-
-cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | head -n 40 | tail -n 20 | while read chrom start end name len; do
+# Benchmark
+cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | head -n 150 | while read chrom start end name len; do
     echo "Processing region: $chrom:$start-$end ($name, len: $len)"
 
     region=${chrom}_${start}_${end}
@@ -239,7 +132,7 @@ cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_gen
     odgi flip \
         -i pggb/$chrom/$region/$region.final.og \
         -o benchmark/$chrom/$region/$region.flip.og -P \
-        --ref-flips <(grep '^P' odgi/$chrom/$region.gfa | cut -f 2 | grep "GRCh38#0")
+        --ref-flips <(grep '^P' odgi/view/$chrom/$region.gfa | cut -f 2 | grep "GRCh38#0")
 
     # Step 3: Convert OG to FASTA
     odgi paths \
@@ -281,27 +174,160 @@ Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scr
     benchmark/*/*/tpr_qv.tsv
 rm tmp.bed
 
-# OLD BUT OKAY, TO DELETE
-# cd $dir_base/genotyping
-# mkdir -p /scratch/hprcv2-test/cosigt
-# for dir in chr*/cosigt; do
-#     parent=$(dirname "$dir")
-#     cp -r "$dir"/* "/scratch/hprcv2-test/cosigt/"
-# done
-# mkdir -p /scratch/hprcv2-test/clusters
-# for dir in chr*/clusters; do
-#   parent=$(dirname "$dir")
-#   cp -r "$dir"/* "/scratch/hprcv2-test/clusters/"
-# done
-# mkdir -p /scratch/hprcv2-test/odgi/dissimilarity
-# cp chr*/odgi/dissimilarity/* /scratch/hprcv2-test/odgi/dissimilarity
 
-# cd /scratch/hprcv2-test/
-# mkdir -p benchmark
-# Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/plottpr.r cosigt clusters odgi/dissimilarity/ benchmark/benchmark.pdf
 
-# mkdir benchpark
-#Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/plottpr.r cosigt clusters odgi/dissimilarity/ benchmark/benchmark.pdf
+
+# OK
+chrom=chr11; start=69809692; end=69819692; name=FGF3; len=10000
+
+mkdir -p /scratch/HPRCv2-gt
+cd /scratch/HPRCv2-gt
+ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done | head -n 20 > samples-to-consider.txt
+
+cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | head -n 2 | while read chrom start end name len; do
+    echo "Processing region: $chrom:$start-$end ($name, len: $len)"
+
+    region=${chrom}_${start}_${end}
+    echo -e "$chrom\t$start\t$end\t$name" > $dir_base/regions_of_interest/$region.bed
+
+    echo "  Projecting alignments..."
+    mkdir -p impg/$chrom/$region
+    ls $dir_base/wfmash/*-vs-grch38.aln.paf | grep -Ff samples-to-consider.txt | while read paf; do
+        sample=$(basename $paf -vs-grch38.aln.paf)
+        
+        impg query \
+            -p $paf \
+            -b $dir_base/regions_of_interest/$region.bed \
+            > impg/$chrom/$region/$sample.projected.bedpe
+
+        bedtools sort -i impg/$chrom/$region/$sample.projected.bedpe | \
+            bedtools merge -d 200000 > impg/$chrom/$region/$sample.merged.bed
+    done
+
+
+    echo "  Filtering sequences..."
+
+    # By length: not sure, because it is okay but not super okay
+    cat impg/$chrom/$region/*.merged.bed > impg/$chrom/$region/ALL.tmp.bed
+    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/outliers.r \
+        impg/$chrom/$region/ALL.tmp.bed \
+        impg/$chrom/$region/ALL.merged.filtered.bed
+    rm impg/$chrom/$region/ALL.tmp.bed
+
+    # QC TO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    # what we want at the end for each haplotype:
+    # - 1 contig
+    # - 1 contig spanning 5% of beginning/end of the region
+    # - 1 contig after merging (-d 200k)
+    # - OPTIONAL: 2 contigs with less than 5% of FLAGGER-flagged regions
+    # - OPTIONAL: 2 contigs with less than 5% of Merqury-flagged regions
+
+
+    # - FULLY SPAN THE LOCUS (5% on both sides?)
+    # - FLAGGER-FLAGGED REGIONS (max 5/10% of bad regions?)
+    # from impg/$region/$sample.merged.bed to impg/$region/$sample.merged.filtered.bed
+    # - same with merqury?
+    # QC TO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
+
+    echo "  Collecting sequences..."
+    bedtools getfasta -fi $dir_base/reference/GRCh38.fa.gz -bed $dir_base/regions_of_interest/$region.bed | sed 's/^>chr/>GRCh38#0#chr/g' > impg/$chrom/$region/$region.pangenome.fa
+
+    ls impg/$chrom/$region/*.merged.bed | while read bed; do # ...merged.filtered.bed
+        sample=$(basename $bed .merged.bed)
+        fasta=$dir_pangenome/$sample.fa.gz
+
+        bedtools getfasta -fi $fasta -bed $bed
+    done >> impg/$chrom/$region/$region.pangenome.fa
+    bgzip -@ 48 impg/$chrom/$region/$region.pangenome.fa
+    samtools faidx impg/$chrom/$region/$region.pangenome.fa.gz
+
+
+    echo "  Pangenome graph building..."
+    mkdir -p pggb/$chrom
+    pggb_param="-c 2"
+    pggb -i impg/$chrom/$region/$region.pangenome.fa.gz -o pggb/$chrom/$region -t 48 -D /scratch $pggb_param
+    mv pggb/$chrom/$region/*smooth.final.og pggb/$chrom/$region/$region.final.og # Rename the final ODGI graph
+
+
+    echo "  Getting the path coverage matrix..."
+    #mkdir -p odgi/chop/$chrom
+    #odgi chop -i pggb/$chrom/$region/$region.final.og -c 32 -o odgi/chop/$chrom/$region.chopped.og
+    mkdir -p odgi/paths/matrix/$chrom
+    #odgi paths -i odgi/$chrom/$region.chopped.og -H | cut -f 1,4- | gzip > odgi/paths/matrix/$chrom/$region.paths_matrix.tsv.gz
+    odgi paths -i pggb/$chrom/$region/$region.final.og -H | cut -f 1,4- | gzip > odgi/paths/matrix/$chrom/$region.paths_matrix.tsv.gz
+    mkdir -p odgi/view/$chrom
+    #odgi view -i odgi/chop/$chrom/$region.chopped.og -g > odgi/view/$chrom/$region.gfa
+    odgi view -i pggb/$chrom/$region/$region.final.og -g > odgi/view/$chrom/$region.gfa
+
+
+    echo "  Pangenome clustering..."
+    mkdir -p odgi/dissimilarity/$chrom
+    #odgi similarity -i odgi/$chrom/$region.chopped.og --distances -t 48 > odgi/dissimilarity/$chrom/$region.tsv
+    odgi similarity -i pggb/$chrom/$region/$region.final.og --distances --all -t 48 > odgi/dissimilarity/$chrom/$region.tsv
+    mkdir -p clusters/$chrom
+    grep '^S' odgi/view/$chrom/$region.gfa | awk '{{print("node."$2,length($3))}}' OFS="\t" > odgi/view/$chrom/$region.node.length.tsv
+    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/filter.r \
+        odgi/paths/matrix/$chrom/$region.paths_matrix.tsv.gz \
+        odgi/view/$chrom/$region.node.length.tsv \
+        no_filter \
+        odgi/paths/matrix/$chrom/$region.shared.tsv
+    region_similarity=$(cut -f 3 odgi/paths/matrix/$chrom/$region.shared.tsv | tail -1)
+    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/cluster.r \
+        odgi/dissimilarity/$chrom/$region.tsv \
+        clusters/$chrom/$region.clusters.json \
+        automatic \
+        $region_similarity
+
+
+    echo "  Pangenome indexing..."
+    bwa-mem2.avx index impg/$chrom/$region/$region.pangenome.fa.gz # "bwa-mem2 index" returns "ERROR: prefix is too long!"
+
+    echo "  Alignment, injection, genotyping..."
+    ls $dir_reads/*cram | grep -Ff samples-to-consider.txt | while read cram; do
+        echo $cram
+
+        sample=$(basename $cram .cram)
+
+        mkdir -p bwa-mem2/$sample/$chrom
+        samtools view \
+            -T $dir_base/reference/GRCh38.fa.gz \
+            -L $dir_base/regions_of_interest/$region.bed \
+            -M \
+            -b \
+            -@ 3 \
+            $cram | \
+            samtools sort -n -T /scratch | \
+            samtools fasta | \
+            bwa-mem2.avx mem -t 42 -p -h 10000 impg/$chrom/$region/$region.pangenome.fa.gz - | \
+            samtools view -b -F 4 -@ 3 - \
+            > bwa-mem2/$sample/$chrom/$region.realigned.bam
+
+        mkdir -p gfainject/$sample/$chrom
+        gfainject \
+            --gfa odgi/view/$chrom/$region.gfa \
+            --bam bwa-mem2/$sample/$chrom/$region.realigned.bam \
+            --alt-hits 10000 | \
+            gzip > gfainject/$sample/$chrom/$region.gaf.gz
+
+        mkdir -p gafpack/$sample/$chrom
+        gafpack \
+            --gfa odgi/view/$chrom/$region.gfa \
+            --gaf gfainject/$sample/$chrom/$region.gaf.gz \
+            --len-scale \
+            --weight-queries | \
+            gzip > gafpack/$sample/$chrom/$region.gafpack.gz
+
+        mkdir -p cosigt/$sample/$chrom
+        cosigt \
+            -i $sample \
+            -p odgi/paths/matrix/$chrom/$region.paths_matrix.tsv.gz \
+            -g gafpack/$sample/$chrom/$region.gafpack.gz \
+            -c clusters/$chrom/$region.clusters.json \
+            -o cosigt/$sample/$chrom/$region
+    done
+done
+
 
 # OPTIONAL (TO RE-CHECK)
 mkdir -p annotation
