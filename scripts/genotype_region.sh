@@ -20,7 +20,7 @@ parse_arguments() {
 get_region_info() {
     local bed_file="$1"
     local chrom=$(awk '{print $1}' "$bed_file" | head -n 1)
-    local region=$(awk '{if(NF>=4) {print $1"_"$2"_"$3"_"$4} else {print $1"_"$2"_"$3}}' "$bed_file" | head -n 1)
+    local region=$(awk '{print $1"_"$2"_"$3}' "$bed_file" | head -n 1)
     echo "$chrom $region"
 }
 
@@ -41,8 +41,12 @@ setup_environment() {
     mkdir -p "$scratch_dir"
     mkdir -p "$scratch_dir/impg/$chrom/$region"
     mkdir -p "$scratch_dir/pggb/$chrom/$region"
-    mkdir -p "$scratch_dir/odgi/$chrom"
+    
+    # New directory structure for odgi
+    mkdir -p "$scratch_dir/odgi/paths/matrix/$chrom"
+    mkdir -p "$scratch_dir/odgi/view/$chrom"
     mkdir -p "$scratch_dir/odgi/dissimilarity/$chrom"
+    
     mkdir -p "$scratch_dir/clusters/$chrom"
     mkdir -p "$scratch_dir/cosigt"
     mkdir -p "$scratch_dir/bwa-mem2"
@@ -50,7 +54,7 @@ setup_environment() {
     mkdir -p "$scratch_dir/gafpack"
 
     # Return directory paths
-    echo "$scratch_dir $scratch_dir/impg/$chrom/$region $scratch_dir/pggb/$chrom/$region $scratch_dir/odgi/$chrom $scratch_dir/odgi/dissimilarity/$chrom $scratch_dir/clusters/$chrom"
+    echo "$scratch_dir $scratch_dir/impg/$chrom/$region $scratch_dir/pggb/$chrom/$region $scratch_dir/odgi/paths/matrix/$chrom $scratch_dir/odgi/view/$chrom $scratch_dir/odgi/dissimilarity/$chrom $scratch_dir/clusters/$chrom"
 }
 
 # Function to process sample PAF files
@@ -111,9 +115,10 @@ process_cram_file() {
     local impg_dir="$5"
     local region="$6"
     local chrom="$7"
-    local odgi_dir="$8"
-    local clusters_dir="$9"
-    local scratch_dir="${10}"
+    local odgi_view_dir="$8"
+    local odgi_paths_matrix_dir="$9"
+    local clusters_dir="${10}"
+    local scratch_dir="${11}"
     
     local sample=$(basename "$cram_file" .cram)
     echo "  Processing alignment for sample $sample..."
@@ -144,13 +149,13 @@ process_cram_file() {
     
     # Inject and genotype
     gfainject \
-        --gfa "$odgi_dir/$region.gfa" \
+        --gfa "$odgi_view_dir/$region.gfa" \
         --bam "$scratch_dir/bwa-mem2/$sample/$chrom/$region.realigned.bam" \
         --alt-hits 10000 | \
         gzip > "$scratch_dir/gfainject/$sample/$chrom/$region.gaf.gz"
     
     gafpack \
-        --gfa "$odgi_dir/$region.gfa" \
+        --gfa "$odgi_view_dir/$region.gfa" \
         --gaf "$scratch_dir/gfainject/$sample/$chrom/$region.gaf.gz" \
         --len-scale \
         --weight-queries | \
@@ -158,7 +163,7 @@ process_cram_file() {
     
     cosigt \
         -i "$sample" \
-        -p "$odgi_dir/$region.paths_matrix.tsv.gz" \
+        -p "$odgi_paths_matrix_dir/$region.paths_matrix.tsv.gz" \
         -g "$scratch_dir/gafpack/$sample/$chrom/$region.gafpack.gz" \
         -c "$clusters_dir/$region.clusters.json" \
         -o "$scratch_dir/cosigt/$sample/$chrom/$region"
@@ -191,9 +196,10 @@ main() {
     local scratch_dir="${dirs[0]}"
     local impg_dir="${dirs[1]}"
     local pggb_dir="${dirs[2]}"
-    local odgi_dir="${dirs[3]}"
-    local diss_dir="${dirs[4]}"
-    local clusters_dir="${dirs[5]}"
+    local odgi_paths_matrix_dir="${dirs[3]}"
+    local odgi_view_dir="${dirs[4]}"
+    local odgi_diss_dir="${dirs[5]}"
+    local clusters_dir="${dirs[6]}"
     
     # Start logging for everything that follows
     log_file="$scratch_dir/${region}_processing.log"
@@ -229,7 +235,7 @@ main() {
     cat $scratch_dir/samples_paf.txt | parallel --tmpdir $scratch_dir -j $threads process_paf_file {} "$bed_file_path" "$impg_dir"
     
     # 2. Filter sequences
-    # filter_sequences "$impg_dir" "$threads"
+    #filter_sequences "$impg_dir" "$threads"
     
     # 3. Collect sequences
     echo "  Collecting sequences..."
@@ -253,22 +259,22 @@ main() {
    
     # 5. Process path coverage matrix
     echo "  Getting the path coverage matrix..."
-    odgi paths -i $pggb_dir/$region.final.og -H -t $threads | cut -f 1,4- | gzip > $odgi_dir/$region.paths_matrix.tsv.gz
-    odgi view -i $pggb_dir/$region.final.og -g -t $threads > $odgi_dir/$region.gfa
+    odgi paths -i $pggb_dir/$region.final.og -H -t $threads | cut -f 1,4- | gzip > $odgi_paths_matrix_dir/$region.paths_matrix.tsv.gz
+    odgi view -i $pggb_dir/$region.final.og -g -t $threads > $odgi_view_dir/$region.gfa
     
     # 6. Clustering
     echo "  Pangenome clustering..."
-    grep '^S' $odgi_dir/$region.gfa | awk '{{print("node."$2,length($3))}}' OFS="\t" > $odgi_dir/$region.node.length.tsv
+    grep '^S' $odgi_view_dir/$region.gfa | awk '{{print("node."$2,length($3))}}' OFS="\t" > $odgi_view_dir/$region.node.length.tsv
     Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/filter.r \
-        $odgi_dir/$region.paths_matrix.tsv.gz \
-        $odgi_dir/$region.node.length.tsv \
+        $odgi_paths_matrix_dir/$region.paths_matrix.tsv.gz \
+        $odgi_view_dir/$region.node.length.tsv \
         no_filter \
-        $odgi_dir/$region.shared.tsv
-    region_similarity=$(cut -f 3 $odgi_dir/$region.shared.tsv | tail -1)
-    odgi similarity -i $pggb_dir/$region.final.og --distances --all -t $threads > $diss_dir/$region.tsv
+        $odgi_paths_matrix_dir/$region.shared.tsv
+    region_similarity=$(cut -f 3 $odgi_paths_matrix_dir/$region.shared.tsv | tail -1)
+    odgi similarity -i $pggb_dir/$region.final.og --distances --all -t $threads > $odgi_diss_dir/$region.tsv
     
     Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/cluster.r \
-        $diss_dir/$region.tsv \
+        $odgi_diss_dir/$region.tsv \
         $clusters_dir/$region.clusters.json \
         automatic \
         $region_similarity
@@ -294,7 +300,7 @@ main() {
     # Process CRAM files in parallel
     cat $scratch_dir/samples_cram.txt | parallel --tmpdir $scratch_dir -j $parallel_samples \
         process_cram_file {} "$path_reference_cram" "$bed_file_path" "$threads_per_sample" \
-        "$impg_dir" "$region" "$chrom" "$odgi_dir" "$clusters_dir" "$scratch_dir"
+        "$impg_dir" "$region" "$chrom" "$odgi_view_dir" "$odgi_paths_matrix_dir" "$clusters_dir" "$scratch_dir"
     
     # Copy results to output directory
     echo "  Copying results to output directory..."
