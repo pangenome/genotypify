@@ -43,7 +43,7 @@ cd ..
 git clone --recursive https://github.com/pangenome/smoothxg \
     && cd smoothxg \
     && git pull \
-    && git checkout v0.8.1 \
+    && git checkout v0.8.2 \
     && git submodule update --init --recursive \
     && cmake -H. -DCMAKE_BUILD_TYPE=Release -Bbuild && cmake --build build -- -j $(nproc)
 cd ..
@@ -58,7 +58,7 @@ cd ..
 git clone --recursive https://github.com/pangenome/odgi \
     && cd odgi \
     && git pull \
-    && git checkout be6a0202501d7ea2ac57f9ad89d4d10ed5dbd7c6 \
+    && git checkout v0.9.2 \
     && git submodule update --init --recursive \
     && cmake -H. -DCMAKE_BUILD_TYPE=Release -Bbuild && cmake --build build -- -j $(nproc)
 cd ..
@@ -130,7 +130,7 @@ cd /lizardfs/guarracino/tools_for_genotyping
 
 git clone https://github.com/davidebolo1993/cosigt
 cd cosigt
-git checkout 582aa15b152a5963c88bac4bd602b0710b89307c
+git checkout 79ad891a7547b35b25baaeb2ab62dd9146a36513
 go mod init cosigt && go mod tidy && go build cosigt
 ```
 
