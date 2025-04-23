@@ -65,7 +65,7 @@ cd ..
 
 git clone https://github.com/pangenome/pggb.git
 cd pggb
-git checkout cfcfba4f27042d414a30cc1e8fabf8f958aa838a
+git checkout v0.7.4
 cd ..
 ```
 
