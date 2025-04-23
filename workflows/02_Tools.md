@@ -96,6 +96,12 @@ curl -L https://github.com/bwa-mem2/bwa-mem2/releases/download/v2.2.1/bwa-mem2-2
   | tar jxf -
 ```
 
+## emboss (for stretcher)
+
+```shell
+conda create --prefix /lizardfs/guarracino/condatools/emboss/6.6.0 -c conda-forge -c bioconda emboss=6.6.0 -y
+```
+
 ## agc (to obtain assemblies)
 
 ```shell
@@ -124,7 +130,7 @@ cd /lizardfs/guarracino/tools_for_genotyping
 
 git clone https://github.com/davidebolo1993/cosigt
 cd cosigt
-git checkout 97fd01f1147cfc999800531a58cb9f43cf451703
+git checkout 582aa15b152a5963c88bac4bd602b0710b89307c
 go mod init cosigt && go mod tidy && go build cosigt
 ```
 
