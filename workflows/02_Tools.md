@@ -58,7 +58,7 @@ cd ..
 git clone --recursive https://github.com/pangenome/odgi \
     && cd odgi \
     && git pull \
-    && git checkout v0.9.1 \
+    && git checkout be6a0202501d7ea2ac57f9ad89d4d10ed5dbd7c6 \
     && git submodule update --init --recursive \
     && cmake -H. -DCMAKE_BUILD_TYPE=Release -Bbuild && cmake --build build -- -j $(nproc)
 cd ..
