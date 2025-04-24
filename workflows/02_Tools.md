@@ -130,7 +130,7 @@ cd /lizardfs/guarracino/tools_for_genotyping
 
 git clone https://github.com/davidebolo1993/cosigt
 cd cosigt
-git checkout 79ad891a7547b35b25baaeb2ab62dd9146a36513
+git checkout 074f18a4c9911447a9d79ba996b43b92fb2661b0
 go mod init cosigt && go mod tidy && go build cosigt
 ```
 
