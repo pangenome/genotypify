@@ -101,13 +101,15 @@ Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/tree/ma
 mkdir -p /scratch/HPRCv2
 cd /scratch/HPRCv2
 
-# Download the index file
+# Download the index file (2025/04/24)
 wget https://raw.githubusercontent.com/human-pangenomics/hprc_intermediate_assembly/refs/heads/main/data_tables/assembly_qc/flagger/flagger_hifi_v0.1.csv
 
 FLAGGER_COLUMN_NUM=4
-tail -n +2 flagger_hifi_v0.1.csv | awk -F',' -v col="$FLAGGER_COLUMN_NUM" '{print $col}' | while read -r flagger_file; do
-    echo "Downloading $flagger_file..."
+tail -n +2 flagger_hifi_v0.1.csv | awk -F',' -v col="$FLAGGER_COLUMN_NUM" '{print $3, $col}' | while read -r haplotype flagger_file; do
+    echo "Downloading $flagger_file for $haplotype..."
+    name=$(basename $flagger_file)
     aws s3 --no-sign-request cp "$flagger_file" .
+    mv $name $haplotype.bed
 done
 
 mkdir -p $dir_base/data/HPRCv2/flagger
