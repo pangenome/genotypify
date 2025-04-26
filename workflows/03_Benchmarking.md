@@ -42,7 +42,7 @@ cd $dir_base/wfmash
 ls $dir_pangenome/*.fa.gz | while read fasta; do
     sample=$(basename $fasta .fa.gz)
 
-    sbatch -p allnodes -c 24 --job-name $sample-vs-grch38 --wrap "hostname; cd /scratch; wfmash $dir_base/reference/GRCh38.fa.gz $fasta -s 10k -p 95 -t 24 > $sample-vs-grch38.aln.paf; mv $sample-vs-grch38.aln.paf $dir_base/wfmash/"
+    sbatch -p allnodes -c 24 --job-name $sample-vs-grch38 --wrap "hostname; cd /scratch; wfmash $dir_base/reference/GRCh38.fa.gz $fasta -s 10k -p 90 -t 24 > $sample-vs-grch38.aln.paf; mv $sample-vs-grch38.aln.paf $dir_base/wfmash/"
 done
 ```
 
@@ -114,60 +114,14 @@ for gfa in chr*/odgi/view/*/*.gfa; do
 done
 
 # Benchmark
-cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | head -n 150 | while read chrom start end name len; do
-    echo "Processing region: $chrom:$start-$end ($name, len: $len)"
-
-    region=${chrom}_${start}_${end}
-    mkdir -p benchmark/$chrom/$region
-
-    # Step 1: Make TPR table
-    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/calc_tpr.r \
-        odgi/dissimilarity/$chrom/$region.tsv \
-        clusters/$chrom/$region.clusters.json \
-        clusters/$chrom/$region.clusters.hapdist.tsv \
-        benchmark/$chrom/$region/tpr.tsv \
-        cosigt/*/$chrom/$region/sorted_combos.tsv
-
-    # Step 2: Flip PGGB graph
-    odgi flip \
-        -i pggb/$chrom/$region/$region.final.og \
-        -o benchmark/$chrom/$region/$region.flip.og -P \
-        --ref-flips <(grep '^P' odgi/view/$chrom/$region.gfa | cut -f 2 | grep "GRCh38#0")
-
-    # Step 3: Convert OG to FASTA
-    odgi paths \
-        -i benchmark/$chrom/$region/$region.flip.og \
-        -f | sed 's/_inv$//g' > benchmark/$chrom/$region/$region.flip.fasta
-
-    # Step 4: Prepare combinations for QV
-    mkdir -p benchmark/$chrom/$region/qv_prep
-    bash /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/prepare_qv.sh \
-        benchmark/$chrom/$region/tpr.tsv \
-        benchmark/$chrom/$region/$region.flip.fasta \
-        benchmark/$chrom/$region/qv_prep
-
-    # Step 5: Calculate QV for each sample
-    for sample_dir in benchmark/$chrom/$region/qv_prep/*/ ; do
-        sample=$(basename "$sample_dir")
-        echo "Calculating QV for sample $sample"
-        bash /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/calculate_qv.sh \
-            benchmark/$chrom/$region/qv_prep/$sample \
-            benchmark/$chrom/$region/qv_prep/$sample/qv.tsv
-    done
-
-    # Step 6: Combine QV results
-    cat benchmark/$chrom/$region/qv_prep/*/qv.tsv > benchmark/$chrom/$region/bestqv.tsv
-
-    # Step 7: Combine TPR and QV
-    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/combine_tpr_qv.r \
-        benchmark/$chrom/$region/tpr.tsv \
-        benchmark/$chrom/$region/bestqv.tsv \
-        $region \
-        benchmark/$chrom/$region/tpr_qv.tsv
-done
-
+cd /scratch/hprcv2-benchmark
+cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | 
+  awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | 
+  sort -k 5n | 
+  head -n 665 > tmp.bed
+mkdir -p logs
+cat tmp.bed | parallel --colsep '\t' -j 44 "$dir_base/scripts/benchmark_region.sh {1} {2} {3} > logs/{1}_{2}_{3}.log 2>&1"
 # Final step: Plot TPR results
-cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed > tmp.bed
 Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/plot_tpr.r \
     benchmark/tpr \
     tmp.bed \
@@ -175,66 +129,129 @@ Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scr
 rm tmp.bed
 
 
-
-
+###########################################################################################################################################
 # OK
+
+
+(echo region haplotype step; find impg/*/*/ -name "*.projected.bedpe" | while read bedpe; do
+    sample=$(basename $bedpe .projected.bedpe)
+    chrom=$(echo $bedpe | cut -d'/' -f2)
+    region=$(echo $bedpe | cut -d'/' -f3)
+
+    echo $region $sample RAW
+done;
+find impg/*/*/ -name "*.projected.bedpe" | while read bedpe; do
+    sample=$(basename $bedpe .projected.filtered.bedpe)
+    chrom=$(echo $bedpe | cut -d'/' -f2)
+    region=$(echo $bedpe | cut -d'/' -f3)
+
+    echo $region $sample SPAN
+done;
+find impg/*/*/ -name "*.merged.filtered.bed" | while read bed; do
+    sample=$(basename $bed .merged.filtered.bed)
+    chrom=$(echo $bedpe | cut -d'/' -f2)
+    region=$(echo $bedpe | cut -d'/' -f3)
+
+    echo $region $sample FLAGGER
+done) | tr ' ' '\t' > filtering.tsv
+
+
+#!/bin/bash
+
+(echo -e "region\tnum_samples\tstep"; cat "$dir_base/data/loci.bed" "$dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed" | 
+awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | 
+sort -k 5n | 
+while read -r chrom start end name len; do
+    region="${chrom}_${start}_${end}"
+    
+    # Count samples for each step in this specific region
+    raw_count=$(find "impg/$chrom/$region/" -name "*.projected.bedpe" 2>/dev/null | wc -l)
+    span_count=$(find "impg/$chrom/$region/" -name "*.projected.filtered.bedpe" 2>/dev/null | wc -l)
+    flagger_count=$(find "impg/$chrom/$region/" -name "*.merged.filtered.bed" 2>/dev/null | wc -l)
+    
+    # Output results for this region
+    echo -e "$region\t$raw_count\tRAW"
+    echo -e "$region\t$span_count\tSPAN"
+    echo -e "$region\t$flagger_count\tFLAGGER"
+done) > filtering.tsv
+
+
 chrom=chr11; start=69809692; end=69819692; name=FGF3; len=10000
+chrom=chr6; start=31891045; end=32123783; name=C4A,C4B; len=232738
+
+chr6    31891045        32123783        C4A,C4B
 
 mkdir -p /scratch/HPRCv2-gt
 cd /scratch/HPRCv2-gt
-ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done | head -n 20 > samples-to-consider.txt
+ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done > samples-to-consider.txt
 
-cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | head -n 2 | while read chrom start end name len; do
+cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
     echo "Processing region: $chrom:$start-$end ($name, len: $len)"
 
     region=${chrom}_${start}_${end}
-    echo -e "$chrom\t$start\t$end\t$name" > $dir_base/regions_of_interest/$region.bed
+    mkdir -p regions_of_interest
+    echo -e "$chrom\t$start\t$end\t$name" > regions_of_interest/$region.bed
 
     echo "  Projecting alignments..."
     mkdir -p impg/$chrom/$region
-    ls $dir_base/wfmash/*-vs-grch38.aln.paf | grep -Ff samples-to-consider.txt | while read paf; do
+    ls $dir_base/wfmash.s10kp95/*-vs-grch38.aln.paf| while read paf; do
         sample=$(basename $paf -vs-grch38.aln.paf)
         
         impg query \
             -p $paf \
-            -b $dir_base/regions_of_interest/$region.bed \
+            -b regions_of_interest/$region.bed \
             > impg/$chrom/$region/$sample.projected.bedpe
-
-        bedtools sort -i impg/$chrom/$region/$sample.projected.bedpe | \
-            bedtools merge -d 200000 > impg/$chrom/$region/$sample.merged.bed
     done
 
 
-    echo "  Filtering sequences..."
+    echo "  Filtering and merging sequences..."
+    # # By length: not sure, because it is okay but not super okay
+    # cat impg/$chrom/$region/*.merged.bed > impg/$chrom/$region/ALL.tmp.bed
+    # Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/outliers.r \
+    #     impg/$chrom/$region/ALL.tmp.bed \
+    #     impg/$chrom/$region/ALL.merged.filtered.bed
+    # rm impg/$chrom/$region/ALL.tmp.bed
 
-    # By length: not sure, because it is okay but not super okay
-    cat impg/$chrom/$region/*.merged.bed > impg/$chrom/$region/ALL.tmp.bed
-    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/outliers.r \
-        impg/$chrom/$region/ALL.tmp.bed \
-        impg/$chrom/$region/ALL.merged.filtered.bed
-    rm impg/$chrom/$region/ALL.tmp.bed
-
-    # QC TO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-    # what we want at the end for each haplotype:
+    # What we want at the end for each haplotype:
     # - 1 contig
-    # - 1 contig spanning 5% of beginning/end of the region
+    # - 1 contig spanning 1000bp at the beginning/end of the locus
     # - 1 contig after merging (-d 200k)
-    # - OPTIONAL: 2 contigs with less than 5% of FLAGGER-flagged regions
-    # - OPTIONAL: 2 contigs with less than 5% of Merqury-flagged regions
+    # - 1 contig with <= 5% FLAGGER-flagged regions
+    ls impg/$chrom/$region/*.projected.bedpe | while read bedpe; do
+        sample=$(basename $bedpe .projected.bedpe)
+        pass=$(python3 $dir_base/scripts/check_locus_span.py -b "$bedpe" -l "${chrom}:${start}-${end}" -bp 1000 -d 200000)
+        if $pass; then
+            cp $bedpe impg/$chrom/$region/$sample.projected.filtered.bedpe
+        else
+            echo "  Filtering $sample for not fully spanning the locus with a single contig"
+        fi
+    done
+    ls impg/$chrom/$region/*.projected.filtered.bedpe | while read bedpe; do
+        sample=$(basename $bedpe .projected.filtered.bedpe)
 
+        bedtools sort -i $bedpe | \
+            bedtools merge -d 200000 > impg/$chrom/$region/$sample.merged.bed
 
-    # - FULLY SPAN THE LOCUS (5% on both sides?)
-    # - FLAGGER-FLAGGED REGIONS (max 5/10% of bad regions?)
-    # from impg/$region/$sample.merged.bed to impg/$region/$sample.merged.filtered.bed
-    # - same with merqury?
-    # QC TO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-
+        # Get the total length of the merged interval
+        merged_length=$(awk '{sum += $3-$2} END {print sum}' impg/$chrom/$region/$sample.merged.bed)
+        # Get the total length of overlapping regions
+        overlap_length=$(bedtools intersect -a impg/$chrom/$region/$sample.merged.bed -b $dir_base/data/HPRCv2/flagger/$sample.bed -wao | awk '{sum += $NF} END {print sum}')
+        # Calculate percentage
+        percentage=$(echo "scale=2; ($overlap_length / $merged_length) * 100" | bc)
+        # Check if percentage is greater than 5%
+        if (( $(echo "$percentage <= 5" | bc -l) )); then
+            cp impg/$chrom/$region/$sample.merged.bed impg/$chrom/$region/$sample.merged.filtered.bed
+        else
+            echo "  Filtering $sample for having $percentage% >= 5% of regions flagged by FLAGGER"
+        fi
+    done
+done &> xxx.log
 
     echo "  Collecting sequences..."
-    bedtools getfasta -fi $dir_base/reference/GRCh38.fa.gz -bed $dir_base/regions_of_interest/$region.bed | sed 's/^>chr/>GRCh38#0#chr/g' > impg/$chrom/$region/$region.pangenome.fa
+    bedtools getfasta -fi $dir_base/reference/GRCh38.fa.gz -bed regions_of_interest/$region.bed | sed 's/^>chr/>GRCh38#0#chr/g' > impg/$chrom/$region/$region.pangenome.fa
 
-    ls impg/$chrom/$region/*.merged.bed | while read bed; do # ...merged.filtered.bed
-        sample=$(basename $bed .merged.bed)
+    ls impg/$chrom/$region/*.merged.filtered.bed | while read bed; do
+        sample=$(basename $bed .merged.filtered.bed)
         fasta=$dir_pangenome/$sample.fa.gz
 
         bedtools getfasta -fi $fasta -bed $bed
@@ -327,6 +344,68 @@ cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_gen
             -o cosigt/$sample/$chrom/$region
     done
 done
+
+
+cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | head -n 150 | while read chrom start end name len; do
+    echo "Processing region: $chrom:$start-$end ($name, len: $len)"
+
+    region=${chrom}_${start}_${end}
+    mkdir -p benchmark/$chrom/$region
+
+    # Step 1: Make TPR table
+    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/calc_tpr.r \
+        odgi/dissimilarity/$chrom/$region.tsv \
+        clusters/$chrom/$region.clusters.json \
+        clusters/$chrom/$region.clusters.hapdist.tsv \
+        benchmark/$chrom/$region/tpr.tsv \
+        cosigt/*/$chrom/$region/sorted_combos.tsv
+
+    # Step 2: Flip PGGB graph
+    odgi flip \
+        -i pggb/$chrom/$region/$region.final.og \
+        -o benchmark/$chrom/$region/$region.flip.og -P \
+        --ref-flips <(grep '^P' odgi/view/$chrom/$region.gfa | cut -f 2 | grep "GRCh38#0")
+
+    # Step 3: Convert OG to FASTA
+    odgi paths \
+        -i benchmark/$chrom/$region/$region.flip.og \
+        -f | sed 's/_inv$//g' > benchmark/$chrom/$region/$region.flip.fasta
+
+    # Step 4: Prepare combinations for QV
+    mkdir -p benchmark/$chrom/$region/qv_prep
+    bash /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/prepare_qv.sh \
+        benchmark/$chrom/$region/tpr.tsv \
+        benchmark/$chrom/$region/$region.flip.fasta \
+        benchmark/$chrom/$region/qv_prep
+
+    # Step 5: Calculate QV for each sample
+    for sample_dir in benchmark/$chrom/$region/qv_prep/*/ ; do
+        sample=$(basename "$sample_dir")
+        echo "Calculating QV for sample $sample"
+        bash /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/calculate_qv.sh \
+            benchmark/$chrom/$region/qv_prep/$sample \
+            benchmark/$chrom/$region/qv_prep/$sample/qv.tsv
+    done
+
+    # Step 6: Combine QV results
+    cat benchmark/$chrom/$region/qv_prep/*/qv.tsv > benchmark/$chrom/$region/bestqv.tsv
+
+    # Step 7: Combine TPR and QV
+    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/combine_tpr_qv.r \
+        benchmark/$chrom/$region/tpr.tsv \
+        benchmark/$chrom/$region/bestqv.tsv \
+        $region \
+        benchmark/$chrom/$region/tpr_qv.tsv
+done
+
+# Final step: Plot TPR results
+cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed > tmp.bed
+Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/plot_tpr.r \
+    benchmark/tpr \
+    tmp.bed \
+    benchmark/*/*/tpr_qv.tsv
+rm tmp.bed
+###########################################################################################################################################
 
 
 # OPTIONAL (TO RE-CHECK)
