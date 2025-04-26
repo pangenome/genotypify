@@ -22,7 +22,7 @@ export PATH="/lizardfs/guarracino/tools_for_genotyping/gafpack/target/release:$P
 export PATH="/lizardfs/guarracino/tools_for_genotyping/bwa-mem2-2.2.1_x64-linux:$PATH"
 export PATH="/lizardfs/guarracino/tools_for_genotyping/cosigt:$PATH"
 export PATH="/lizardfs/guarracino/tools_for_genotyping/agc-1.1_x64-linux:$PATH"
-export PATH="/lizardfs/guarracino/condatools/emboss/6.6.0/bin/stretcher:$PATH" 
+#export PATH="/lizardfs/guarracino/condatools/emboss/6.6.0/bin/stretcher:$PATH" 
 ```
 
 ## 200 HPRCv2's short read samples on regions from the same 200 HPRCv2's assemblies (the full pangenome is 466 haplotypes)

@@ -96,11 +96,11 @@ curl -L https://github.com/bwa-mem2/bwa-mem2/releases/download/v2.2.1/bwa-mem2-2
   | tar jxf -
 ```
 
-## emboss (for stretcher)
+<!-- ## emboss (for stretcher)
 
 ```shell
 conda create --prefix /lizardfs/guarracino/condatools/emboss/6.6.0 -c conda-forge -c bioconda emboss=6.6.0 -y
-```
+``` -->
 
 ## agc (to obtain assemblies)
 
@@ -111,6 +111,17 @@ curl -L https://github.com/refresh-bio/agc/releases/download/v1.1/agc-1.1_x64-li
 ```
 
 ## cosigt (tool)
+
+Build `edlib` (for fast genotyping evaluation):
+
+```shell
+cd /lizardfs/guarracino/tools_for_genotyping
+# Clone and compile edlib (without installing system-wide)
+git clone https://github.com/Martinsos/edlib.git
+cd edlib/build
+cmake -D CMAKE_BUILD_TYPE=Release ..
+make
+```
 
 Download `go`:
 
@@ -130,8 +141,11 @@ cd /lizardfs/guarracino/tools_for_genotyping
 
 git clone https://github.com/davidebolo1993/cosigt
 cd cosigt
-git checkout 074f18a4c9911447a9d79ba996b43b92fb2661b0
+git checkout 8b8974484bd01bc3a546f1b8ba9d48d2a113e9c3
 go mod init cosigt && go mod tidy && go build cosigt
+
+# Compile compute_qv.cpp with explicit include and library paths
+g++ cosigt_smk/workflow/scripts/compute_qv.cpp -I/lizardfs/guarracino/tools_for_genotyping/edlib/edlib/include -L/lizardfs/guarracino/tools_for_genotyping/edlib/build/lib -ledlib -o compute_qv
 ```
 
 ## cosigt (pipeline)
