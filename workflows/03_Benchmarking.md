@@ -49,25 +49,19 @@ done
 Genotyping:
 
 ```shell
-LENGTH_THRESHOLD=3000000
-
 mkdir -p $dir_base/genotyping
-ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done | head -n 20 > $dir_base/genotyping/samples-to-consider.txt
-# Project the aligments to the region-of-interest (ROI)
-# Sort by length to start with the shortest ones
 cd $dir_base/genotyping
+
+ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done | head -n 20 > $dir_base/genotyping/samples-to-consider.txt
+
+# Sort by length to start with the shortest ones
 cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
     echo "Processing region: $chrom:$start-$end ($name, len: $len)"
     
     region=${chrom}_${start}_${end}
     echo -e "$chrom\t$start\t$end\t$name" > $dir_base/genotyping/$region.bed
 
-    threads=48
-    if [ $len -gt $LENGTH_THRESHOLD ]; then
-        threads=96
-    fi
-
-    sbatch -c $threads -p allnodes --job-name $name --wrap "hostname; $dir_base/scripts/genotype_region.sh \
+    sbatch -c 48 -p allnodes --job-name $name --wrap "hostname; $dir_base/scripts/genotype_region.sh \
         $dir_base/genotyping/$region.bed \
         $dir_base/wfmash \
         $dir_base/reference/GRCh38.fa.gz \
@@ -75,7 +69,7 @@ cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_gen
         $dir_base/genotyping/samples-to-consider.txt \
         /lizardfs/guarracino/pangenomes/HPRCv2 \
         $dir_base/data/HPRCv2/illumina \
-        $threads \
+        48 \
         /scratch \
         $dir_base/genotyping/$region"
 done
@@ -120,7 +114,7 @@ cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_gen
   sort -k 5n | 
   head -n 665 > tmp.bed
 mkdir -p logs
-cat tmp.bed | parallel --colsep '\t' -j 44 "$dir_base/scripts/benchmark_region.sh {1} {2} {3} > logs/{1}_{2}_{3}.log 2>&1"
+cat tmp.bed | parallel --colsep '\t' -j 46 "$dir_base/scripts/benchmark_region.sh {1} {2} {3} > logs/{1}_{2}_{3}.log 2>&1"
 # Final step: Plot TPR results
 Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/plot_tpr.r \
     benchmark/tpr \
@@ -131,33 +125,6 @@ rm tmp.bed
 
 ###########################################################################################################################################
 # OK
-
-
-(echo region haplotype step; find impg/*/*/ -name "*.projected.bedpe" | while read bedpe; do
-    sample=$(basename $bedpe .projected.bedpe)
-    chrom=$(echo $bedpe | cut -d'/' -f2)
-    region=$(echo $bedpe | cut -d'/' -f3)
-
-    echo $region $sample RAW
-done;
-find impg/*/*/ -name "*.projected.bedpe" | while read bedpe; do
-    sample=$(basename $bedpe .projected.filtered.bedpe)
-    chrom=$(echo $bedpe | cut -d'/' -f2)
-    region=$(echo $bedpe | cut -d'/' -f3)
-
-    echo $region $sample SPAN
-done;
-find impg/*/*/ -name "*.merged.filtered.bed" | while read bed; do
-    sample=$(basename $bed .merged.filtered.bed)
-    chrom=$(echo $bedpe | cut -d'/' -f2)
-    region=$(echo $bedpe | cut -d'/' -f3)
-
-    echo $region $sample FLAGGER
-done) | tr ' ' '\t' > filtering.tsv
-
-
-#!/bin/bash
-
 (echo -e "region\tnum_samples\tstep"; cat "$dir_base/data/loci.bed" "$dir_base/data/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed" | 
 awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | 
 sort -k 5n | 
@@ -170,10 +137,30 @@ while read -r chrom start end name len; do
     flagger_count=$(find "impg/$chrom/$region/" -name "*.merged.filtered.bed" 2>/dev/null | wc -l)
     
     # Output results for this region
-    echo -e "$region\t$raw_count\tRAW"
-    echo -e "$region\t$span_count\tSPAN"
-    echo -e "$region\t$flagger_count\tFLAGGER"
+    echo -e "${region}_${name}\t$raw_count\tRAW"
+    echo -e "${region}_${name}\t$span_count\tSPAN"
+    echo -e "${region}_${name}\t$flagger_count\tFLAGGER"
 done) > filtering.tsv
+
+# (echo region haplotype step; find impg/*/*/ -name "*.projected.bedpe" | while read bedpe; do
+#     sample=$(basename $bedpe .projected.bedpe)
+#     chrom=$(echo $bedpe | cut -d'/' -f2)
+#     region=$(echo $bedpe | cut -d'/' -f3)
+#     echo $region $sample RAW
+# done;
+# find impg/*/*/ -name "*.projected.bedpe" | while read bedpe; do
+#     sample=$(basename $bedpe .projected.filtered.bedpe)
+#     chrom=$(echo $bedpe | cut -d'/' -f2)
+#     region=$(echo $bedpe | cut -d'/' -f3)
+#     echo $region $sample SPAN
+# done;
+# find impg/*/*/ -name "*.merged.filtered.bed" | while read bed; do
+#     sample=$(basename $bed .merged.filtered.bed)
+#     chrom=$(echo $bedpe | cut -d'/' -f2)
+#     region=$(echo $bedpe | cut -d'/' -f3)
+
+#     echo $region $sample FLAGGER
+# done) | tr ' ' '\t' > filtering.tsv
 
 
 chrom=chr11; start=69809692; end=69819692; name=FGF3; len=10000
@@ -194,7 +181,7 @@ cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_gen
 
     echo "  Projecting alignments..."
     mkdir -p impg/$chrom/$region
-    ls $dir_base/wfmash.s10kp95/*-vs-grch38.aln.paf| while read paf; do
+    ls $dir_base/wfmash/*-vs-grch38.aln.paf| while read paf; do
         sample=$(basename $paf -vs-grch38.aln.paf)
         
         impg query \
@@ -226,6 +213,7 @@ cat $dir_base/data/loci.bed $dir_base/data/HPRC_SV_gt_10000bp.protein_coding_gen
             echo "  Filtering $sample for not fully spanning the locus with a single contig"
         fi
     done
+
     ls impg/$chrom/$region/*.projected.filtered.bedpe | while read bedpe; do
         sample=$(basename $bedpe .projected.filtered.bedpe)
 
