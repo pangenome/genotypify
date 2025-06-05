@@ -7,6 +7,17 @@ Genotyping lots of samples with big pangenomes
 dir_base=/lizardfs/guarracino/genotypify
 ```
 
+## Loci
+
+Human accelerated regions (HARs) from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE180714:
+
+```shell
+mkdir -p $dir_base/data/loci
+cd $dir_base/data/loci
+wget -c https://ftp.ncbi.nlm.nih.gov/geo/series/GSE180nnn/GSE180714/suppl/GSE180714%5FHARs.bed.gz
+gunzip GSE180714_HARs.bed.gz
+```
+
 ## Reference (no PanSN-spec)
 
 ```shell
