@@ -55,7 +55,7 @@ cd $dir_base/genotyping
 ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done | head -n 20 > $dir_base/genotyping/samples-to-consider.txt
 
 # Sort by length to start with the shortest ones
-cat $dir_base/data/loci/loci.bed $dir_base/data/loci/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
+for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
     echo "Processing region: $chrom:$start-$end ($name, len: $len)"
     
     region=${chrom}_${start}_${end}
@@ -73,8 +73,12 @@ cat $dir_base/data/loci/loci.bed $dir_base/data/loci/HPRC_SV_gt_10000bp.protein_
         /scratch \
         $dir_base/genotyping/$region"
 done
+```
 
-# Prepare for benchmark
+Benchmarking:
+
+```shell
+# Prepare for benchmarking
 cd $dir_base/genotyping
 mkdir -p /scratch/hprcv2-benchmark/cosigt
 for dir in chr*/cosigt; do
@@ -109,7 +113,7 @@ done
 
 # Benchmark
 cd /scratch/hprcv2-benchmark
-cat $dir_base/data/loci/loci.bed $dir_base/data/loci/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | 
+for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | 
   awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | 
   sort -k 5n | 
   head -n 665 > tmp.bed
@@ -125,8 +129,7 @@ rm tmp.bed
 
 ###########################################################################################################################################
 # OK
-(echo -e "region\tnum_samples\tstep"; cat "$dir_base/data/loci/loci.bed" "$dir_base/data/loci/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed" | 
-awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | 
+(echo -e "region\tnum_samples\tstep"; for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | 
 sort -k 5n | 
 while read -r chrom start end name len; do
     region="${chrom}_${start}_${end}"
@@ -172,7 +175,7 @@ mkdir -p /scratch/HPRCv2-gt
 cd /scratch/HPRCv2-gt
 ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done > samples-to-consider.txt
 
-cat $dir_base/data/loci/loci.bed $dir_base/data/loci/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
+for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
     echo "Processing region: $chrom:$start-$end ($name, len: $len)"
 
     region=${chrom}_${start}_${end}
@@ -334,7 +337,7 @@ done &> xxx.log
 done
 
 
-cat $dir_base/data/loci/loci.bed $dir_base/data/loci/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | head -n 150 | while read chrom start end name len; do
+for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | head -n 150 | while read chrom start end name len; do
     echo "Processing region: $chrom:$start-$end ($name, len: $len)"
 
     region=${chrom}_${start}_${end}
@@ -387,7 +390,7 @@ cat $dir_base/data/loci/loci.bed $dir_base/data/loci/HPRC_SV_gt_10000bp.protein_
 done
 
 # Final step: Plot TPR results
-cat $dir_base/data/loci/loci.bed $dir_base/data/loci/HPRC_SV_gt_10000bp.protein_coding_genes.collapsed.100kb_slop.no-dup.bed > tmp.bed
+for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done > tmp.bed
 Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/plot_tpr.r \
     benchmark/tpr \
     tmp.bed \

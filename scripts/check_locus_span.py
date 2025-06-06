@@ -43,19 +43,15 @@ def check_locus_span(bedpe_file, locus_chrom, locus_start, locus_end, bases=5000
     # CRITERION 2: Check if contigs span first and last regions
     first_covered = False
     last_covered = False
-    first_contigs = []
-    last_contigs = []
     
     for aln in alignments:
         # Check first region
         if aln['target_start'] <= locus_start and aln['target_end'] >= first_region_end:
             first_covered = True
-            first_contigs.append(aln)
         
         # Check last region
         if aln['target_start'] <= last_region_start and aln['target_end'] >= locus_end:
             last_covered = True
-            last_contigs.append(aln)
     
     boundaries_covered = first_covered and last_covered
     
@@ -91,21 +87,20 @@ def check_locus_span(bedpe_file, locus_chrom, locus_start, locus_end, bases=5000
     
     # Print verbose output if requested
     if verbose:
-        print(f"\nHaplotype Coverage Analysis for {locus_chrom}:{locus_start}-{locus_end}")
+        print(f"\nHaplotype Span Analysis for {locus_chrom}:{locus_start}-{locus_end}")
         print(f"=================================================================")
         print(f"Total alignment regions: {len(alignments)}")
         print(f"Unique contigs: {len(contig_names)}")
         print(f"Regions after merging (d={merge_distance:,}bp): {len(merged_contigs)}")
         
         print(f"\nCRITERIA EVALUATION:")
-        print(f"1. Single contig: {'✅ PASS' if single_contig else '❌ FAIL'}")
-        print(f"2. Coverage of first/last {bases:,}bp: {'✅ PASS' if boundaries_covered else '❌ FAIL'}")
-        print(f"   - First {bases:,}bp: {'✅ Covered' if first_covered else '❌ Not covered'}")
-        print(f"   - Last {bases:,}bp: {'✅ Covered' if last_covered else '❌ Not covered'}")
-        print(f"3. Single region after merging: {'✅ PASS' if single_merged_contig else '❌ FAIL'}")
-        
-        print(f"\nOVERALL RESULT: {'✅ PASS' if all_pass else '❌ FAIL'}")
-        print(f"(PASS requires that all criteria are met)")
+        print(f"1. Single contig: {'PASS' if single_contig else 'FAIL'}")
+        print(f"2. Coverage of first/last {bases:,}bp: {'PASS' if boundaries_covered else 'FAIL'}")
+        print(f"   - First {bases:,}bp: {'Covered' if first_covered else 'Not covered'}")
+        print(f"   - Last {bases:,}bp: {'Covered' if last_covered else 'Not covered'}")
+        print(f"3. Single region after merging: {'PASS' if single_merged_contig else 'FAIL'}")
+
+        print(f"\nOVERALL RESULT: {'PASS' if all_pass else 'FAIL'}")
     
     return all_pass, details, boundaries_covered
 
