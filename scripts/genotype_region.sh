@@ -133,8 +133,8 @@ process_merged_bed() {
     local bed_file="$1"
     local dir_pangenome="$2"
     local impg_dir="$3"
-    
-    local sample=$(basename "$bed_file" .merged.bed)
+
+    local sample=$(basename "$bed_file" .merged.filtered.bed)
     #echo "  Getting fasta for sample $sample..."
     
     bedtools getfasta -fi "$dir_pangenome/$sample.fa.gz" -bed "$bed_file" > "$impg_dir/$sample.fasta"
@@ -279,7 +279,7 @@ main() {
     #bedtools getfasta -fi $path_reference -bed "$bed_file_path" | sed 's/^>chr/>GRCh38#0#chr/g' > $impg_dir/$region.pangenome.fa
 
     # Process merged bed files in parallel
-    ls $impg_dir/*.merged.filtered.bed| parallel --tmpdir $scratch_dir -j $threads process_merged_bed {} "$dir_pangenome" "$impg_dir"
+    ls $impg_dir/*.merged.filtered.bed | parallel --tmpdir $scratch_dir -j $threads process_merged_bed {} "$dir_pangenome" "$impg_dir"
     
     # Concatenate results
     echo "  Combining all fasta files..."

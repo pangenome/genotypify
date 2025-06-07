@@ -36,23 +36,23 @@ ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .
 Pangenome vs reference alignment:
 
 ```shell
-mkdir -p $dir_base/wfmash.s10kp95
-cd $dir_base/wfmash.s10kp95
+mkdir -p $dir_base/wfmash
+cd $dir_base/wfmash
 
 ls $dir_pangenome/*.fa.gz | while read fasta; do
     sample=$(basename $fasta .fa.gz)
 
-    sbatch -p allnodes -c 24 --job-name $sample-vs-grch38 --wrap "hostname; cd /scratch; wfmash $dir_base/reference/GRCh38.fa.gz $fasta -s 10k -p 95 -t 24 > $sample-vs-grch38.aln.paf; mv $sample-vs-grch38.aln.paf $dir_base/wfmash.s10kp95/"
+    sbatch -p allnodes -c 24 --job-name $sample-vs-grch38 --wrap "hostname; cd /scratch; wfmash $dir_base/reference/GRCh38.fa.gz $fasta -s 10k -p 95 -t 24 > $sample-vs-grch38.aln.paf; mv $sample-vs-grch38.aln.paf $dir_base/wfmash/"
 done
 ```
 
 Genotyping:
 
 ```shell
-mkdir -p $dir_base/genotyping
-cd $dir_base/genotyping
+mkdir -p $dir_base/genotyping/logs
+cd $dir_base/genotyping/logs
 
-ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done | head -n 20 > $dir_base/genotyping/samples-to-consider.txt
+ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done > $dir_base/genotyping/samples-to-consider.txt
 
 # Sort by length to start with the shortest ones
 for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
@@ -169,11 +169,11 @@ done) > filtering.tsv
 chrom=chr11; start=69809692; end=69819692; name=FGF3; len=10000
 chrom=chr6; start=31891045; end=32123783; name=C4A,C4B; len=232738
 
-chr6    31891045        32123783        C4A,C4B
+chrom=chr10; start=104572217; end=104577217; name=HARsv2_0295-LOC101927523-SORCS3; len=5000
 
 mkdir -p /scratch/HPRCv2-gt
 cd /scratch/HPRCv2-gt
-ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done > samples-to-consider.txt
+#ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done > samples-to-consider.txt
 
 for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
     echo "Processing region: $chrom:$start-$end ($name, len: $len)"
@@ -184,7 +184,7 @@ for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v O
 
     echo "  Projecting alignments..."
     mkdir -p impg/$chrom/$region
-    ls $dir_base/wfmash/*-vs-grch38.aln.paf| while read paf; do
+    ls $dir_base/wfmash/*-vs-grch38.aln.paf | grep -Ff $dir_base/genotyping/samples-to-consider.txt | while read paf; do
         sample=$(basename $paf -vs-grch38.aln.paf)
         
         impg query \
@@ -193,15 +193,7 @@ for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v O
             > impg/$chrom/$region/$sample.projected.bedpe
     done
 
-
     echo "  Filtering and merging sequences..."
-    # # By length: not sure, because it is okay but not super okay
-    # cat impg/$chrom/$region/*.merged.bed > impg/$chrom/$region/ALL.tmp.bed
-    # Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/outliers.r \
-    #     impg/$chrom/$region/ALL.tmp.bed \
-    #     impg/$chrom/$region/ALL.merged.filtered.bed
-    # rm impg/$chrom/$region/ALL.tmp.bed
-
     # What we want at the end for each haplotype:
     # - 1 contig
     # - 1 contig spanning 1000bp at the beginning/end of the locus
