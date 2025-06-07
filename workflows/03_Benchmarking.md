@@ -54,25 +54,18 @@ cd $dir_base/genotyping/logs
 
 ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done > $dir_base/genotyping/samples-to-consider.txt
 
-# Sort by length to start with the shortest ones
-for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
-    echo "Processing region: $chrom:$start-$end ($name, len: $len)"
-    
-    region=${chrom}_${start}_${end}
-    echo -e "$chrom\t$start\t$end\t$name" > $dir_base/genotyping/$region.bed
+# Create regions file with all region info (sorted by length to start with the shortest ones)
+for f in $dir_base/data/loci/*.bed; do 
+    sed '1d' $f | cut -f 1-4
+done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | \
+    sort -k 5n > $dir_base/genotyping/regions.txt
 
-    sbatch -c 48 -p allnodes --job-name $name --wrap "hostname; $dir_base/scripts/genotype_region.sh \
-        $dir_base/genotyping/$region.bed \
-        $dir_base/wfmash \
-        $dir_base/reference/GRCh38.fa.gz \
-        $dir_base/reference/GRCh38_full_analysis_set_plus_decoy_hla.fa \
-        $dir_base/genotyping/samples-to-consider.txt \
-        /lizardfs/guarracino/pangenomes/HPRCv2 \
-        $dir_base/data/HPRCv2/illumina \
-        48 \
-        /scratch \
-        $dir_base/genotyping/$region"
-done
+# Count total regions
+num_regions=$(wc -l < $dir_base/genotyping/regions.txt)
+echo "Total regions to process: $num_regions"
+
+# Submit job array, max 20 jobs at a time
+sbatch --array=706-$num_regions -c 48 -p allnodes --job-name genotype_array --output=$dir_base/genotyping/logs/genotype_%a.out --error=$dir_base/genotyping/logs/genotype_%a.err $dir_base/scripts/genotype_region.array-wrapper.sh $dir_base
 ```
 
 Benchmarking:

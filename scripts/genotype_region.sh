@@ -338,6 +338,10 @@ main() {
         process_cram_file {} "$path_reference_cram" "$bed_file_path" "$threads_per_sample" \
         "$impg_dir" "$region" "$chrom" "$odgi_view_dir" "$odgi_paths_matrix_dir" "$clusters_dir" "$scratch_dir"
     
+    # Compress results
+    echo "  Compressing results..."
+    find "$scratch_dir/cosigt" -type f -name "sorted_combos.tsv" -exec pigz -9 -p $threads {} +
+        
     # Copy results to output directory
     echo "  Copying results to output directory..."
     mkdir -p "$output_dir"
