@@ -133,6 +133,10 @@ mkdir -p $dir_base/data/HPRCv2/flagger
 mv /scratch/HPRCv2/*bed $dir_base/data/HPRCv2/flagger
 
 rm -rf /scratch/HPRCv2
+
+# Rename BED files to match the FASTA file names
+mv HG06807_mat_v1.bed HG06807_mat_v1.0.genbank.bed
+mv HG06807_pat_v1.bed HG06807_pat_v1.0.genbank.bed
 ```
 
 ## Ancient samples (TO DO)

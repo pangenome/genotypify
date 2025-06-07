@@ -64,34 +64,68 @@ process_paf_file() {
     local impg_dir="$3"
     
     local sample=$(basename "$paf_file" -vs-grch38.aln.paf)
-    echo "  Projecting alignments for sample $sample..."
+    #echo "  Projecting alignments for sample $sample..."
     
     impg query -p "$paf_file" -b "$bed_file_path" > "$impg_dir/$sample.projected.bedpe"
-    bedtools sort -i "$impg_dir/$sample.projected.bedpe" | bedtools merge -d 200000 > "$impg_dir/$sample.merged.bed"
     
-    echo "  Completed projection for sample $sample"
+    #echo "  Completed projection for sample $sample"
 }
 
 # Function to filter sequences
 filter_sequences() {
     local impg_dir="$1"
-    local threads="$2"
+    local bed_file_path="$2"
+
+    chrom=$(awk '{print $1}' "$bed_file_path" | head -n 1)
+    start=$(awk '{print $2}' "$bed_file_path" | head -n 1)
+    end=$(awk '{print $3}' "$bed_file_path" | head -n 1)
     
-    echo "  Filtering sequences..."
-    # Combine all merged bed files
-    cat $impg_dir/*.merged.bed > $impg_dir/ALL.tmp.bed
-    
-    # Filter outliers
-    Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/outliers.r \
-        $impg_dir/ALL.tmp.bed \
-        $impg_dir/ALL.merged.filtered.bed
-    
-    rm $impg_dir/ALL.tmp.bed
-    
-    # Note: Additional QC could be implemented here as noted in the code comments
-    # - Check if sequences fully span the locus (with 5% buffer on both sides)
-    # - Filter based on flagger-flagged regions (max 5-10% of bad regions)
-    # - Merqury-based filtering
+    echo "  Filtering and merging sequences..."
+
+    # What we want at the end for each haplotype:
+    # - 1 contig
+    # - 1 contig spanning 1000bp at the beginning/end of the locus
+    # - 1 contig after merging (-d 200k)
+    ls "$impg_dir"/*.projected.bedpe | while read bedpe; do
+        sample=$(basename "$bedpe" .projected.bedpe)
+        if python3 "/lizardfs/guarracino/genotypify/scripts/check_locus_span.py" -b "$bedpe" -l "${chrom}:${start}-${end}" -bp 1000 -d 200000 > /dev/null; then
+            cp "$bedpe" "$impg_dir/$sample.projected.filtered.bedpe"
+            # Now perform the merge on the filtered bedpe
+            bedtools sort -i "$impg_dir/$sample.projected.filtered.bedpe" | bedtools merge -d 200000 > "$impg_dir/$sample.merged.bed"
+        else
+            echo "    Filtering $sample for not fully spanning the locus with a single contig"
+        fi
+    done
+
+    # Apply flagger filtering
+    echo "  Applying FLAGGER filtering..."
+    dir_flagger="/lizardfs/guarracino/genotypify/data/HPRCv2/flagger/"
+    ls "$impg_dir"/*.merged.bed | while read bed; do
+        sample=$(basename "$bed" .merged.bed)
+
+        # Get the total length of the merged interval
+        merged_length=$(awk '{sum += $3-$2} END {print sum}' "$bed")
+        
+        # Check if flagger file exists for this sample
+        if [ -f "$dir_flagger/$sample.bed" ]; then
+            # Get the total length of overlapping regions
+            overlap_length=$(bedtools intersect -a "$bed" -b "$dir_flagger/$sample.bed" -wao | awk '{sum += $NF} END {print sum}')
+            # Calculate percentage
+            percentage=$(echo "scale=4; ($overlap_length / $merged_length) * 100" | bc)
+            # Check if percentage is greater than 5%
+            if (( $(echo "$percentage <= 5" | bc -l) )); then
+                cp "$bed" "$impg_dir/$sample.merged.filtered.bed"
+            else
+                echo "    Filtering $sample for having $percentage% >= 5% of regions flagged by FLAGGER"
+            fi
+        else
+            # If no flagger file exists for this sample, keep the sample
+            echo "    No FLAGGER file for $sample, keeping the merged bed"
+            cp "$bed" "$impg_dir/$sample.merged.filtered.bed"
+        fi
+    done
+
+    echo "  Completed filtering and merging sequences"
 }
 
 # Function to process merged BED files
@@ -101,7 +135,7 @@ process_merged_bed() {
     local impg_dir="$3"
     
     local sample=$(basename "$bed_file" .merged.bed)
-    echo "  Getting fasta for sample $sample..."
+    #echo "  Getting fasta for sample $sample..."
     
     bedtools getfasta -fi "$dir_pangenome/$sample.fa.gz" -bed "$bed_file" > "$impg_dir/$sample.fasta"
 }
@@ -235,15 +269,17 @@ main() {
     cat $scratch_dir/samples_paf.txt | parallel --tmpdir $scratch_dir -j $threads process_paf_file {} "$bed_file_path" "$impg_dir"
     
     # 2. Filter sequences
-    #filter_sequences "$impg_dir" "$threads"
+    filter_sequences "$impg_dir" "$bed_file_path"
     
     # 3. Collect sequences
     echo "  Collecting sequences..."
-    # Get reference sequence
-    bedtools getfasta -fi $path_reference -bed "$bed_file_path" | sed 's/^>chr/>GRCh38#0#chr/g' > $impg_dir/$region.pangenome.fa
-    
+
+    # Let's keep only the assemblies for this evaluation
+    ## Get reference sequence
+    #bedtools getfasta -fi $path_reference -bed "$bed_file_path" | sed 's/^>chr/>GRCh38#0#chr/g' > $impg_dir/$region.pangenome.fa
+
     # Process merged bed files in parallel
-    ls $impg_dir/*.merged.bed | parallel --tmpdir $scratch_dir -j $threads process_merged_bed {} "$dir_pangenome" "$impg_dir"
+    ls $impg_dir/*.merged.filtered.bed| parallel --tmpdir $scratch_dir -j $threads process_merged_bed {} "$dir_pangenome" "$impg_dir"
     
     # Concatenate results
     echo "  Combining all fasta files..."
