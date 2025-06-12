@@ -256,6 +256,8 @@ main() {
     echo "Working directory: $scratch_dir"
     echo "Output directory: $output_dir"
     
+    parallel_threads=$((threads < 6 ? threads : 6)) # To avoid overloading lizardfs
+
     echo "Processing $region..."
     
     # Export all functions for use with GNU Parallel
@@ -266,7 +268,7 @@ main() {
     ls $dir_alignments/*-vs-grch38.aln.paf | grep -Ff $path_samples_txt > $scratch_dir/samples_paf.txt
     
     # Use parallel to process PAF files
-    cat $scratch_dir/samples_paf.txt | parallel --tmpdir $scratch_dir -j $threads process_paf_file {} "$bed_file_path" "$impg_dir"
+    cat $scratch_dir/samples_paf.txt | parallel --tmpdir $scratch_dir -j $parallel_threads process_paf_file {} "$bed_file_path" "$impg_dir"
     
     # 2. Filter sequences
     filter_sequences "$impg_dir" "$bed_file_path"
@@ -279,7 +281,7 @@ main() {
     #bedtools getfasta -fi $path_reference -bed "$bed_file_path" | sed 's/^>chr/>GRCh38#0#chr/g' > $impg_dir/$region.pangenome.fa
 
     # Process merged bed files in parallel
-    ls $impg_dir/*.merged.filtered.bed | parallel --tmpdir $scratch_dir -j $threads process_merged_bed {} "$dir_pangenome" "$impg_dir"
+    ls $impg_dir/*.merged.filtered.bed | parallel --tmpdir $scratch_dir -j $parallel_threads process_merged_bed {} "$dir_pangenome" "$impg_dir"
     
     # Concatenate results
     echo "  Combining all fasta files..."
