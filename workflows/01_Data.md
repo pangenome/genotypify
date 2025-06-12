@@ -17,9 +17,9 @@ cd $dir_base/data/loci
 wget -c https://ftp.ncbi.nlm.nih.gov/geo/series/GSE180nnn/GSE180714/suppl/GSE180714%5FHARs.bed.gz
 gunzip GSE180714_HARs.bed.gz
 
-# Make HARs at least 5kbp long to be able to map them with WFMASH
+# Make HARs at least 6kbp long to be able to map them with WFMASH
 awk -v OFS='\t' '{print($1,$2,$3,$4"-"$15)}' GSE180714_HARs.bed > tmp
-(head -n 1 tmp; sed 1d tmp | python3 $dir_base/scripts/extend_bed_if_short.py $dir_base/data/grch38.fa.fai 5000 | bedtools sort | bedtools merge -d 0 -c 4 -o distinct) > GSE180714_HARs.extended.bed
+(head -n 1 tmp; sed 1d tmp | python3 $dir_base/scripts/extend_bed_if_short.py $dir_base/data/grch38.fa.fai 6000 | bedtools sort | bedtools merge -d 0 -c 4 -o distinct) > GSE180714_HARs.extended.bed
 rm tmp
 mv GSE180714_HARs.bed GSE180714_HARs.bed.bak
 ```
