@@ -291,7 +291,7 @@ main() {
     
     # 4. Build pangenome graph
     echo "  Pangenome graph building..."
-    pggb_param="-c 2"
+    pggb_param="-c 2 -v"
     pggb -i $impg_dir/$region.pangenome.fa.gz -o $pggb_dir -t $threads -D $scratch_dir $pggb_param
     mv $pggb_dir/*smooth.final.og $pggb_dir/$region.final.og
    
@@ -352,7 +352,7 @@ main() {
     cp -r "$scratch_dir/odgi" "$output_dir/"
     cp -r "$scratch_dir/clusters" "$output_dir/"
     cp -r "$scratch_dir/cosigt" "$output_dir/"
-    cp -r "$scratch_dir/bwa-mem2" "$output_dir/"
+    #cp -r "$scratch_dir/bwa-mem2" "$output_dir/" # Uncomment if you want to keep BIG bwa-mem2 results
     cp -r "$scratch_dir/gfainject" "$output_dir/"
     cp -r "$scratch_dir/gafpack" "$output_dir/"
     cp "$log_file" "$output_dir/"

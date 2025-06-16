@@ -12,28 +12,28 @@ mkdir -p benchmark/$chrom/$region
 
 # Step 1: Make TPR table
 Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/calc_tpr.r \
-    odgi/dissimilarity/$chrom/$region.tsv \
+    odgi/dissimilarity/$chrom/$region.tsv.gz \
     clusters/$chrom/$region.clusters.json \
     clusters/$chrom/$region.clusters.hapdist.tsv \
     benchmark/$chrom/$region/tpr.tsv \
-    cosigt/*/$chrom/$region/sorted_combos.tsv
+    cosigt/*/$chrom/$region/sorted_combos.tsv.gz
 
-# Step 2: Flip PGGB graph
-odgi flip \
-    -i pggb/$chrom/$region/$region.final.og \
-    -o benchmark/$chrom/$region/$region.flip.og -P \
-    --ref-flips <(grep '^P' odgi/view/$chrom/$region.gfa | cut -f 2 | grep "GRCh38#0")
+# # Step 2: Flip PGGB graph
+# odgi flip \
+#     -i pggb/$chrom/$region/$region.final.og \
+#     -o benchmark/$chrom/$region/$region.flip.og -P \
+#     --ref-flips <(grep '^P' odgi/view/$chrom/$region.gfa | cut -f 2 | grep "GRCh38#0")
 
 # Step 3: Convert OG to FASTA
 odgi paths \
-    -i benchmark/$chrom/$region/$region.flip.og \
-    -f | sed 's/_inv$//g' > benchmark/$chrom/$region/$region.flip.fasta
+    -i pggb/$chrom/$region/$region.final.og \
+    -f | sed 's/_inv$//g' > benchmark/$chrom/$region/$region.fasta
 
 # Step 4: Prepare combinations for QV
 mkdir -p benchmark/$chrom/$region/qv_prep
 bash /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/prepare_qv.sh \
     benchmark/$chrom/$region/tpr.tsv \
-    benchmark/$chrom/$region/$region.flip.fasta \
+    benchmark/$chrom/$region/$region.fasta \
     benchmark/$chrom/$region/qv_prep
 
 # Step 5: Calculate QV for each sample

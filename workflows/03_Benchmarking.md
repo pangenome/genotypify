@@ -64,74 +64,95 @@ done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$
 num_regions=$(wc -l < $dir_base/genotyping/regions.txt)
 echo "Total regions to process: $num_regions"
 
-# Submit job array, max 20 jobs at a time
-sbatch --array=706-$num_regions -c 48 -p allnodes --job-name genotype_array --output=$dir_base/genotyping/logs/genotype_%a.out --error=$dir_base/genotyping/logs/genotype_%a.err $dir_base/scripts/genotype_region.array-wrapper.sh $dir_base
+# Submit job array, max 8 jobs at a time
+sbatch --array=1-$num_regions%8 -c 48 -p allnodes --job-name genotype_array --output=$dir_base/genotyping/logs/genotype_%a.out --error=$dir_base/genotyping/logs/genotype_%a.err $dir_base/scripts/genotype_region.array-wrapper.sh $dir_base
+```
+
+Check results:
+
+```shell
+# I DID UP TO 3465
+
+cat $dir_base/genotyping/regions.txt | head -n 3465 | awk '{print NR, $1"_"$2"_"$3}' | while read -r row_num d; do
+    if [ ! -d "$dir_base/genotyping/$d" ]; then
+        echo "Row $row_num: Directory $dir_base/genotyping/$d does not exist."
+        #sbatch --array=$row_num-$row_num -c 48 -p allnodes --job-name genotype_array --output=$dir_base/genotyping/logs/genotype_%a.out --error=$dir_base/genotyping/logs/genotype_%a.err $dir_base/scripts/genotype_region.array-wrapper.sh $dir_base
+    fi
+done
 ```
 
 Benchmarking:
 
 ```shell
+# List completed genotyping results
+mkdir -p /scratch/hprcv2-benchmark/
+cat "$dir_base/genotyping/regions.txt" | head -n 100 | awk '{print $1, $2, $3, NR, $1"_"$2"_"$3}' | while read -r chrom start end row_num d; do
+    if [ -d "$dir_base/genotyping/$d" ]; then
+        # If directory exists, attempt the grep
+        if ! grep -q 'Results are in' "$dir_base/genotyping/logs/genotype_${row_num}.out"; then
+            #echo "Row $row_num: Directory $dir_base/genotyping/$d exists but grep failed."
+        else
+            echo $chrom $start $end $row_num $dir_base/genotyping/$d
+        fi
+    else
+        #echo "Row $row_num: Directory $dir_base/genotyping/$d does not exist."
+    fi
+done > /scratch/hprcv2-benchmark/completed_regions.txt
+
 # Prepare for benchmarking
-cd $dir_base/genotyping
 mkdir -p /scratch/hprcv2-benchmark/cosigt
-for dir in chr*/cosigt; do
-    parent=$(dirname "$dir")
-    cp -r "$dir"/* /scratch/hprcv2-benchmark/cosigt
-done
 mkdir -p /scratch/hprcv2-benchmark/clusters
-for dir in chr*/clusters; do
-  parent=$(dirname "$dir")
-  cp -r "$dir"/* /scratch/hprcv2-benchmark/clusters
-done
 mkdir -p /scratch/hprcv2-benchmark/odgi/dissimilarity
-cp -r chr*/odgi/dissimilarity/* /scratch/hprcv2-benchmark/odgi/dissimilarity
-mkdir -p /scratch/hprcv2-benchmark/pggb
-for og_file in chr*/pggb/*/*/*.final.og; do
-  chr_name=$(echo $og_file | cut -d'/' -f3)
-  region=$(echo $og_file | cut -d'/' -f4)
-  dest_dir=/scratch/hprcv2-benchmark/pggb/$chr_name/$region
-  mkdir -p $dest_dir
-  filename=$(basename "$og_file")
-  cp $og_file $dest_dir
-done
 mkdir -p /scratch/hprcv2-benchmark/odgi
-for gfa in chr*/odgi/view/*/*.gfa; do
-  chr_dir=$(echo $gfa | cut -d'/' -f1)
-  chr_name=$(echo $gfa | cut -d'/' -f4)
-  dest_dir=/scratch/hprcv2-benchmark/odgi/view/$chr_name
-  mkdir -p $dest_dir
-  filename=$(basename "$gfa")
-  cp $gfa $dest_dir
+cat /scratch/hprcv2-benchmark/completed_regions.txt | while read -r chrom start end row_num out_dir; do
+    echo "Preparing region: $chrom:$start-$end (row $row_num, dir: $out_dir)"
+
+    cp -r $out_dir/cosigt/* /scratch/hprcv2-benchmark/cosigt
+    cp -r $out_dir/clusters/* /scratch/hprcv2-benchmark/clusters
+
+    cp -r $out_dir/odgi/dissimilarity/* /scratch/hprcv2-benchmark/odgi/dissimilarity
+    find /scratch/hprcv2-benchmark/odgi/dissimilarity -type f -name "*.tsv" -exec pigz -9 -p 4 {} +
+
+    chr_name=$(basename $out_dir | cut -d'_' -f1)
+    region=$(basename $out_dir)
+    pggb_dest_dir=/scratch/hprcv2-benchmark/pggb/$chr_name/$region
+    mkdir -p $pggb_dest_dir
+    cp -r $out_dir/pggb/*/*/*.final.og $pggb_dest_dir
+
+    odgi_dest_dir=/scratch/hprcv2-benchmark/odgi/view/$chr_name
+    mkdir -p $odgi_dest_dir
+    cp -r $out_dir/odgi/view/*/*.gfa $odgi_dest_dir
 done
 
 # Benchmark
+echo "Starting benchmarking..."
 cd /scratch/hprcv2-benchmark
-for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | 
-  awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | 
-  sort -k 5n | 
-  head -n 665 > tmp.bed
-mkdir -p logs
-cat tmp.bed | parallel --colsep '\t' -j 46 "$dir_base/scripts/benchmark_region.sh {1} {2} {3} > logs/{1}_{2}_{3}.log 2>&1"
+mkdir -p /scratch/hprcv2-benchmark/logs
+cat /scratch/hprcv2-benchmark/completed_regions.txt | tail -n 2022 | parallel --colsep ' ' -j 46 "$dir_base/scripts/benchmark_region.sh {1} {2} {3} > logs/{1}_{2}_{3}.log 2>&1"
+#cat /scratch/hprcv2-benchmark/completed_regions.txt | parallel --colsep ' ' -j 46 "$dir_base/scripts/benchmark_region.sh {1} {2} {3} > logs/{1}_{2}_{3}.log 2>&1"
+
 # Final step: Plot TPR results
+echo "Plotting TPR results..."
+join <(cat $dir_base/genotyping/regions.txt | awk '{print($1"_"$2"_"$3,$0)}' | sort) <(cat completed_regions.txt | awk '{print($1"_"$2"_"$3,$0)}' | sort) | cut -f 2-5,10 -d ' ' | sort -k 5,5n > completed_regions_with_names.txt
 Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scripts/plot_tpr.r \
     benchmark/tpr \
-    tmp.bed \
+    completed_regions_with_names.txt \
     benchmark/*/*/tpr_qv.tsv
-rm tmp.bed
 
 
 ###########################################################################################################################################
 # OK
-(echo -e "region\tnum_samples\tstep"; for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | 
-sort -k 5n | 
-while read -r chrom start end name len; do
+(echo -e "region\tnum_samples\tstep"; cat $dir_base/genotyping/regions.txt | while read -r chrom start end name len; do
     region="${chrom}_${start}_${end}"
     
     # Count samples for each step in this specific region
-    raw_count=$(find "impg/$chrom/$region/" -name "*.projected.bedpe" 2>/dev/null | wc -l)
-    span_count=$(find "impg/$chrom/$region/" -name "*.projected.filtered.bedpe" 2>/dev/null | wc -l)
-    flagger_count=$(find "impg/$chrom/$region/" -name "*.merged.filtered.bed" 2>/dev/null | wc -l)
-    
+    #raw_count=$(find "$dir_base/genotyping/$region/impg/" -name "*.projected.bedpe" 2>/dev/null | wc -l)
+    #span_count=$(find "$dir_base/genotyping/$region/impg/" -name "*.projected.filtered.bedpe" 2>/dev/null | wc -l)
+    #flagger_count=$(find "$dir_base/genotyping/$region/impg/" -name "*.merged.filtered.bed" 2>/dev/null | wc -l)
+    raw_count=$(find "/scratch/HPRCv2-gt/impg/$chrom/$region" -name "*.projected.bedpe" 2>/dev/null | wc -l)
+    span_count=$(find "/scratch/HPRCv2-gt/impg/$chrom/$region" -name "*.projected.filtered.bedpe" 2>/dev/null | wc -l)
+    flagger_count=$(find "/scratch/HPRCv2-gt/impg/$chrom/$region" -name "*.merged.filtered.bed" 2>/dev/null | wc -l)
+
     # Output results for this region
     echo -e "${region}_${name}\t$raw_count\tRAW"
     echo -e "${region}_${name}\t$span_count\tSPAN"
@@ -166,18 +187,21 @@ chrom=chr10; start=104572217; end=104577217; name=HARsv2_0295-LOC101927523-SORCS
 
 mkdir -p /scratch/HPRCv2-gt
 cd /scratch/HPRCv2-gt
+mkdir -p regions_of_interest
 #ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done > samples-to-consider.txt
 
-for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | sort -k 5n | while read chrom start end name len; do
+dir_flagger="$dir_base/data/HPRCv2/flagger"
+cat $dir_base/genotyping/regions2.txt | while read chrom start end name len; do
     echo "Processing region: $chrom:$start-$end ($name, len: $len)"
 
     region=${chrom}_${start}_${end}
-    mkdir -p regions_of_interest
+    
     echo -e "$chrom\t$start\t$end\t$name" > regions_of_interest/$region.bed
 
     echo "  Projecting alignments..."
     mkdir -p impg/$chrom/$region
-    ls $dir_base/wfmash/*-vs-grch38.aln.paf | grep -Ff $dir_base/genotyping/samples-to-consider.txt | while read paf; do
+    #ls $dir_base/wfmash/*-vs-grch38.aln.paf | grep -Ff $dir_base/genotyping/samples-to-consider.txt | while read paf; do
+    ls wfmash/*-vs-grch38.aln.paf | grep -Ff $dir_base/genotyping/samples-to-consider.txt | while read paf; do
         sample=$(basename $paf -vs-grch38.aln.paf)
         
         impg query \
@@ -197,28 +221,36 @@ for f in $dir_base/data/loci/*.bed; do sed '1d' $f | cut -f 1-4; done | awk -v O
         pass=$(python3 $dir_base/scripts/check_locus_span.py -b "$bedpe" -l "${chrom}:${start}-${end}" -bp 1000 -d 200000)
         if $pass; then
             cp $bedpe impg/$chrom/$region/$sample.projected.filtered.bedpe
+            # Now perform the merge on the filtered bedpe
+            bedtools sort -i impg/$chrom/$region/$sample.projected.filtered.bedpe | bedtools merge -d 200000 > impg/$chrom/$region/$sample.merged.bed
         else
             echo "  Filtering $sample for not fully spanning the locus with a single contig"
         fi
     done
 
-    ls impg/$chrom/$region/*.projected.filtered.bedpe | while read bedpe; do
-        sample=$(basename $bedpe .projected.filtered.bedpe)
-
-        bedtools sort -i $bedpe | \
-            bedtools merge -d 200000 > impg/$chrom/$region/$sample.merged.bed
+    echo "  Applying FLAGGER filtering..."
+    ls impg/$chrom/$region/*.merged.bed | while read bed; do
+        sample=$(basename $bed .merged.bed)
 
         # Get the total length of the merged interval
-        merged_length=$(awk '{sum += $3-$2} END {print sum}' impg/$chrom/$region/$sample.merged.bed)
-        # Get the total length of overlapping regions
-        overlap_length=$(bedtools intersect -a impg/$chrom/$region/$sample.merged.bed -b $dir_base/data/HPRCv2/flagger/$sample.bed -wao | awk '{sum += $NF} END {print sum}')
-        # Calculate percentage
-        percentage=$(echo "scale=2; ($overlap_length / $merged_length) * 100" | bc)
-        # Check if percentage is greater than 5%
-        if (( $(echo "$percentage <= 5" | bc -l) )); then
-            cp impg/$chrom/$region/$sample.merged.bed impg/$chrom/$region/$sample.merged.filtered.bed
+        merged_length=$(awk '{sum += $3-$2} END {print sum}' "$bed")
+        
+        # Check if flagger file exists for this sample
+        if [ -f "$dir_flagger/$sample.bed" ]; then
+            # Get the total length of overlapping regions
+            overlap_length=$(bedtools intersect -a "$bed" -b "$dir_flagger/$sample.bed" -wao | awk '{sum += $NF} END {print sum}')
+            # Calculate percentage
+            percentage=$(echo "scale=4; ($overlap_length / $merged_length) * 100" | bc)
+            # Check if percentage is greater than 5%
+            if (( $(echo "$percentage <= 5" | bc -l) )); then
+                cp impg/$chrom/$region/$sample.merged.bed impg/$chrom/$region/$sample.merged.filtered.bed
+            else
+                echo "    Filtering $sample for having $percentage% >= 5% of regions flagged by FLAGGER"
+            fi
         else
-            echo "  Filtering $sample for having $percentage% >= 5% of regions flagged by FLAGGER"
+            # If no flagger file exists for this sample, keep the sample
+            echo "    No FLAGGER file for $sample, keeping the merged bed"
+            cp impg/$chrom/$region/$sample.merged.bed impg/$chrom/$region/$sample.merged.filtered.bed
         fi
     done
 done &> xxx.log

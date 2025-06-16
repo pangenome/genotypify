@@ -20,7 +20,7 @@ data_wide <- data %>%
 
 # Filter regions where the difference between RAW and SPAN is > 0
 filtered_regions <- data_wide %>%
-  filter(RAW_minus_SPAN > 3) %>%
+  filter(RAW_minus_SPAN > 100) %>%
   pull(region)
 
 # Filter the original data to include only those regions
@@ -50,11 +50,12 @@ filtered_sorted_data <- filtered_data %>%
 filtered_sorted_data_no_raw <- filtered_sorted_data %>%
   filter(step != "RAW")
 
-# Extract the 4th element after splitting by '_' to use as x-tick labels
+# Extract everything from the 4th element onwards after splitting by '_' to use as x-tick labels
 region_labels <- sapply(levels(filtered_sorted_data_no_raw$region), function(x) {
   parts <- str_split(x, "_")[[1]]
   if(length(parts) >= 4) {
-    return(paste(parts[4],sep = "_'"))
+    # Concatenate all parts from the 4th element to the end
+    return(paste(parts[4:length(parts)], collapse = "_"))
   } else {
     return(x) # If there are fewer than 4 parts, use the original name
   }
@@ -63,9 +64,9 @@ region_labels <- sapply(levels(filtered_sorted_data_no_raw$region), function(x) 
 # Create the modified plot with strictly positive y-axis
 p1 <- ggplot(filtered_sorted_data_no_raw, aes(x = region, y = num_samples, fill = step)) +
   geom_bar(stat = "identity", position = position_dodge()) +
-  geom_hline(yintercept = 466, linetype = "dashed", color = "black") +
+  geom_hline(yintercept = 400, linetype = "dashed", color = "black") +
   # Add the label for RAW line
-  annotate("text", x = 1, y = 466, label = "RAW = 466", vjust = -0.5, hjust = 0, color = "black") +
+  annotate("text", x = 1, y = 400, label = "RAW = 400", vjust = -0.5, hjust = 0, color = "black") +
   theme_minimal() +
   labs(
     x = "Genomic Region",
@@ -73,7 +74,8 @@ p1 <- ggplot(filtered_sorted_data_no_raw, aes(x = region, y = num_samples, fill 
     fill = "Processing Step"
   ) +
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 16),
+    #axis.text.x = element_blank(),  # This hides the x-axis labels
     panel.grid.major.x = element_blank(),
     panel.border = element_rect(fill = NA, color = "gray80"),
     legend.position = "top"
@@ -88,8 +90,9 @@ p1 <- ggplot(filtered_sorted_data_no_raw, aes(x = region, y = num_samples, fill 
   # Use the extracted 4th elements as x-axis labels
   scale_x_discrete(labels = region_labels)
 
+# Display plot
+print(p1)
+
 # Print the sorted data with differences for examination
 print(sorted_data %>% select(region, RAW, SPAN, FLAGGER, RAW_minus_SPAN, RAW_minus_FLAGGER))
 
-# Display plot
-print(p1)
