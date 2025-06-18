@@ -86,7 +86,8 @@ Benchmarking:
 ```shell
 # List completed genotyping results
 mkdir -p /scratch/hprcv2-benchmark/
-cat "$dir_base/genotyping/regions.txt" | head -n 100 | awk '{print $1, $2, $3, NR, $1"_"$2"_"$3}' | while read -r chrom start end row_num d; do
+# cat "$dir_base/genotyping-no-sparse-map/regions.txt" | head -n 3465 | awk '{print $1, $2, $3, NR, $1"_"$2"_"$3}' | grep -Ff <(cut -f 5 -d ' ' /scratch/hprcv2-benchmark-no-sparse-map/completed_regions.txt  | rev | cut -f 1 -d '/' | rev) -vw | while read -r chrom start end row_num d; do
+cat "$dir_base/genotyping/regions.txt" | head -n 3465 | awk '{print $1, $2, $3, NR, $1"_"$2"_"$3}' | while read -r chrom start end row_num d; do
     if [ -d "$dir_base/genotyping/$d" ]; then
         # If directory exists, attempt the grep
         if ! grep -q 'Results are in' "$dir_base/genotyping/logs/genotype_${row_num}.out"; then
@@ -111,7 +112,7 @@ cat /scratch/hprcv2-benchmark/completed_regions.txt | while read -r chrom start 
     cp -r $out_dir/clusters/* /scratch/hprcv2-benchmark/clusters
 
     cp -r $out_dir/odgi/dissimilarity/* /scratch/hprcv2-benchmark/odgi/dissimilarity
-    find /scratch/hprcv2-benchmark/odgi/dissimilarity -type f -name "*.tsv" -exec pigz -9 -p 4 {} +
+    find /scratch/hprcv2-benchmark/odgi/dissimilarity -type f -name "*.tsv" -exec pigz -f -9 -p 4 {} +
 
     chr_name=$(basename $out_dir | cut -d'_' -f1)
     region=$(basename $out_dir)
@@ -128,8 +129,7 @@ done
 echo "Starting benchmarking..."
 cd /scratch/hprcv2-benchmark
 mkdir -p /scratch/hprcv2-benchmark/logs
-cat /scratch/hprcv2-benchmark/completed_regions.txt | tail -n 2022 | parallel --colsep ' ' -j 46 "$dir_base/scripts/benchmark_region.sh {1} {2} {3} > logs/{1}_{2}_{3}.log 2>&1"
-#cat /scratch/hprcv2-benchmark/completed_regions.txt | parallel --colsep ' ' -j 46 "$dir_base/scripts/benchmark_region.sh {1} {2} {3} > logs/{1}_{2}_{3}.log 2>&1"
+cat /scratch/hprcv2-benchmark/completed_regions.txt | parallel --colsep ' ' -j 46 "$dir_base/scripts/benchmark_region.sh {1} {2} {3} > logs/{1}_{2}_{3}.log 2>&1"
 
 # Final step: Plot TPR results
 echo "Plotting TPR results..."
