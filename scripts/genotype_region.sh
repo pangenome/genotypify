@@ -291,7 +291,7 @@ main() {
     
     # 4. Build pangenome graph
     echo "  Pangenome graph building..."
-    pggb_param="-c 2 -v"
+    pggb_param="-c 2 -v -x auto"
     pggb -i $impg_dir/$region.pangenome.fa.gz -o $pggb_dir -t $threads -D $scratch_dir $pggb_param
     mv $pggb_dir/*smooth.final.og $pggb_dir/$region.final.og
    

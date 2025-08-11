@@ -55,7 +55,7 @@ cd $dir_base/genotyping/logs
 ls $dir_base/data/HPRCv2/illumina/*.cram | while read f; do echo $(basename $f .final.cram); done > $dir_base/genotyping/samples-to-consider.txt
 
 # Create regions file with all region info (sorted by length to start with the shortest ones)
-for f in $dir_base/data/loci/*.bed; do 
+for f in $dir_base/data/loci/for_testing/*.bed; do 
     sed '1d' $f | cut -f 1-4
 done | awk -v OFS='\t' '{name=$4; gsub(/[^a-zA-Z0-9._-]/, "-", name); print $1,$2,$3,substr(name, 1, 32),$3-$2}' | \
     sort -k 5n > $dir_base/genotyping/regions.txt
@@ -71,8 +71,6 @@ sbatch --array=1-$num_regions%8 -c 48 -p allnodes --job-name genotype_array --ou
 Check results:
 
 ```shell
-# I DID UP TO 3465
-
 cat $dir_base/genotyping/regions.txt | head -n 3465 | awk '{print NR, $1"_"$2"_"$3}' | while read -r row_num d; do
     if [ ! -d "$dir_base/genotyping/$d" ]; then
         echo "Row $row_num: Directory $dir_base/genotyping/$d does not exist."
@@ -138,6 +136,97 @@ Rscript /lizardfs/guarracino/tools_for_genotyping/cosigt/cosigt_smk/workflow/scr
     benchmark/tpr \
     completed_regions_with_names.txt \
     benchmark/*/*/tpr_qv.tsv
+
+# Make a summary of the results
+echo "Creating summary of results..."
+(echo -e "name\tchrom\tstart\tend\tnum.haps\tref.length\tmin.hap.len\tmax.hap.len\tavg.hap.len\tsd.hap.length\tmin.jaccard.dist\tmax.jaccard.dist\tavg.jaccard.dist\tsd.jaccard.dist\tnum.clusters\tperc.haps.QV.high\tperc.haps.QV.mid\tperc.haps.QV.low\tperc.haps.QV.verylow\tnum.haps.QV.high\tnum.haps.QV.mid\tnum.haps.QV.low\tnum.haps.QV.verylow\t"; \
+cat completed_regions_with_names.txt | while read -r chrom start end name num_row; do
+    length=$(awk -v chrom="$chrom" -v start="$start" -v end="$end" 'BEGIN {print end - start}')
+    region="${chrom}_${start}_${end}"
+
+    # Calculate all statistics
+    hap_lengths=$(odgi paths -i /scratch/hprcv2-benchmark-no-sparse-map/pggb/$chrom/$region/$region.final.og -Ll | awk '{print $3}')
+    read -r min_hap_len max_hap_len avg_hap_len sd_hap_len <<< $(echo "$hap_lengths" | \
+    awk '
+    {
+        len[NR] = $1
+        sum += $1
+        
+        if (NR == 1 || $1 < min) min = $1
+        if (NR == 1 || $1 > max) max = $1
+    }
+    END {
+        avg = sum / NR
+        
+        # Calculate standard deviation
+        for (i = 1; i <= NR; i++) {
+            diff = len[i] - avg
+            sum_sq_diff += diff * diff
+        }
+        sd = sqrt(sum_sq_diff / NR)
+        
+        print min, max, avg, sd
+    }')
+
+    num_haps=$(echo "$hap_lengths" | wc -l)
+
+    jaccards=$(cut -f 6 $dir_base/genotyping/$region/odgi/dissimilarity/$chrom/$region.tsv | sed 1d)
+    read -r min_j max_j avg_j sd_j <<< $(echo "$jaccards" | \
+    awk '
+    {
+        len[NR] = $1
+        sum += $1
+        
+        if (NR == 1 || $1 < min) min = $1
+        if (NR == 1 || $1 > max) max = $1
+    }
+    END {
+        avg = sum / NR
+        
+        # Calculate standard deviation
+        for (i = 1; i <= NR; i++) {
+            diff = len[i] - avg
+            sum_sq_diff += diff * diff
+        }
+        sd = sqrt(sum_sq_diff / NR)
+        
+        print min, max, avg, sd
+    }')
+
+    # Calculate and assign all 8 variables at once
+    eval $(cut -f 16,17 /scratch/hprcv2-benchmark-no-sparse-map/benchmark/$chrom/$region/tpr_qv.tsv | sed 1d | tr '\t' '\n' | \
+    awk '
+    {
+        total++
+        
+        if ($1 > 33) {
+            count_gt33++
+        } else if ($1 > 23) {
+            count_23to33++
+        } else if ($1 > 17) {
+            count_17to23++
+        } else {
+            count_lte17++
+        }
+    }
+    END {
+        # Output variable assignments for counts
+        print "num_hap_gt33=" count_gt33+0
+        print "num_hap_23to33=" count_23to33+0
+        print "num_hap_17to23=" count_17to23+0
+        print "num_hap_lte17=" count_lte17+0
+        
+        # Output variable assignments for percentages
+        printf "pct_hap_gt33=%.4f\n", (count_gt33/total)*100
+        printf "pct_hap_23to33=%.4f\n", (count_23to33/total)*100
+        printf "pct_hap_17to23=%.4f\n", (count_17to23/total)*100
+        printf "pct_hap_lte17=%.4f\n", (count_lte17/total)*100
+    }')
+
+    num_clusters=$(sed 1d /scratch/hprcv2-benchmark-no-sparse-map/clusters/$chrom/$region.clusters.tsv | cut -f 2 | sort | uniq | wc -l)
+
+    echo -e "$name\t$chrom\t$start\t$end\t$num_haps\t$length\t$min_hap_len\t$max_hap_len\t$avg_hap_len\t$sd_hap_len\t$min_j\t$max_j\t$avg_j\t$sd_j\t$num_clusters\t$pct_hap_gt33\t$pct_hap_23to33\t$pct_hap_17to23\t$pct_hap_lte17\t$num_hap_gt33\t$num_hap_23to33\t$num_hap_17to23\t$num_hap_lte17"
+done) > summary.tsv
 
 
 ###########################################################################################################################################

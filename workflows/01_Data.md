@@ -9,11 +9,67 @@ dir_base=/lizardfs/guarracino/genotypify
 
 ## Loci
 
-Human accelerated regions (HARs) from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE180714:
-
 ```shell
 mkdir -p $dir_base/data/loci
 cd $dir_base/data/loci
+```
+
+### HGSVC structural variants
+
+Slop, merge and annotate:
+
+```shell
+# variants_GRCh38_sv_insdel_alt_HGSVC2024v1.0.vcf.gz is the same, but with the ALT sequences
+wget -c https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections//HGSVC3/release/Variant_Calls/1.0/GRCh38/variants_GRCh38_sv_insdel_sym_HGSVC2024v1.0.vcf.gz
+wget -c https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections//HGSVC3/release/Variant_Calls/1.0/GRCh38/variants_GRCh38_sv_inv_sym_HGSVC2024v1.0.vcf.gz
+
+zgrep "^##contig=<ID=" variants_GRCh38_sv_insdel_sym_HGSVC2024v1.0.vcf.gz | sed -E 's/.*ID=([^,]+),length=([0-9]+).*/\1\t\2/' | sort -V > GRCh38.genome
+
+#zcat variants_GRCh38_sv_insdel_sym_HGSVC2024v1.0.vcf.gz variants_GRCh38_sv_inv_sym_HGSVC2024v1.0.vcf.gz | vcf2bed | awk '$3-$2>=10000' | bedtools slop -i - -g GRCh38.genome -b 10000 | bedtools merge -i - -d 10000 | grep 'chrUn\|random' -v > HGSVC3.GRCh38.sv.min10kbp.bed
+
+zcat variants_GRCh38_sv_insdel_sym_HGSVC2024v1.0.vcf.gz variants_GRCh38_sv_inv_sym_HGSVC2024v1.0.vcf.gz | \
+    bcftools query -f '%CHROM\t%POS\t%INFO/SVTYPE\t%INFO/SVLEN\t%ID\n' | \
+    awk 'function abs(x){return (x<0)?-x:x}
+    {
+        chrom = $1
+        pos = $2
+        svtype = $3
+        svlen = $4
+        id = $5
+
+        # Adjust coordinates based on SV type
+        if (svtype == "DEL") {
+            # For deletions, end = start + |svlen|
+            start = pos - 1  # Convert to 0-based
+            end = start + sqrt(svlen * svlen)  # absolute value
+        } else if (svtype == "INS") {
+            # For insertions, you might want to:
+            # Option A: Keep as point (current behavior)
+            start = pos - 1
+            end = pos
+
+            # Option B: Extend by SVLEN to show affected region
+            # start = pos - 1
+            # end = pos - 1 + svlen
+        } else {
+            start = pos - 1
+            end = pos
+        }
+
+        print chrom "\t" start "\t" end "\t" abs(svlen)
+    }' | awk '$4>=0' | bedtools sort | bedtools slop -i - -g GRCh38.genome -b 50000 | bedtools merge -i - -d 50000 | grep 'chrUn\|random' -v > HGSVC3.GRCh38.sv.slop50kb.merge50kb.bed
+
+wget -c https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_48/gencode.v48.annotation.gtf.gz
+zgrep -w "gene" gencode.v48.annotation.gtf.gz  | awk '{OFS="\t"; print $1, $4-1, $5, $14}' | sed -e 's/"//g' -e 's/;$//g' | sort -k 1,1 -k 2,2n > gencode.v48.annotation.genes.bed
+
+bedtools window -a HGSVC3.GRCh38.sv.slop50kb.merge50kb.bed -b gencode.v48.annotation.genes.bed -w 1000000 | cut -f 1,2,3,7 | bedtools merge -c 4 -o distinct > HGSVC3.GRCh38.sv.slop50kb.merge50kb.anno1Mbp.bed
+```
+
+### IGNORE: Human Accelerated Regions (HARs)
+
+Human accelerated regions (HARs) from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE180714:
+
+```shell
 wget -c https://ftp.ncbi.nlm.nih.gov/geo/series/GSE180nnn/GSE180714/suppl/GSE180714%5FHARs.bed.gz
 gunzip GSE180714_HARs.bed.gz
 
@@ -51,6 +107,8 @@ wget -c https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_47/gen
 
 Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/blob/main/data_tables/README.md
 
+### UTHSC cluster
+
 ```shell
 # Create directories
 mkdir -p /scratch/HPRCv2/annotation/repeat_masker
@@ -87,6 +145,36 @@ mv /scratch/HPRCv2 /lizardfs/guarracino/pangenomes
 
 Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/blob/main/data_tables/sequencing_data/README.md
 
+### HT cluster
+
+```shell
+mkdir -p /project/ham/HPRCv2/illumina
+cd /project/ham/HPRCv2/illumina
+
+# Download the index file
+wget https://raw.githubusercontent.com/human-pangenomics/hprc_intermediate_assembly/refs/heads/main/data_tables/sequencing_data/data_illumina_pre_release.index.csv
+
+#######################################
+# download.sh
+#############
+#!/bin/sh
+cd /project/ham/HPRCv2/illumina
+READS_COLUMN_NUM=22
+# Manage that the ',' can be present as a column value, like in "NA20302,NA20313"
+tail -n +2 data_illumina_pre_release.index.csv | awk -F, -v FPAT='([^,]+)|("[^"]+")' -v col="$READS_COLUMN_NUM" '{print $col}' | tr -d '"' | while read -r reads_file; do
+    echo "Downloading $reads_file..."
+    aws s3 --no-sign-request cp "$reads_file" .
+done
+ls *.cram | while read cram; do samtools index $cram; done
+#######################################
+
+conda activate /ssu/gassu/conda_envs/awsclienv_12586 # for aws-cli
+module load samtools/1.18
+sbatch -p cpuq -c 1 -t 2-00:00:00 download.sh # 2 days
+```
+
+### UTHSC cluster
+
 ```shell
 mkdir -p /scratch/HPRCv2
 cd /scratch/HPRCv2
@@ -114,6 +202,39 @@ rm -rf /scratch/HPRCv2
 
 Notes at https://github.com/human-pangenomics/hprc_intermediate_assembly/tree/main/data_tables/assembly_qc
 
+### HT cluster
+
+```shell
+mkdir -p /project/ham/HPRCv2/flagger
+cd /project/ham/HPRCv2/flagger
+
+# Download the index file (2025/04/24)
+wget https://raw.githubusercontent.com/human-pangenomics/hprc_intermediate_assembly/refs/heads/main/data_tables/assembly_qc/flagger/flagger_hifi_v0.1.csv
+
+#######################################
+# download_flagger.sh
+#####################
+#!/bin/sh
+cd /project/ham/HPRCv2/flagger
+FLAGGER_COLUMN_NUM=4
+tail -n +2 flagger_hifi_v0.1.csv | awk -F',' -v col="$FLAGGER_COLUMN_NUM" '{print $3, $col}' | while read -r haplotype flagger_file; do
+    echo "Downloading $flagger_file for $haplotype..."
+    name=$(basename $flagger_file)
+    aws s3 --no-sign-request cp "$flagger_file" .
+    mv $name $haplotype.bed
+done
+#######################################
+
+conda activate /ssu/gassu/conda_envs/awsclienv_12586 # for aws-cli
+sbatch -p cpuq -c 1 -t 0-06:00:00 download_flagger.sh # 6 hours
+
+# Rename BED files to match the FASTA file names
+mv HG06807_mat_v1.bed HG06807_mat_v1.0.genbank.bed
+mv HG06807_pat_v1.bed HG06807_pat_v1.0.genbank.bed
+```
+
+### UTHSC cluster
+
 ```shell
 mkdir -p /scratch/HPRCv2
 cd /scratch/HPRCv2
@@ -139,7 +260,7 @@ mv HG06807_mat_v1.bed HG06807_mat_v1.0.genbank.bed
 mv HG06807_pat_v1.bed HG06807_pat_v1.0.genbank.bed
 ```
 
-## Ancient samples (TO DO)
+## IGNORE: Ancient samples
 
 <!-- Create folder:
 
@@ -402,7 +523,7 @@ done | pigz -9 > /scratch/ancientHead200.depth.windows.200kbp.bed.gz && mv /scra
 #bedtools coverage -a /scratch/chm13v2.windows.200kbp.bed -b $(basename $PAF .paf.gz).bed > coverage.bed
 ``` -->
 
-## Modern samples (INCOMPLETE)
+## INCOMPLETE: Modern samples
 
 1000 Genomes Project sample collection to 30x coverage (from <https://www.internationalgenome.org/data-portal/data-collection/30x-grch38>). Initially, the 2504 unrelated samples from the phase three panel from the 1000 Genomes Project were sequenced. Thereafter, an additional 698 samples, related to samples in the 2504 panel, were also sequenced.
 
