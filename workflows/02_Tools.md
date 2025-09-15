@@ -1,4 +1,24 @@
-# Tools (UTHSC cluster)
+# Tools
+
+## HT cluster
+
+COSIGT:
+
+```shell
+cd /group/soranzo/andrea.guarracino/
+git clone https://github.com/davidebolo1993/cosigt
+cd cosigt/cosigt_smk
+
+conda activate smk7324app
+
+# To repeat if I change branch
+template="gh:Snakemake-Profiles/slurm"
+cookiecutter \
+    --output-dir config \
+    $template
+```
+
+## UTHSC cluster
 
 Create folder:
 

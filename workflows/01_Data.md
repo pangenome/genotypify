@@ -62,7 +62,7 @@ zcat variants_GRCh38_sv_insdel_sym_HGSVC2024v1.0.vcf.gz variants_GRCh38_sv_inv_s
 wget -c https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_48/gencode.v48.annotation.gtf.gz
 zgrep -w "gene" gencode.v48.annotation.gtf.gz  | awk '{OFS="\t"; print $1, $4-1, $5, $14}' | sed -e 's/"//g' -e 's/;$//g' | sort -k 1,1 -k 2,2n > gencode.v48.annotation.genes.bed
 
-bedtools window -a HGSVC3.GRCh38.sv.slop50kb.merge50kb.bed -b gencode.v48.annotation.genes.bed -w 1000000 | cut -f 1,2,3,7 | bedtools merge -c 4 -o distinct > HGSVC3.GRCh38.sv.slop50kb.merge50kb.anno1Mbp.bed
+bedtools window -a HGSVC3.GRCh38.sv.slop50kb.merge50kb.bed -b gencode.v48.annotation.genes.bed -w 1000000 | cut -f 1,2,3,7 | bedtools merge -c 4 -o distinct | awk 'BEGIN{OFS="\t"} {print $1, $2, $3, "locus_"NR"_"$1, $4}' > HGSVC3.GRCh38.sv.slop50kb.merge50kb.anno1Mbp.bed
 ```
 
 ### IGNORE: Human Accelerated Regions (HARs)
