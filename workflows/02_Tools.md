@@ -34,7 +34,7 @@ cd /lizardfs/guarracino/tools_for_genotyping
 git clone https://github.com/pangenome/impg \
     && cd GFAffix \
     && git pull \
-    && git checkout 393d6bb87496381fe6e45af77088958d7731f604 \
+    && git checkout v0.2.4 \
     && cargo build --release
 cd ..
 ```
@@ -78,7 +78,7 @@ cd ..
 git clone --recursive https://github.com/pangenome/odgi \
     && cd odgi \
     && git pull \
-    && git checkout v0.9.2 \
+    && git checkout v0.9.3 \
     && git submodule update --init --recursive \
     && cmake -H. -DCMAKE_BUILD_TYPE=Release -Bbuild && cmake --build build -- -j $(nproc)
 cd ..
@@ -97,13 +97,13 @@ cd /lizardfs/guarracino/tools_for_genotyping
 git clone https://github.com/AndreaGuarracino/gfainject \
     && cd gfainject \
     && git pull \
-    && git checkout 48c98e01b39d0cec71c9130898cbd8fa95bdac80 \
+    && git checkout 9cdfcd6f19f83fef6886bd43b157d56de67d4c31 \
     && cargo build --release
 
 git clone https://github.com/pangenome/gafpack \
-    && cd gfainject \
+    && cd gafpack \
     && git pull \
-    && git checkout 72d6d7b72ccbb7dd519fcf29ae00d381d1571464 \
+    && git checkout f08c04b4596bd9c40b0e62641f37c2500b956a1a \
     && cargo build --release
 ```
 
@@ -114,6 +114,12 @@ cd /lizardfs/guarracino/tools_for_genotyping
 
 curl -L https://github.com/bwa-mem2/bwa-mem2/releases/download/v2.2.1/bwa-mem2-2.2.1_x64-linux.tar.bz2 \
   | tar jxf -
+```
+
+## minimap2
+
+```shell
+conda create --prefix /lizardfs/guarracino/condatools/minimap2/2.30 -c conda-forge -c bioconda minimap2=2.30 -y
 ```
 
 <!-- ## emboss (for stretcher)
@@ -161,7 +167,7 @@ cd /lizardfs/guarracino/tools_for_genotyping
 
 git clone https://github.com/davidebolo1993/cosigt
 cd cosigt
-git checkout 8b8974484bd01bc3a546f1b8ba9d48d2a113e9c3
+git checkout 5c212eb2559f1fddbcf0f300348c66ebecfce2ef # 2025/10/17
 go mod init cosigt && go mod tidy && go build cosigt
 
 # Compile compute_qv.cpp with explicit include and library paths
@@ -183,9 +189,7 @@ guix install r-data-table r-rjson r-ggplot2 r-reshape2 r-nbclust r-dendextend r-
 ```
 
 <!-- ### TO IGNORE: MONI
-
 I've added `moni` on `bioconda` (https://github.com/bioconda/bioconda-recipes/pull/50925), so we can just:
-
 ```shell
 conda create --prefix /lizardfs/guarracino/condatools/moni/0.2.2 -c conda-forge -c bioconda moni=0.2.2 -y
 conda create --prefix /lizardfs/guarracino/condatools/bwa/0.7.18 -c conda-forge -c bioconda bwa=0.7.18 -y
