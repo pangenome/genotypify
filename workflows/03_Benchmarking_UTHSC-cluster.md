@@ -9,7 +9,7 @@ dir_pangenome=/lizardfs/guarracino/pangenomes/HPRCv2
 dir_reads=$dir_base/data/HPRCv2/illumina
 
 export PATH="/lizardfs/guarracino/tools/bedtools2/bin:$PATH"
-export PATH="/lizardfs/guarracino/tools/samtools-1.21:$PATH"
+export PATH="/lizardfs/guarracino/tools/samtools-1.22.1:$PATH"
 export PATH="/lizardfs/guarracino/tools_for_genotyping/impg/target/release:$PATH"
 export PATH="/lizardfs/guarracino/tools_for_genotyping/wfmash/build/bin:$PATH"
 export PATH="/lizardfs/guarracino/tools_for_genotyping/seqwish/bin:$PATH"
@@ -46,20 +46,6 @@ ls $dir_pangenome/*.fa.gz | while read fasta; do
 
     sbatch -p allnodes -c 24 --job-name $sample-vs-grch38 --wrap "hostname; cd /scratch; wfmash $dir_base/reference/GRCh38.fa.gz $fasta -s 10k -p 95 -t 24 > $sample-vs-grch38.aln.paf; mv $sample-vs-grch38.aln.paf $dir_base/wfmash/"
 done
-
-# With minimap2
-conda activate /lizardfs/guarracino/condatools/minimap2/2.30
-
-mkdir -p $dir_base/minimap2
-cd $dir_base/minimap2
-
-ls $dir_pangenome/*.fa.gz | while read fasta; do
-    sample=$(basename $fasta .fa.gz)
-
-    sbatch -p allnodes -c 24 --job-name $sample-vs-grch38 --wrap "hostname; cd /scratch; minimap2 -x asm20 --eqx -c -t 24 $dir_base/reference/GRCh38.fa.gz $fasta > $sample-vs-grch38.paf; mv $sample-vs-grch38.paf $dir_base/minimap2/"
-done
-    
-conda deactivate
 ```
 
 Genotyping:
